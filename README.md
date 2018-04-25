@@ -69,4 +69,5 @@ _A list of commonly used Git commands; see jshnh/Git-Commands_
 ### Adding upstream repositories
 
 | Command | Description |
+| ------- | ----------- |
 | `git remote add upstream https://github.com/<Upstream repo owner's username>/<Repo Name>` | Adds the upstream repo as another remote repository client side |
