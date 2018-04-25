@@ -1,9 +1,9 @@
-### nutritional-app
+nutritional-app
+===============
 
-This is the team repository for group 22, for BCIT's COMP 4900 2018 term.
+This is the team repository for Team GRAS, for BCIT's COMP 4900 2018 term.
 
-Git Commands
-============
+### Git Commands
 
 _A list of commonly used Git commands; see jshnh/Git-Commands_
 
@@ -65,3 +65,9 @@ _A list of commonly used Git commands; see jshnh/Git-Commands_
 | `git log` | View changes |
 | `git log --summary` | View changes (detailed) |
 | `git diff [source branch] [target branch}` | Preview changes before merging |
+
+### Adding upstream repositories
+
+| Command | Description |
+| ------- | ----------- |
+| `git remote add upstream https://github.com/<Upstream repo owner's username>/<Repo Name>` | Adds the upstream repo as another remote repository client side |
