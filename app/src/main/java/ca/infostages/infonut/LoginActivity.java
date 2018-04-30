@@ -17,7 +17,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class MainActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
     EditText email, password;
 
     String EmailHolder, PasswordHolder;
@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_login);
 
         //Assign ID to EditText
         email = (EditText) findViewById(R.id.email);
@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         //Assign ID to button
         Login = (Button) findViewById(R.id.button_login);
 
-        progressDialog = new ProgressDialog(MainActivity.this);
+        progressDialog = new ProgressDialog(LoginActivity.this);
 
         //Assign firebaseAuth instance to FirebaseAuth object
         firebaseAuth = FirebaseAuth.getInstance();
@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
             finish();
 
             //Open other activity
-            Intent intent = new Intent(MainActivity.this, DashboardActivity.class);
+            Intent intent = new Intent(LoginActivity.this, DashboardActivity.class);
             startActivity(intent);
         }
 
@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
                     LoginFunction();
                 } else {
                     //if false, display toast
-                    Toast.makeText(MainActivity.this, fill_field, Toast.LENGTH_LONG).show();
+                    Toast.makeText(LoginActivity.this, fill_field, Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -107,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
                             finish();
 
                             //Open userprofileActivity
-                            Intent intent = new Intent(MainActivity.this, DashboardActivity.class);
+                            Intent intent = new Intent(LoginActivity.this, DashboardActivity.class);
                             startActivity(intent);
                         } else {
 
@@ -115,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
                             progressDialog.dismiss();
 
                             //Show toast message when email or pw not found in firebase
-                            Toast.makeText(MainActivity.this, notFound, Toast.LENGTH_LONG).show();
+                            Toast.makeText(LoginActivity.this, notFound, Toast.LENGTH_LONG).show();
                         }
                     }
                 });
