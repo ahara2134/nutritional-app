@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">InfoNut</string>
 
+    <string name="email_hint">example@example.com</string>
+    <string name="pw_hint">Password</string>
+    <string name="login_btn">Login</string>
+
     <!-- Make Plan strings -->
     <string name="plan_title">Plan Name</string>
     <string name="plan_title_placeholder">Plan Title</string>
