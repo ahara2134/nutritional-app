@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">InfoNut</string>
+
+    <!-- Make Plan strings -->
+    <string name="plan_title">Plan Name</string>
+    <string name="plan_title_placeholder">Plan Title</string>
+    <string name="nutrients_header">Pick the nutrients you want to watch for.</string>
 </resources>
