@@ -4,6 +4,9 @@
     <string name="email_hint">example@example.com</string>
     <string name="pw_hint">Password</string>
     <string name="login_btn">Login</string>
+    <string name="fill_field">Fill</string>
+    <string name="wait">Wait</string>
+    <string name="not_found">Not Found</string>
 
     <!-- Make Plan strings -->
     <string name="plan_title">Plan Name</string>
