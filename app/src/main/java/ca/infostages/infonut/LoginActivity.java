@@ -30,7 +30,7 @@ public class LoginActivity extends AppCompatActivity {
 
     ProgressDialog progressDialog;
 
-    FirebaseAuth firebaseAuth;
+    private FirebaseAuth firebaseAuth;
     private static final String APP_SHARED_PREFS = "ca.infostages.infonut";
     private SharedPreferences settings;
     private SharedPreferences.Editor editor;
