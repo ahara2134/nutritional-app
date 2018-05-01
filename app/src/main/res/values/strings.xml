@@ -1,12 +1,15 @@
 <resources>
     <string name="app_name">InfoNut</string>
 
-    <string name="email_hint">example@example.com</string>
+    <string name="email_hint">E-mail Address</string>
     <string name="pw_hint">Password</string>
-    <string name="login_btn">Login</string>
-    <string name="fill_field">Fill</string>
-    <string name="wait">Wait</string>
-    <string name="not_found">Not Found</string>
+    <string name="login_btn">Log in</string>
+    <string name="fill_field">Please fill in all of the fields</string>
+    <string name="wait">Please wait..</string>
+    <string name="not_found">Email or Password not found.</string>
+    <string name="to_register">Sign up</string>
+    <string name="close_app">Please close the app and try again.</string>
+    <string name="now_reg">You are now Registered!</string>
 
     <!-- Make Plan strings -->
     <string name="plan_title">Plan Name</string>
