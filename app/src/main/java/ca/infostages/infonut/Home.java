@@ -1,5 +1,6 @@
 package ca.infostages.infonut;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -22,6 +23,8 @@ public class Home extends AppCompatActivity {
                     return true;
                 case R.id.navigation_camera:
                     mTextMessage.setText("Camera");
+                    Intent intent = new Intent(Home.this, BarcodeReader.class);
+                    startActivity(intent);
                     return true;
                 case R.id.navigation_plans:
                     mTextMessage.setText("Plans");
