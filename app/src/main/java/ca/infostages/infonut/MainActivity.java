@@ -31,8 +31,8 @@ public class MainActivity extends AppCompatActivity {
 
         register.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
-                startActivity(intent);
+                Intent intent2 = new Intent(MainActivity.this, RegisterActivity.class);
+                startActivity(intent2);
             }
         });
     }
