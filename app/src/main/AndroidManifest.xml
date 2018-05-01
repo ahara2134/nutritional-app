@@ -19,9 +19,7 @@
         <activity android:name=".DashboardActivity" />
         <activity android:name=".MakePlanActivity" />
         <activity android:name=".ChoosePlanActivity" />
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".RegisterActivity"></activity>
-        <activity android:name=".ChoosePlanActivity" />
+        <activity android:name=".RegisterActivity" />
         <activity android:name=".Home" />
     </application>
 
