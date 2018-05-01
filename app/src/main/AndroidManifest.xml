@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="ca.infostages.infonut">
 
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -18,7 +22,8 @@
         </activity>
         <activity android:name=".DashboardActivity" />
         <activity android:name=".MakePlanActivity" />
-        <activity android:name=".ChoosePlanActivity"></activity>
+        <activity android:name=".ChoosePlanActivity" />
+        <activity android:name=".BarcodeReader"></activity>
     </application>
 
 </manifest>
