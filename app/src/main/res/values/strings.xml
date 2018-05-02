@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">InfoNut</string>
 
+    <!-- Login / Register Strings -->
     <string name="email_hint">E-mail Address</string>
     <string name="pw_hint">Password</string>
     <string name="login_btn">Log in</string>
