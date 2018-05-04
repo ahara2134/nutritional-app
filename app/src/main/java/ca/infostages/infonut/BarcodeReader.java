@@ -17,7 +17,7 @@ public class BarcodeReader extends AppCompatActivity implements View.OnClickList
 
     private CompoundButton autoFocus;
     private CompoundButton useFlash;
-    private TextView statusMessage;
+    public static TextView statusMessage;
     private TextView barcodeValue;
 
     private static final int RC_BARCODE_CAPTURE = 9001;
@@ -58,6 +58,8 @@ public class BarcodeReader extends AppCompatActivity implements View.OnClickList
                     Barcode barcode = data.getParcelableExtra(BarcodeCaptureActivity.BarcodeObject);
                     statusMessage.setText(R.string.barcode_success);
                     barcodeValue.setText(barcode.displayValue);
+                    NutritionData process = new NutritionData(barcode.displayValue);
+                    process.execute();
                     Log.d(TAG, "Barcode read: " + barcode.displayValue);
                 } else {
                     statusMessage.setText(R.string.barcode_failure);
