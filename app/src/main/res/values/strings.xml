@@ -1,3 +1,40 @@
 <resources>
+
+    <string name="ok">OK</string>
+    <string name="permission_camera_rationale">Access to the camera is needed for detection</string>
+    <string name="no_camera_permission">This application cannot run because it does not have the camera permission.  The application will now exit.</string>
+    <string name="low_storage_error">Face detector dependencies cannot be downloaded due to low device storage</string>
+    <string name="title_activity_main">Barcode Reader Sample</string>
+    <string name="barcode_header">Click &quot;Read Barcode&quot; to read a barcode</string>
+    <string name="read_barcode">Read Barcode</string>
+    <string name="auto_focus">Auto Focus</string>
+    <string name="use_flash">Use Flash</string>
+    <string name="barcode_success">Barcode read successfully</string>
+    <string name="barcode_failure">No barcode captured</string>
+    <string name="barcode_error">"Error reading barcode: %1$s"</string>
+
     <string name="app_name">InfoNut</string>
+
+    <!-- Login / Register Strings -->
+    <string name="email_hint">E-mail Address</string>
+    <string name="pw_hint">Password</string>
+    <string name="login_btn">Log in</string>
+    <string name="fill_field">Please fill in all of the fields</string>
+    <string name="wait">Please wait..</string>
+    <string name="not_found">Email or Password not found.</string>
+    <string name="to_register">Sign up</string>
+    <string name="close_app">Please close the app and try again.</string>
+    <string name="now_reg">You are now Registered!</string>
+
+    <!-- Make Plan strings -->
+    <string name="plan_title">Plan Name</string>
+    <string name="plan_title_placeholder">Plan Title</string>
+    <string name="nutrients_header">Pick the nutrients you want to watch for.</string>
+    <string name="title_activity_home">Home</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="settings">Settings</string>
+    <string name="camera">Camera</string>
+    <string name="plans">Plans</string>
 </resources>
