@@ -13,10 +13,15 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class NutritionData extends AsyncTask<Void,Void,Void>{
     String data = "";
     String barcode;
+    String dataParsed = "";
+    String singleParsed = "";
+
     public NutritionData(String barcode) {
         this.barcode = barcode;
     }
@@ -34,18 +39,22 @@ public class NutritionData extends AsyncTask<Void,Void,Void>{
                 data = data + line;
             }
 
-            /*JSONArray JA = new JSONArray(data);
+            JSONArray JA = new JSONArray(data);
+
             for (int i = 0; i < JA.length(); i++) {
-                JSONObject;
-            }*/
+                JSONObject JO = (JSONObject) JA.get(i);
+                singleParsed = "Nutrients: " + JO.get("fat_100g") + "\n";
+
+                dataParsed = dataParsed + singleParsed + "\n";
+            }
 
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
-        } /*catch (JSONException e) {
+        } catch (JSONException e) {
             e.printStackTrace();
-        }*/
+        }
 
         return null;
     }
@@ -53,6 +62,6 @@ public class NutritionData extends AsyncTask<Void,Void,Void>{
     @Override
     protected void onPostExecute(Void aVoid) {
         super.onPostExecute(aVoid);
-        BarcodeReader.statusMessage.setText(this.data);
+        BarcodeReader.statusMessage.setText(this.dataParsed);
     }
 }
