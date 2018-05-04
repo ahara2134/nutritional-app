@@ -17,17 +17,19 @@ public class Home extends AppCompatActivity {
 
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            Intent intent;
             switch (item.getItemId()) {
                 case R.id.navigation_home:
                     mTextMessage.setText(R.string.title_home);
                     return true;
                 case R.id.navigation_camera:
                     mTextMessage.setText("Camera");
-                    Intent intent = new Intent(Home.this, BarcodeReader.class);
+                    intent = new Intent(Home.this, BarcodeReader.class);
                     startActivity(intent);
                     return true;
                 case R.id.navigation_plans:
-                    mTextMessage.setText("Plans");
+                    intent = new Intent(Home.this, ChoosePlanActivity.class);
+                    startActivity(intent);
                     return true;
                 case R.id.navigation_settings:
                     mTextMessage.setText("Settings");
@@ -46,5 +48,4 @@ public class Home extends AppCompatActivity {
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
-
 }
