@@ -43,9 +43,9 @@ public class NutritionData extends AsyncTask<Void,Void,Void>{
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
-        } catch (JSONException e) {
+        } /*catch (JSONException e) {
             e.printStackTrace();
-        }
+        }*/
 
         return null;
     }
@@ -53,7 +53,6 @@ public class NutritionData extends AsyncTask<Void,Void,Void>{
     @Override
     protected void onPostExecute(Void aVoid) {
         super.onPostExecute(aVoid);
-
         BarcodeReader.statusMessage.setText(this.data);
     }
 }
