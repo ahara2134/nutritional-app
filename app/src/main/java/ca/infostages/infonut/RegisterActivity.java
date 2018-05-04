@@ -24,6 +24,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -34,6 +36,9 @@ public class RegisterActivity extends AppCompatActivity {
     Button signUp;
     String emailHolder, pwHolder;
     ProgressDialog progressDialog;
+
+    private FirebaseUser mUser;
+    private DatabaseReference mDatabase;
     private FirebaseAuth firebaseAuth;
     Boolean editTextStatus;
 
@@ -46,6 +51,7 @@ public class RegisterActivity extends AppCompatActivity {
         password = (EditText)findViewById(R.id.reg_pw);
         signUp = (Button)findViewById(R.id.reg_btn);
         firebaseAuth = FirebaseAuth.getInstance();
+        mDatabase = FirebaseDatabase.getInstance().getReference();
         progressDialog = new ProgressDialog(RegisterActivity.this);
 
         //Google Sign-in
@@ -132,9 +138,13 @@ public class RegisterActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = firebaseAuth.getCurrentUser();
-                            Toast.makeText(RegisterActivity.this, authSuccess, Toast.LENGTH_LONG).show();
-                            Intent intent = new Intent(RegisterActivity.this, Home.class);
-                            startActivity(intent);
+                            if(user != null) {
+                                mUser = user;
+                                writeNewUser(mUser);
+                                Toast.makeText(RegisterActivity.this, getString(R.string.now_reg), Toast.LENGTH_LONG).show();
+                                Intent intent = new Intent(RegisterActivity.this, Home.class);
+                                startActivity(intent);
+                            }
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
@@ -164,12 +174,28 @@ public class RegisterActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()) {
-                            Toast.makeText(RegisterActivity.this, getString(R.string.now_reg), Toast.LENGTH_LONG).show();
+                            FirebaseUser user = firebaseAuth.getCurrentUser();
+                            if(user != null) {
+                                mUser = user;
+                                writeNewUser(mUser);
+                                Toast.makeText(RegisterActivity.this, getString(R.string.now_reg), Toast.LENGTH_LONG).show();
+                                Intent intent = new Intent(RegisterActivity.this, Home.class);
+                                startActivity(intent);
+                            }
+
                         } else {
                             Toast.makeText(RegisterActivity.this, getString(R.string.close_app), Toast.LENGTH_LONG).show();
                         }
                         progressDialog.dismiss();
                     }
                 });
+    }
+
+    private void writeNewUser(FirebaseUser user) {
+        String uID = user.getUid();
+        mDatabase.child("users").child(uID).child("display_name").setValue("false");
+        mDatabase.child("users").child(uID).child("age").setValue("false");
+        mDatabase.child("users").child(uID).child("gender").setValue("false");
+        mDatabase.child("users").child(uID).child("plan").setValue("false");
     }
 }
