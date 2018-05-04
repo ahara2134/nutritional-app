@@ -19,9 +19,9 @@ import java.util.HashMap;
 public class NutritionData extends AsyncTask<Void,Void,Void>{
     String data = "";
     String barcode;
-    String dataParsed = "";
-    String singleParsed = "";
-
+    static String dataParsed = "";
+    static String singleParsed = "";
+    String fiber = "";
     public NutritionData(String barcode) {
         this.barcode = barcode;
     }
@@ -39,14 +39,36 @@ public class NutritionData extends AsyncTask<Void,Void,Void>{
                 data = data + line;
             }
 
-            JSONArray JA = new JSONArray(data);
-
-            for (int i = 0; i < JA.length(); i++) {
+            JSONObject mainJO = new JSONObject(data);
+            //JSONArray JA = new JSONArray(data);
+            if(mainJO != null){
+                JSONArray list = mainJO.getJSONArray("product");
+                if(list != null){
+                    for(int i = 0; i < list.length();i++){
+                        JSONObject elem = list.getJSONObject(i);
+                        if(elem != null){
+                            JSONArray prods = elem.getJSONArray("nutriments");
+                            if(prods != null){
+                                for(int j = 0; j < prods.length();j++){
+                                    JSONObject innerElem = prods.getJSONObject(j);
+                                    if(innerElem != null){
+                                        /*int cat_id = innerELem.getInt("cat_id");
+                                        int pos = innerElem.getInt("position");
+                                        String sku = innerElem.getString("sku");*/
+                                        fiber = innerElem.getString("monounsaturated-fat_value");
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            /*for (int i = 0; i < JA.length(); i++) {
                 JSONObject JO = (JSONObject) JA.get(i);
-                singleParsed = "Nutrients: " + JO.get("fat_100g") + "\n";
+                singleParsed = "Nutrients: " + JO.get("monounsaturated-fat_value") + "\n";
 
                 dataParsed = dataParsed + singleParsed + "\n";
-            }
+            }*/
 
         } catch (MalformedURLException e) {
             e.printStackTrace();
@@ -62,6 +84,6 @@ public class NutritionData extends AsyncTask<Void,Void,Void>{
     @Override
     protected void onPostExecute(Void aVoid) {
         super.onPostExecute(aVoid);
-        BarcodeReader.statusMessage.setText(this.dataParsed);
+        BarcodeReader.statusMessage.setText("Hello: " +     fiber);
     }
 }
