@@ -18,10 +18,22 @@ import java.util.HashMap;
 
 public class NutritionData extends AsyncTask<Void,Void,Void>{
     String data = "";
-    String barcode;
-    static String dataParsed = "";
-    static String singleParsed = "";
-    String fiber = "";
+    private String barcode;
+    private static String dataParsed = "";
+    private String fat = "0";
+    private String saturatedFat = "0";
+    private String transFat = "0";
+    private String cholesterol = "0";
+    private String sodium = "0";
+    private String carbohydrate = "0";
+    private String fibre = "0";
+    private String sugars = "0";
+    private String protein = "0";
+    private String vitaminA = "0";
+    private String vitaminC = "0";
+    private String calcium = "0";
+    private String iron = "0";
+
     public NutritionData(String barcode) {
         this.barcode = barcode;
     }
@@ -31,50 +43,52 @@ public class NutritionData extends AsyncTask<Void,Void,Void>{
         try {
             URL url = new URL("https://world.openfoodfacts.org/api/v0/product/" + barcode + ".json");
             HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-            InputStream inputStream = httpURLConnection.getInputStream();
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-            String line = "";
-            while(line != null) {
-                line = bufferedReader.readLine();
-                data = data + line;
-            }
+            httpURLConnection.setRequestMethod("GET");
+            httpURLConnection.setRequestProperty("User-Agent", "Mozilla/5.0");
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(httpURLConnection.getInputStream()));
+            String inputLine;
+            StringBuffer response = new StringBuffer();
+            while((inputLine = bufferedReader.readLine()) != null) {
+                response.append(inputLine);
+            } bufferedReader.close();
 
-            JSONObject mainJO = new JSONObject(data);
-            //JSONArray JA = new JSONArray(data);
-            if(mainJO != null){
-                JSONArray list = mainJO.getJSONArray("product");
-                if(list != null){
-                    for(int i = 0; i < list.length();i++){
-                        JSONObject elem = list.getJSONObject(i);
-                        if(elem != null){
-                            JSONArray prods = elem.getJSONArray("nutriments");
-                            if(prods != null){
-                                for(int j = 0; j < prods.length();j++){
-                                    JSONObject innerElem = prods.getJSONObject(j);
-                                    if(innerElem != null){
-                                        /*int cat_id = innerELem.getInt("cat_id");
-                                        int pos = innerElem.getInt("position");
-                                        String sku = innerElem.getString("sku");*/
-                                        fiber = innerElem.getString("monounsaturated-fat_value");
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            /*for (int i = 0; i < JA.length(); i++) {
-                JSONObject JO = (JSONObject) JA.get(i);
-                singleParsed = "Nutrients: " + JO.get("monounsaturated-fat_value") + "\n";
+            JSONObject obj = new JSONObject(response.toString());
 
-                dataParsed = dataParsed + singleParsed + "\n";
-            }*/
+            JSONObject product = obj.getJSONObject("product");
 
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
+            JSONObject obj2 = product.getJSONObject("nutriments");
+
+            dataParsed = "" + obj2;
+
+            fat = obj2.getString("fat_value");
+            saturatedFat = obj2.getString("saturated-fat_serving");
+            transFat = obj2.getString("trans-fat_serving");
+            cholesterol = obj2.getString("cholesterol_serving");
+            sodium = obj2.getString("sodium_serving");
+            carbohydrate = obj2.getString("carbohydrates_serving");
+            fibre = obj2.getString("fiber_serving");
+            sugars = obj2.getString("sugars_serving");
+            protein = obj2.getString("proteins_serving");
+            vitaminA = obj2.getString("vitamin-a_serving");
+            vitaminC = obj2.getString("vitamin-c_serving");
+            calcium = obj2.getString("calcium_serving");
+            iron = obj2.getString("iron_serving");
+
+            dataParsed = "Fat: " + fat + "\n"
+                    + "Saturated Fat: " + saturatedFat + "\n"
+                    + "Trans Fat: " + transFat + "\n"
+                    + "Cholesterol: " + cholesterol + "\n"
+                    + "Sodium: " + sodium + "\n"
+                    + "Carbohydrate: " + carbohydrate + "\n"
+                    + "Fibre: " + fibre + "\n"
+                    + "Sugar: " + sugars + "\n"
+                    + "Protein: " + protein + "\n"
+                    + "Vitamin A: " + vitaminA + "\n"
+                    + "Vitamin C" + vitaminC + "\n"
+                    + "Calcium: " + calcium + "\n"
+                    + "Iron: " + iron + "\n";
+
+        } catch (IOException | JSONException e) {
             e.printStackTrace();
         }
 
@@ -84,6 +98,6 @@ public class NutritionData extends AsyncTask<Void,Void,Void>{
     @Override
     protected void onPostExecute(Void aVoid) {
         super.onPostExecute(aVoid);
-        BarcodeReader.statusMessage.setText("Hello: " +     fiber);
+        BarcodeReader.statusMessage.setText(dataParsed);
     }
 }
