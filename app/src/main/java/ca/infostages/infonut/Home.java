@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 public class Home extends AppCompatActivity {
@@ -59,5 +60,10 @@ public class Home extends AppCompatActivity {
             return true;
         }
         return false;
+    }
+
+    public void makePlan(View view) {
+        Intent intent  = new Intent(getApplicationContext(), MakePlanActivity.class);
+        startActivity(intent);
     }
 }

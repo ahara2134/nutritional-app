@@ -20,9 +20,4 @@ public class ChoosePlanFragment extends Fragment {
         // ... stuff happens
         return view;
     }
-
-    public void makePlan(View view) {
-        Intent intent  = new Intent(getActivity().getApplicationContext(), MakePlanActivity.class);
-        startActivity(intent);
-    }
 }
