@@ -25,11 +25,21 @@
     <string name="to_register">Sign up</string>
     <string name="close_app">Please close the app and try again.</string>
     <string name="now_reg">You are now Registered!</string>
+    <string name="email_error">Please enter a valid e-mail address.</string>
+    <string name="pw_error">Password must be at least 6 characters long.</string>
+    <string name="text_error">Please make sure that you have entered the e-mail in the correct format.</string>
+
+    <!-- Choose Plan strings -->
+    <string name="make_plan_submit">Make Plan</string>
 
     <!-- Make Plan strings -->
     <string name="plan_title">Plan Name</string>
     <string name="plan_title_placeholder">Plan Title</string>
     <string name="nutrients_header">Pick the nutrients you want to watch for.</string>
+    <string name="blacklisted_ingredients">Blacklisted Ingredients</string>
+    <string name="plan_submit">Submit</string>
+
+    <!-- Titles -->
     <string name="title_activity_home">Home</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>

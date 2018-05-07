@@ -1,16 +1,17 @@
 package ca.infostages.infonut;
 
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 public class Home extends AppCompatActivity {
-
-    private TextView mTextMessage;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -20,19 +21,14 @@ public class Home extends AppCompatActivity {
             Intent intent;
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    mTextMessage.setText(R.string.title_home);
-                    return true;
+                    return loadFragment(HomeFragment.newInstance());
                 case R.id.navigation_camera:
-                    mTextMessage.setText("Camera");
                     intent = new Intent(Home.this, BarcodeReader.class);
                     startActivity(intent);
                     return true;
                 case R.id.navigation_plans:
-                    intent = new Intent(Home.this, ChoosePlanActivity.class);
-                    startActivity(intent);
-                    return true;
+                    return loadFragment(ChoosePlanFragment.newInstance());
                 case R.id.navigation_settings:
-                    mTextMessage.setText("Settings");
                     return true;
             }
             return false;
@@ -44,8 +40,30 @@ public class Home extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        mTextMessage = (TextView) findViewById(R.id.message);
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        // Sets the home fragment as the current view.
+        loadFragment(HomeFragment.newInstance());
+
+        BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+    }
+
+    /**
+     * Replaces the content of the current fragment with a new one.
+     * @param fragment - a fragment that has been selected through the bottom navigation.
+     * @return a boolean indicating success or failure.
+     */
+    private boolean loadFragment(Fragment fragment) {
+        if (fragment != null) {
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_container, fragment)
+                    .commit();
+            return true;
+        }
+        return false;
+    }
+
+    public void makePlan(View view) {
+        Intent intent  = new Intent(getApplicationContext(), MakePlanActivity.class);
+        startActivity(intent);
     }
 }
