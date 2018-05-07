@@ -1,5 +1,6 @@
 package ca.infostages.infonut;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -18,5 +19,10 @@ public class ChoosePlanFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_choose_plan, container, false);
         // ... stuff happens
         return view;
+    }
+
+    public void makePlan(View view) {
+        Intent intent  = new Intent(getActivity().getApplicationContext(), MakePlanActivity.class);
+        startActivity(intent);
     }
 }
