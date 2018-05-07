@@ -183,7 +183,7 @@ public final class BarcodeCaptureActivity extends AppCompatActivity implements B
                 .setFlashMode(useFlash ? Camera.Parameters.FLASH_MODE_TORCH : null)
                 .build();
     }
-    
+
     @Override
     protected void onResume() {
         super.onResume();
