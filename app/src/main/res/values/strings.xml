@@ -33,6 +33,9 @@
     <string name="plan_title">Plan Name</string>
     <string name="plan_title_placeholder">Plan Title</string>
     <string name="nutrients_header">Pick the nutrients you want to watch for.</string>
+    <string name="blacklisted_ingredients">Blacklisted Ingredients</string>
+
+    <!-- Titles -->
     <string name="title_activity_home">Home</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
