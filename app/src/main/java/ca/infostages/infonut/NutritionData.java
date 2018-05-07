@@ -71,7 +71,7 @@ public class NutritionData extends AsyncTask<Void,Void,Void>{
             vitaminC = nutrients.getString("vitamin-c_serving");
             calcium = nutrients.getString("calcium_serving");
             iron = nutrients.getString("iron_serving");
-            
+
 
             dataParsed = "Fat: " + fat + "\n"
                     + "Saturated Fat: " + saturatedFat + "\n"
