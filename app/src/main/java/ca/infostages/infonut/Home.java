@@ -1,5 +1,6 @@
 package ca.infostages.infonut;
 
+import android.support.v4.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -10,7 +11,12 @@ import android.widget.TextView;
 
 public class Home extends AppCompatActivity {
 
+    // Tags for the fragment manager
+    private static final String TAG_CHOOSE_PLAN_FRAGMENT = "TAG_CHOOSE_PLAN_FRAGMENT";
+    private static final String TAG_MAKE_PLAN_FRAGMENT = "TAG_MAKE_PLAN_FRAGMENT";
+
     private TextView mTextMessage;
+    private FragmentManager fragmentManager;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -28,8 +34,8 @@ public class Home extends AppCompatActivity {
                     startActivity(intent);
                     return true;
                 case R.id.navigation_plans:
-                    intent = new Intent(Home.this, ChoosePlanActivity.class);
-                    startActivity(intent);
+                    fragmentManager.beginTransaction()
+                            .replace(R.id.container, fragmentManager.findFragmentByTag(TAG_CHOOSE_PLAN_FRAGMENT));
                     return true;
                 case R.id.navigation_settings:
                     mTextMessage.setText("Settings");
@@ -43,9 +49,23 @@ public class Home extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        // Inserts each fragment into the activity
 
-        mTextMessage = (TextView) findViewById(R.id.message);
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        // ChoosePlanFragment
+        ChoosePlanFragment choosePlanFragment = ChoosePlanFragment.newInstance();
+        fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction()
+                .add(R.id.choose_plan_fragment, choosePlanFragment, TAG_CHOOSE_PLAN_FRAGMENT)
+                .commit();
+
+        // MakePlanFragment
+        MakePlanFragment makePlanFragment = MakePlanFragment.newInstance();
+        fragmentManager.beginTransaction()
+                .add(R.id.make_plan_fragment, makePlanFragment, TAG_MAKE_PLAN_FRAGMENT)
+                .commit();
+
+        mTextMessage = findViewById(R.id.message);
+        BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
 }
