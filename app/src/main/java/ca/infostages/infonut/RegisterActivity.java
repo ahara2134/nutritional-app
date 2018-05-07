@@ -41,6 +41,8 @@ public class RegisterActivity extends AppCompatActivity {
     private DatabaseReference mDatabase;
     private FirebaseAuth firebaseAuth;
     Boolean editTextStatus;
+    Boolean emailValid;
+    Boolean passwordValid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,10 +83,14 @@ public class RegisterActivity extends AppCompatActivity {
             public void onClick(View v) {
                 CheckEditTextIsEmptyOrNot();
 
-                if(editTextStatus) {
+                if(editTextStatus && emailValid && passwordValid) {
                     UserRegistrationFunction();
-                } else {
+                } else if(!editTextStatus){
                     Toast.makeText(RegisterActivity.this, getString(R.string.fill_field), Toast.LENGTH_LONG).show();
+                } else if(!emailValid) {
+                    Toast.makeText(RegisterActivity.this, getString(R.string.email_error), Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(RegisterActivity.this, getString(R.string.pw_error), Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -154,14 +160,31 @@ public class RegisterActivity extends AppCompatActivity {
                 });
     }
 
+    //Checks if the text entered in both fields is valid
     public void CheckEditTextIsEmptyOrNot() {
         emailHolder = email.getText().toString().trim();
         pwHolder = password.getText().toString().trim();
 
+        //Check that user filled out both fields
         if(TextUtils.isEmpty(emailHolder) || TextUtils.isEmpty(pwHolder)) {
             editTextStatus = false;
         } else {
             editTextStatus = true;
+        }
+
+        //Check that the user's password is more than 6 characters long
+        if(pwHolder.length() < 6) {
+            passwordValid = false;
+        } else {
+            passwordValid = true;
+        }
+
+        //Check if the user's Email contains the '@' symbol.
+        int n = emailHolder.indexOf('@');
+        if(n == -1) {
+            emailValid = false;
+        } else {
+            emailValid = true;
         }
     }
 
