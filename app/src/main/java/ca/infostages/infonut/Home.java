@@ -78,27 +78,6 @@ public class Home extends AppCompatActivity {
      * @param view - view
      */
     public void addNutrientOrIngredient(View view) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(R.string.pick_nutrients)
-            .setPositiveButton(R.string.submit_nutrients, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    // User submitted their
-                }
-            }).setNegativeButton(R.string.cancel_nutrients, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    // user cancelled their request
-                }
-            }).setMultiChoiceItems(R.array.nutrient_list, null,
-                new DialogInterface.OnMultiChoiceClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int index, boolean isChecked) {
-                    if (isChecked) {
-                        // add nutrient to array
-                    }
-                }
-            });
-        builder.create();
+
     }
 }
