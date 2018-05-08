@@ -30,6 +30,7 @@ public class NutritionData extends AsyncTask<Void,Void,Void>{
     private String calcium = "0";
     private String iron = "0";
     private String servingSize = "";
+    private String quantity = "";
 
     public NutritionData(String barcode) {
         this.barcode = barcode;
@@ -57,6 +58,7 @@ public class NutritionData extends AsyncTask<Void,Void,Void>{
 
             productName = obj.getString("product_name");
             servingSize = product.getString("serving_size");
+            quantity = product.getString("quantity");
 
             fat = nutrients.getString("fat_value");
             saturatedFat = nutrients.getString("saturated-fat_serving");
@@ -71,7 +73,7 @@ public class NutritionData extends AsyncTask<Void,Void,Void>{
             vitaminC = nutrients.getString("vitamin-c_serving");
             calcium = nutrients.getString("calcium_serving");
             iron = nutrients.getString("iron_serving");
-            
+
 
             dataParsed = "Fat: " + fat + "\n"
                     + "Saturated Fat: " + saturatedFat + "\n"

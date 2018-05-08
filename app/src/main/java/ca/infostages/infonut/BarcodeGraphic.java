@@ -24,10 +24,6 @@ import com.google.android.gms.vision.barcode.Barcode;
 
 import ca.infostages.infonut.ui.camera.GraphicOverlay;
 
-/**
- * Graphic instance for rendering barcode position, size, and ID within an associated graphic
- * overlay view.
- */
 public class BarcodeGraphic extends GraphicOverlay.Graphic {
 
     private int mId;
@@ -72,18 +68,11 @@ public class BarcodeGraphic extends GraphicOverlay.Graphic {
         return mBarcode;
     }
 
-    /**
-     * Updates the barcode instance from the detection of the most recent frame.  Invalidates the
-     * relevant portions of the overlay to trigger a redraw.
-     */
     void updateItem(Barcode barcode) {
         mBarcode = barcode;
         postInvalidate();
     }
 
-    /**
-     * Draws the barcode annotations for position, size, and raw value on the supplied canvas.
-     */
     @Override
     public void draw(Canvas canvas) {
         Barcode barcode = mBarcode;
