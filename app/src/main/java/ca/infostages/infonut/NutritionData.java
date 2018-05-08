@@ -15,7 +15,7 @@ public class NutritionData extends AsyncTask<Void,Void,Void>{
     String data = "";
     private String barcode;
     private static String dataParsed = "";
-    private String productName;
+    //private String productName;
     private String fat = "0";
     private String saturatedFat = "0";
     private String transFat = "0";
@@ -56,7 +56,7 @@ public class NutritionData extends AsyncTask<Void,Void,Void>{
 
             JSONObject nutrients = product.getJSONObject("nutriments");
 
-            productName = obj.getString("product_name");
+            //productName = obj.getString("product_name");
             servingSize = product.getString("serving_size");
             quantity = product.getString("quantity");
 
@@ -87,7 +87,8 @@ public class NutritionData extends AsyncTask<Void,Void,Void>{
                     + "Vitamin A: " + vitaminA + "\n"
                     + "Vitamin C: " + vitaminC + "\n"
                     + "Calcium: " + calcium + "\n"
-                    + "Iron: " + iron + "\n";
+                    + "Iron: " + iron + "\n"
+                    + "Quantity: " + quantity + "\n";
 
         } catch (IOException | JSONException e) {
             e.printStackTrace();
