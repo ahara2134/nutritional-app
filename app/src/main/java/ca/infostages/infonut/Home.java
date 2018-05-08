@@ -1,16 +1,19 @@
 package ca.infostages.infonut;
 
+import android.content.DialogInterface;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
 
+/**
+ * Represents the container of all user navigation related tasks.
+ */
 public class Home extends AppCompatActivity {
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -62,8 +65,40 @@ public class Home extends AppCompatActivity {
         return false;
     }
 
+    /**
+     * Opens the MakePlanFragment upon button press from the ChoosePlanFragment
+     * @param view - view
+     */
     public void makePlan(View view) {
-        Intent intent  = new Intent(getApplicationContext(), MakePlanActivity.class);
-        startActivity(intent);
+        loadFragment(MakePlanFragment.newInstance());
+    }
+
+    /**
+     * Creates a dialog which has a list of available nutrients that users can pick from.
+     * @param view - view
+     */
+    public void addNutrientOrIngredient(View view) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.pick_nutrients)
+            .setPositiveButton(R.string.submit_nutrients, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    // User submitted their
+                }
+            }).setNegativeButton(R.string.cancel_nutrients, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    // user cancelled their request
+                }
+            }).setMultiChoiceItems(R.array.nutrient_list, null,
+                new DialogInterface.OnMultiChoiceClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int index, boolean isChecked) {
+                    if (isChecked) {
+                        // add nutrient to array
+                    }
+                }
+            });
+        builder.create();
     }
 }
