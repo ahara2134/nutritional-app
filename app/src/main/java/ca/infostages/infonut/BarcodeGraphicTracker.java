@@ -27,6 +27,7 @@ import ca.infostages.infonut.ui.camera.GraphicOverlay;
 public class BarcodeGraphicTracker extends Tracker<Barcode> {
     private GraphicOverlay<BarcodeGraphic> mOverlay;
     private BarcodeGraphic mGraphic;
+    private NewDetectionListener mListener;
 
     private BarcodeUpdateListener mBarcodeUpdateListener;
 
@@ -35,21 +36,29 @@ public class BarcodeGraphicTracker extends Tracker<Barcode> {
         void onBarcodeDetected(Barcode barcode);
     }
 
-    BarcodeGraphicTracker(GraphicOverlay<BarcodeGraphic> mOverlay, BarcodeGraphic mGraphic,
-                          Context context) {
+    BarcodeGraphicTracker(GraphicOverlay<BarcodeGraphic> mOverlay, BarcodeGraphic mGraphic/*,
+                          Context context*/) {
         this.mOverlay = mOverlay;
         this.mGraphic = mGraphic;
-        if (context instanceof BarcodeUpdateListener) {
+        /*if (context instanceof BarcodeUpdateListener) {
             this.mBarcodeUpdateListener = (BarcodeUpdateListener) context;
         } else {
             throw new RuntimeException("Hosting activity must implement BarcodeUpdateListener");
-        }
+        }*/
     }
 
     @Override
     public void onNewItem(int id, Barcode item) {
+        /*mGraphic.setId(id);
+        mBarcodeUpdateListener.onBarcodeDetected(item);*/
+
         mGraphic.setId(id);
-        mBarcodeUpdateListener.onBarcodeDetected(item);
+        if (mListener != null) mListener.onNewDetection(item);
+
+    }
+
+    public void setListener(NewDetectionListener mListener) {
+        this.mListener = mListener;
     }
 
     @Override
@@ -66,5 +75,9 @@ public class BarcodeGraphicTracker extends Tracker<Barcode> {
     @Override
     public void onDone() {
         mOverlay.remove(mGraphic);
+    }
+
+    public interface NewDetectionListener {
+        void onNewDetection(Barcode barcode);
     }
 }
