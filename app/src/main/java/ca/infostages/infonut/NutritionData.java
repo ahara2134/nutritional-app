@@ -10,27 +10,13 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.HashMap;
 
 public class NutritionData extends AsyncTask<Void,Void,Void>{
     String data = "";
     private String barcode;
     private static String dataParsed = "";
-    //private String productName;
-    private String fat = "0";
-    private String saturatedFat = "0";
-    private String transFat = "0";
-    private String cholesterol = "0";
-    private String sodium = "0";
-    private String carbohydrate = "0";
-    private String fibre = "0";
-    private String sugars = "0";
-    private String protein = "0";
-    private String vitaminA = "0";
-    private String vitaminC = "0";
-    private String calcium = "0";
-    private String iron = "0";
-    private String servingSize = "";
-    private String quantity = "";
+    private HashMap<String, Double> hashMap = new HashMap<>();
 
     public NutritionData(String barcode) {
         this.barcode = barcode;
@@ -57,23 +43,37 @@ public class NutritionData extends AsyncTask<Void,Void,Void>{
             JSONObject nutrients = product.getJSONObject("nutriments");
 
             //productName = obj.getString("product_name");
-            servingSize = product.getString("serving_size");
-            quantity = product.getString("quantity");
+            String servingSize = product.getString("serving_size");
+            String quantity = product.getString("quantity");
 
-            fat = nutrients.getString("fat_value");
-            saturatedFat = nutrients.getString("saturated-fat_serving");
-            transFat = nutrients.getString("trans-fat_serving");
-            cholesterol = nutrients.getString("cholesterol_serving");
-            sodium = nutrients.getString("sodium_serving");
-            carbohydrate = nutrients.getString("carbohydrates_serving");
-            fibre = nutrients.getString("fiber_serving");
-            sugars = nutrients.getString("sugars_serving");
-            protein = nutrients.getString("proteins_serving");
-            vitaminA = nutrients.getString("vitamin-a_serving");
-            vitaminC = nutrients.getString("vitamin-c_serving");
-            calcium = nutrients.getString("calcium_serving");
-            iron = nutrients.getString("iron_serving");
+            String fat = nutrients.getString("fat_value");
+            String saturatedFat = nutrients.getString("saturated-fat_serving");
+            String transFat = nutrients.getString("trans-fat_serving");
+            String cholesterol = nutrients.getString("cholesterol_serving");
+            String sodium = nutrients.getString("sodium_serving");
+            String carbohydrate = nutrients.getString("carbohydrates_serving");
+            String fibre = nutrients.getString("fiber_serving");
+            String sugars = nutrients.getString("sugars_serving");
+            String protein = nutrients.getString("proteins_serving");
+            String vitaminA = nutrients.getString("vitamin-a_serving");
+            String vitaminC = nutrients.getString("vitamin-c_serving");
+            String calcium = nutrients.getString("calcium_serving");
+            String iron = nutrients.getString("iron_serving");
 
+
+            hashMap.put("fat",convertNutrition(fat));
+            hashMap.put("saturatedFat",convertNutrition(saturatedFat));
+            hashMap.put("transFat",convertNutrition(transFat));
+            hashMap.put("cholesterol",convertNutrition(cholesterol));
+            hashMap.put("sodium",convertNutrition(sodium));
+            hashMap.put("carbohydrate",convertNutrition(carbohydrate));
+            hashMap.put("fibre",convertNutrition(fibre));
+            hashMap.put("sugars",convertNutrition(sugars));
+            hashMap.put("protein",convertNutrition(protein));
+            hashMap.put("vitaminA",convertNutrition(vitaminA));
+            hashMap.put("vitaminC",convertNutrition(vitaminC));
+            hashMap.put("calcium",convertNutrition(calcium));
+            hashMap.put("iron",convertNutrition(iron));
 
             dataParsed = "Fat: " + fat + "\n"
                     + "Saturated Fat: " + saturatedFat + "\n"
@@ -101,7 +101,15 @@ public class NutritionData extends AsyncTask<Void,Void,Void>{
     protected void onPostExecute(Void aVoid) {
         super.onPostExecute(aVoid);
         BarcodeReader.statusMessage.setText(dataParsed);
-        //send data here
+        //send data here OR pass hashmap
 
+    }
+
+    private double convertNutrition(String nutrition) {
+        double dNutrition;
+        String str = nutrition;
+        str = str.replaceAll("[^\\d.]", "");
+        dNutrition = Double.parseDouble(str);
+        return dNutrition;
     }
 }
