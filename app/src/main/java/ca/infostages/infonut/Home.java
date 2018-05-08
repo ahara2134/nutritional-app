@@ -1,12 +1,11 @@
 package ca.infostages.infonut;
 
-import android.content.DialogInterface;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,6 +14,8 @@ import android.view.View;
  * Represents the container of all user navigation related tasks.
  */
 public class Home extends AppCompatActivity {
+
+    private static final String TAG_NUTRIENT_DIALOG = "NUTRIENT_DIALOG";
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -74,10 +75,11 @@ public class Home extends AppCompatActivity {
     }
 
     /**
-     * Creates a dialog which has a list of available nutrients that users can pick from.
+     * Shows a dialog which has a list of available nutrients that users can pick from.
      * @param view - view
      */
     public void addNutrientOrIngredient(View view) {
-
+        DialogFragment dialogFragment = new NutrientDialogFragment();
+        dialogFragment.show(getSupportFragmentManager(), TAG_NUTRIENT_DIALOG);
     }
 }

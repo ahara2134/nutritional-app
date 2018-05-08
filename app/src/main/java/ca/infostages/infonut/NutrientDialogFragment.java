@@ -1,11 +1,11 @@
+package ca.infostages.infonut;
+
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
-
-import ca.infostages.infonut.R;
 
 public class NutrientDialogFragment extends DialogFragment {
     @NonNull
@@ -32,7 +32,6 @@ public class NutrientDialogFragment extends DialogFragment {
                         }
                     }
                 });
-        builder.create();
-        return super.onCreateDialog(savedInstanceState);
+        return builder.create();
     }
 }
