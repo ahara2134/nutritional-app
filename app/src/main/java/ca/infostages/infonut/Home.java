@@ -61,9 +61,11 @@ public class Home extends AppCompatActivity {
         // Sets the home fragment as the current view.
         loadFragment(HomeFragment.newInstance());
 
+        // This is just for changing the background color
         view2 = this.getWindow().getDecorView();
 
-        //Checks if user's demographics are entered in. If not, send to NewUserActivity.
+        // Ryan here - I have a weird
+/*        //Checks if user's demographics are entered in. If not, send to NewUserActivity.
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         DatabaseReference planReference;
         planReference = FirebaseDatabase.getInstance().getReference().child("users").child(currentUser.getUid()).child("plan");
@@ -74,6 +76,8 @@ public class Home extends AppCompatActivity {
                 if (!plan) {
                     Intent intent = new Intent (Home.this, NewUser.class);
                     startActivity(intent);
+                } else {
+                    loadFragment(HomeFragment.newInstance());
                 }
             }
 
@@ -81,7 +85,7 @@ public class Home extends AppCompatActivity {
             public void onCancelled(DatabaseError databaseError) {
                 Log.d(TAG, ": " + databaseError.getMessage());
             }
-        });
+        });*/
 
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
