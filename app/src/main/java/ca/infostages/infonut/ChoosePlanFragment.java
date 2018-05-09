@@ -9,7 +9,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+/**
+ * Generates a view that allow the user to choose diet plans.
+ */
 public class ChoosePlanFragment extends Fragment {
+    /**
+     * Creates a new instance of this class and returns it to the caller.
+     * @return a ChoosePlanFragment
+     */
     public static ChoosePlanFragment newInstance() {
         return new ChoosePlanFragment();
     }

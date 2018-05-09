@@ -38,6 +38,9 @@
     <string name="nutrients_header">Pick the nutrients you want to watch for.</string>
     <string name="blacklisted_ingredients">Blacklisted Ingredients</string>
     <string name="plan_submit">Submit</string>
+    <string name="pick_nutrients">Pick which nutrients you want to track.</string>
+    <string name="submit_nutrients">Submit</string>
+    <string name="cancel_nutrients">Cancel</string>
 
     <!-- Titles -->
     <string name="title_activity_home">Home</string>
@@ -47,4 +50,23 @@
     <string name="settings">Settings</string>
     <string name="camera">Camera</string>
     <string name="plans">Plans</string>
+
+    <!-- STRING ARRAYS -->
+
+    <!-- MakePlan arrays -->
+    <string-array name="nutrient_list">
+        <item>fat</item>
+        <item>saturated fat</item>
+        <item>trans fat</item>
+        <item>cholesterol</item>
+        <item>sodium</item>
+        <item>carbohydrate</item>
+        <item>fibre</item>
+        <item>sugars</item>
+        <item>protein</item>
+        <item>vitamin A</item>
+        <item>vitamin C</item>
+        <item>calcium</item>
+        <item>iron</item>
+    </string-array>
 </resources>
