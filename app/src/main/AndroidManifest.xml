@@ -32,10 +32,7 @@
         <activity android:name=".BarcodeCaptureActivity" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".Home" />
-        <activity android:name=".NewUser" />
-        <activity
-            android:name=".Results"
-            android:label="@string/title_activity_results"></activity>
+        <activity android:name=".NewUser"/>
     </application>
 
 </manifest>

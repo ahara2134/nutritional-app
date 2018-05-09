@@ -11,8 +11,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import ca.infostages.infonut.ui.camera.ResultsFragment;
-
 public class Home extends AppCompatActivity {
 
     private View view2;
