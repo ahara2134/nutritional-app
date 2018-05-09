@@ -79,7 +79,7 @@ public final class BarcodeCaptureActivity extends AppCompatActivity implements B
         // permission is not granted yet, request permission.
         int rc = ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA);
         if (rc == PackageManager.PERMISSION_GRANTED) {
-            createCameraSource(autoFocus, useFlash);
+            createCameraSource(true, false);
         } else {
             requestCameraPermission();
         }

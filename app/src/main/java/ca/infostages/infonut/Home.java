@@ -24,6 +24,8 @@ import com.google.firebase.database.ValueEventListener;
  */
 public class Home extends AppCompatActivity implements NutrientDialogFragment.NutrientDialogListener{
 
+    private View view2;
+
     private static final String TAG_NUTRIENT_DIALOG = "NUTRIENT_DIALOG";
     private static final String TAG = "Home.java";
 
@@ -41,8 +43,10 @@ public class Home extends AppCompatActivity implements NutrientDialogFragment.Nu
                     startActivity(intent);
                     return true;
                 case R.id.navigation_plans:
-                    return loadFragment(ChoosePlanFragment.newInstance());
+                    loadFragment(ChoosePlanFragment.newInstance());
+                    return true;
                 case R.id.navigation_settings:
+                    loadFragment(Results.newInstance());
                     return true;
             }
             return false;
@@ -57,7 +61,11 @@ public class Home extends AppCompatActivity implements NutrientDialogFragment.Nu
         // Sets the home fragment as the current view.
         loadFragment(HomeFragment.newInstance());
 
-        //Checks if user's demographics are entered in. If not, send to NewUserActivity.
+        // This is just for changing the background color
+        view2 = this.getWindow().getDecorView();
+
+        // Ryan here - I have a weird
+/*        //Checks if user's demographics are entered in. If not, send to NewUserActivity.
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         DatabaseReference planReference;
         planReference = FirebaseDatabase.getInstance().getReference().child("users").child(currentUser.getUid()).child("plan");
@@ -68,6 +76,8 @@ public class Home extends AppCompatActivity implements NutrientDialogFragment.Nu
                 if (!plan) {
                     Intent intent = new Intent (Home.this, NewUser.class);
                     startActivity(intent);
+                } else {
+                    loadFragment(HomeFragment.newInstance());
                 }
             }
 
@@ -75,7 +85,7 @@ public class Home extends AppCompatActivity implements NutrientDialogFragment.Nu
             public void onCancelled(DatabaseError databaseError) {
                 Log.d(TAG, ": " + databaseError.getMessage());
             }
-        });
+        });*/
 
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -122,4 +132,14 @@ public class Home extends AppCompatActivity implements NutrientDialogFragment.Nu
     public void onDialogNegativeClick(DialogFragment dialogFragment) {
         //
     }
+    public void redButton(View view)
+    {
+        view2.setBackgroundResource(R.color.red);
+    }
+    public void greenButton(View view)
+    {
+        view2.setBackgroundResource(R.color.green);
+    }
+
+    public void something(){}
 }
