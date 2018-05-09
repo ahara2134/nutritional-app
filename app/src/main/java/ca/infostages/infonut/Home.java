@@ -22,7 +22,7 @@ import com.google.firebase.database.ValueEventListener;
 /**
  * Represents the container of all user navigation related tasks.
  */
-public class Home extends AppCompatActivity {
+public class Home extends AppCompatActivity implements NutrientDialogFragment.NutrientDialogListener{
 
     private View view2;
 
@@ -121,6 +121,16 @@ public class Home extends AppCompatActivity {
     public void addNutrientOrIngredient(View view) {
         DialogFragment dialogFragment = new NutrientDialogFragment();
         dialogFragment.show(getSupportFragmentManager(), TAG_NUTRIENT_DIALOG);
+    }
+
+    @Override
+    public void onDialogPositiveClick(DialogFragment dialogFragment) {
+        //
+    }
+
+    @Override
+    public void onDialogNegativeClick(DialogFragment dialogFragment) {
+        //
     }
     public void redButton(View view)
     {

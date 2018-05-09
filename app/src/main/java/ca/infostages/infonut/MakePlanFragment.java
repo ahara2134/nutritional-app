@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 public class MakePlanFragment extends Fragment {
+    public static final String TAG = "MAKE_PLAN_FRAGMENT";
 
     public static MakePlanFragment newInstance() {
         return new MakePlanFragment();
@@ -17,6 +18,7 @@ public class MakePlanFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstance) {
         View view = inflater.inflate(R.layout.fragment_make_plan, container, false);
+        view.setTag(TAG);
         return view;
     }
 }
