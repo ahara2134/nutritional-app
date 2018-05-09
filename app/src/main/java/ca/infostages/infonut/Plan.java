@@ -9,12 +9,12 @@ import java.util.HashMap;
 public class Plan {
 
     private String planTitle;
-    private HashMap<String, Long> nutrients;
-    private HashMap<String, Long> ingredients;
+    private HashMap<String, Double> nutrients;
+    private HashMap<String, Double> ingredients;
 
     public Plan() {}
 
-    public Plan(String planTitle, HashMap<String, Long> nutrients, HashMap<String, Long> ingredients) {
+    public Plan(String planTitle, HashMap<String, Double> nutrients, HashMap<String, Double> ingredients) {
         setPlanTitle(planTitle);
         setNutrients(nutrients);
         setIngredients(ingredients);
@@ -44,7 +44,7 @@ public class Plan {
      * Returns a map of nutrients and their values.
      * @return nutrients
      */
-    public HashMap<String, Long> getNutrients() {
+    public HashMap<String, Double> getNutrients() {
         return nutrients;
     }
 
@@ -52,7 +52,7 @@ public class Plan {
      * Sets a map of nutrients and intake limits in long form.
      * @param nutrients - a HashMap of nutrients that are gained from user input.
      */
-    public void setNutrients(HashMap<String, Long> nutrients) {
+    public void setNutrients(HashMap<String, Double> nutrients) {
         if (nutrients != null && nutrients.size() > 0) {
             this.nutrients = nutrients;
         } else {
@@ -64,7 +64,7 @@ public class Plan {
      * Returns a map of ingredients and their values
      * @return ingredients
      */
-    public HashMap<String, Long> getIngredients() {
+    public HashMap<String, Double> getIngredients() {
         return ingredients;
     }
 
@@ -72,7 +72,7 @@ public class Plan {
      * Sets a map of ingredients that are paired with max intake values.
      * @param ingredients - a hashmap of blacklisted ingredients
      */
-    public void setIngredients(HashMap<String, Long> ingredients) {
+    public void setIngredients(HashMap<String, Double> ingredients) {
         if (ingredients != null && ingredients.size() > 0) {
             this.ingredients = ingredients;
         } else {

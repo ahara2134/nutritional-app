@@ -216,9 +216,9 @@ public class RegisterActivity extends AppCompatActivity {
 
     private void writeNewUser(FirebaseUser user) {
         String uID = user.getUid();
-        mDatabase.child("users").child(uID).child("display_name").setValue("false");
-        mDatabase.child("users").child(uID).child("age").setValue("false");
-        mDatabase.child("users").child(uID).child("gender").setValue("false");
-        mDatabase.child("users").child(uID).child("plan").setValue("false");
+        mDatabase.child("users").child(uID).child("display_name").setValue(false);
+        mDatabase.child("users").child(uID).child("age").setValue(false);
+        mDatabase.child("users").child(uID).child("gender").setValue(false);
+        mDatabase.child("users").child(uID).child("plan").setValue(false);
     }
 }

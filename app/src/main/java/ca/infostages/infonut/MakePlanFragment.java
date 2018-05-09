@@ -17,7 +17,6 @@ public class MakePlanFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstance) {
         View view = inflater.inflate(R.layout.fragment_make_plan, container, false);
-        // Some shit happens
         return view;
     }
 }
