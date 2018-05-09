@@ -29,6 +29,18 @@
     <string name="pw_error">Password must be at least 6 characters long.</string>
     <string name="text_error">Please make sure that you have entered the e-mail in the correct format.</string>
 
+    <!-- New User Activity strings -->
+    <string name="welcome"> Before you get started, we want to ask you a few questions.</string>
+    <string name="name_prompt">What is your name?</string>
+    <string name="dob_prompt">When is your Birthday?</string>
+    <string name="gender_prompt">Please select your gender.</string>
+    <string name="gender_female">Female</string>
+    <string name="gender_male">Male</string>
+    <string name="gender_other">Other</string>
+    <string name="name_hint">5 &#8211; 20 characters long</string>
+    <string name="dob_hint">Tap to select</string>
+    <string name="submit_form">Submit</string>
+
     <!-- Choose Plan strings -->
     <string name="make_plan_submit">Make Plan</string>
 
