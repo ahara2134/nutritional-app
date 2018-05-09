@@ -47,4 +47,12 @@
     <string name="settings">Settings</string>
     <string name="camera">Camera</string>
     <string name="plans">Plans</string>
+    <string name="title_activity_results">Results</string>
+
+    <!-- Results -->
+    <string name="Green">Green</string>
+    <string name="Red">Red</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -11,7 +11,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import ca.infostages.infonut.ui.camera.ResultsFragment;
+
 public class Home extends AppCompatActivity {
+
+    private View view2;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -27,8 +31,10 @@ public class Home extends AppCompatActivity {
                     startActivity(intent);
                     return true;
                 case R.id.navigation_plans:
-                    return loadFragment(ChoosePlanFragment.newInstance());
+                    loadFragment(ChoosePlanFragment.newInstance());
+                    return true;
                 case R.id.navigation_settings:
+                    loadFragment(Results.newInstance());
                     return true;
             }
             return false;
@@ -42,6 +48,8 @@ public class Home extends AppCompatActivity {
 
         // Sets the home fragment as the current view.
         loadFragment(HomeFragment.newInstance());
+
+        view2 = this.getWindow().getDecorView();
 
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -66,4 +74,14 @@ public class Home extends AppCompatActivity {
         Intent intent  = new Intent(getApplicationContext(), MakePlanActivity.class);
         startActivity(intent);
     }
+    public void redButton(View view)
+    {
+        view2.setBackgroundResource(R.color.red);
+    }
+    public void greenButton(View view)
+    {
+        view2.setBackgroundResource(R.color.green);
+    }
+
+    public void something(){}
 }
