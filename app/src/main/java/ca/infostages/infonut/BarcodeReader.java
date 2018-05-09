@@ -5,7 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.CompoundButton;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.google.android.gms.common.api.CommonStatusCodes;
@@ -15,26 +15,24 @@ import ca.infostages.infonut.R;
 
 public class BarcodeReader extends AppCompatActivity implements View.OnClickListener{
 
-    private CompoundButton autoFocus;
-    private CompoundButton useFlash;
     public static TextView statusMessage;
     private TextView barcodeValue;
-
+    public static double portionsize;
     private static final int RC_BARCODE_CAPTURE = 9001;
     private static final String TAG = "BarcodeMain";
+    private static SeekBar seek_bar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_barcode_reader);
-
+        seekbar();
         statusMessage = (TextView)findViewById(R.id.status_message);
         barcodeValue = (TextView)findViewById(R.id.barcode_value);
 
-        autoFocus = (CompoundButton) findViewById(R.id.auto_focus);
-        useFlash = (CompoundButton) findViewById(R.id.use_flash);
-
         findViewById(R.id.read_barcode).setOnClickListener(this);
+        Intent intent = new Intent(this, BarcodeCaptureActivity.class);
+        startActivityForResult(intent, RC_BARCODE_CAPTURE);
 
     }
 
@@ -43,9 +41,6 @@ public class BarcodeReader extends AppCompatActivity implements View.OnClickList
         if (v.getId() == R.id.read_barcode) {
             // launch barcode activity.
             Intent intent = new Intent(this, BarcodeCaptureActivity.class);
-            intent.putExtra(BarcodeCaptureActivity.AutoFocus, autoFocus.isChecked());
-            intent.putExtra(BarcodeCaptureActivity.UseFlash, useFlash.isChecked());
-
             startActivityForResult(intent, RC_BARCODE_CAPTURE);
         }
     }
@@ -73,5 +68,27 @@ public class BarcodeReader extends AppCompatActivity implements View.OnClickList
         else {
             super.onActivityResult(requestCode, resultCode, data);
         }
+    }
+
+    public void seekbar() {
+        seek_bar = (SeekBar) findViewById(R.id.seekBar);
+        seek_bar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                /*System.out.println("THIS IS THE SEEK BAR: " + progress);*/
+                portionsize = progress / 4.0;
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
     }
 }

@@ -1,6 +1,7 @@
 package ca.infostages.infonut;
 
 import android.os.AsyncTask;
+import android.widget.SeekBar;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -17,7 +18,6 @@ public class NutritionData extends AsyncTask<Void,Void,Void>{
     private String barcode;
     private static String dataParsed = "";
     private HashMap<String, Double> hashMap = new HashMap<>();
-
     public NutritionData(String barcode) {
         this.barcode = barcode;
     }
@@ -59,7 +59,6 @@ public class NutritionData extends AsyncTask<Void,Void,Void>{
             String vitaminC = nutrients.getString("vitamin-c_serving");
             String calcium = nutrients.getString("calcium_serving");
             String iron = nutrients.getString("iron_serving");
-
 
             hashMap.put("fat",convertNutrition(fat));
             hashMap.put("saturatedFat",convertNutrition(saturatedFat));
@@ -112,4 +111,6 @@ public class NutritionData extends AsyncTask<Void,Void,Void>{
         dNutrition = Double.parseDouble(str);
         return dNutrition;
     }
+
+
 }
