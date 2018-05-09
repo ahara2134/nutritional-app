@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -86,6 +87,16 @@ public class Home extends AppCompatActivity implements NutrientDialogFragment.Nu
                 Log.d(TAG, ": " + databaseError.getMessage());
             }
         });*/
+
+        //Temporary button to test NewUser Activity
+        Button button = (Button)findViewById(R.id.to_newUser);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent (Home.this, NewUser.class);
+                startActivity(intent);
+            }
+        });
 
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);

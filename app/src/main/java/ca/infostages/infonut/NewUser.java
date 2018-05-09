@@ -1,6 +1,7 @@
 package ca.infostages.infonut;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputType;
@@ -10,62 +11,87 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Calendar;
 
 public class NewUser extends AppCompatActivity {
-    private DatePickerDialog picker;
-    private EditText displayName, dobText;
-    private RadioGroup radioGroup;
+    //declare database objects
+    private DatabaseReference mDatabase;
+    private FirebaseUser mUser;
+    private FirebaseAuth firebaseAuth;
+
+    //declare GUI objects
+    private EditText displayName;
+    private RadioGroup genderRadioGroup;
+    private RadioGroup dobRadioGroup;
+    private RadioButton genderRadioButton;
+    private RadioButton dobRadioButton;
     private Button submit;
-    private int mob;
-    private int dob;
-    private int yob;
     private String name;
     private String gender;
+    private int ageGroup;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_user);
 
-        radioGroup = (RadioGroup)findViewById(R.id.radio_gender);
+        //instantiate database objects
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        firebaseAuth = FirebaseAuth.getInstance();
+        mUser = firebaseAuth.getCurrentUser();
 
+        //Instantiate GUI objects
+        genderRadioGroup = (RadioGroup)findViewById(R.id.radio_gender);
+        dobRadioGroup = (RadioGroup)findViewById(R.id.radio_dob);
         submit = (Button)findViewById(R.id.button_submit);
         displayName = (EditText)findViewById(R.id.editText_name);
-        dobText = (EditText)findViewById(R.id.editText_dob);
-        dobText.setInputType(InputType.TYPE_NULL);
 
-        //When edit Text for DOB is tapped, it will open a new dialogue
-        dobText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final Calendar calendar = Calendar.getInstance();
-                int day = calendar.get(Calendar.DAY_OF_MONTH);
-                int month = calendar.get(Calendar.MONTH);
-                int year = calendar.get(Calendar.YEAR);
-
-                //date picker dialog
-                picker = new DatePickerDialog(NewUser.this,
-                        new DatePickerDialog.OnDateSetListener() {
-                            @Override
-                            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                                dobText.setText(dayOfMonth + "/" + (month + 1) + "/" + year);
-                                yob = year;
-                                mob = month;
-                                dob = dayOfMonth;
-                            }
-                        }, year, month, day);
-                picker.show();
-            }
-        });
-
-        //Button listener for submit button - sets user demographics in database
+        //Button listener for submit button - sets user demographics in database/
+        // In this method, there should be testing for the values and then assigning of default plan.
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //Get demographics that we need
+                String uID = mUser.getUid();
                 name = displayName.getText().toString();
-                Integer selectedGender = radioGroup.getCheckedRadioButtonId();
-                gender = selectedGender.toString();
+
+                int selectedGender = genderRadioGroup.getCheckedRadioButtonId();
+                genderRadioButton = (RadioButton)findViewById(selectedGender);
+                gender = genderRadioButton.getText().toString();
+
+                int selectedAge = dobRadioGroup.getCheckedRadioButtonId();
+                dobRadioButton = (RadioButton)findViewById(selectedAge);
+                String age = dobRadioButton.getText().toString();
+
+                //Assign values for age:
+                //  1: 0-2 years old
+                //  2: 3-18 years old
+                //  3: 19 and older
+                if(age.equals(getString(R.string.dob_infant))) {
+                    ageGroup = 1;
+                } else if(age.equals(getString(R.string.dob_adolescent))) {
+                    ageGroup = 2;
+                } else {
+                    ageGroup = 3;
+                }
+
+                //Writing to database
+                mDatabase.child("users").child(uID).child("display_name").setValue(name);
+                mDatabase.child("users").child(uID).child("gender").setValue(gender);
+                mDatabase.child("users").child(uID).child("age").setValue(ageGroup);
+
+                //GAREL - this is where you will be setting the default plan, depending on the gender and date of birth
+                mDatabase.child("users").child(uID).child("plan").child("default_plan").setValue(true);
+
+                Toast.makeText(NewUser.this, getString(R.string.submit_confirmation), Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(NewUser.this, Home.class);
+                startActivity(intent);
 
             }
         });
