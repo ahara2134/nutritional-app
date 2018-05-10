@@ -12,6 +12,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -26,6 +34,9 @@ import com.google.firebase.database.ValueEventListener;
 public class Home extends AppCompatActivity implements NutrientDialogFragment.NutrientDialogListener{
 
     private View view2;
+    private FirebaseAuth mAuth;
+    GoogleApiClient mGoogleApiClient;
+    GoogleSignInClient mGoogleSignInClient;
 
     private static final String TAG_NUTRIENT_DIALOG = "NUTRIENT_DIALOG";
     private static final String TAG = "Home.java";
@@ -65,9 +76,23 @@ public class Home extends AppCompatActivity implements NutrientDialogFragment.Nu
         // This is just for changing the background color
         view2 = this.getWindow().getDecorView();
 
-        // Ryan here - I have a weird
-/*        //Checks if user's demographics are entered in. If not, send to NewUserActivity.
-        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        mAuth = FirebaseAuth.getInstance();
+
+        //Google Sign-in
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+
+        // Build a GoogleSignInClient with the options specified by gso.
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+
+        // Caused by: java.lang.NullPointerException: Attempt to invoke virtual method 'java.lang.String com.google.firebase.auth.FirebaseUser.getUid()' on a null object reference
+        //        at ca.infostages.infonut.Home.onCreate(Home.java:93)
+        // I get this error when the code below is uncommented - Ryan
+
+        //Checks if user's demographics are entered in. If not, send to NewUserActivity.
+        /*FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         DatabaseReference planReference;
         planReference = FirebaseDatabase.getInstance().getReference().child("users").child(currentUser.getUid()).child("plan");
         planReference.addValueEventListener(new ValueEventListener() {
@@ -87,6 +112,7 @@ public class Home extends AppCompatActivity implements NutrientDialogFragment.Nu
                 Log.d(TAG, ": " + databaseError.getMessage());
             }
         });*/
+        // End of error
 
         //Temporary button to test NewUser Activity
         Button button = (Button)findViewById(R.id.to_newUser);
@@ -152,5 +178,28 @@ public class Home extends AppCompatActivity implements NutrientDialogFragment.Nu
         view2.setBackgroundResource(R.color.green);
     }
 
-    public void something(){}
+    public void something(View view){
+        mAuth.signOut();
+        if (mGoogleApiClient.isConnected()) {
+            mGoogleApiClient.disconnect();
+
+            //Open other activity
+            Intent intent = new Intent(Home.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
+    }
+
+    public void signOut(View view) {
+        mGoogleSignInClient.signOut()
+                .addOnCompleteListener(this, new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        //Open other activity
+                        Intent intent = new Intent(Home.this, MainActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                });
+    }
 }

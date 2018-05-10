@@ -50,11 +50,13 @@ public class LoginActivity extends AppCompatActivity {
 
         yourButton = (Button) findViewById(R.id.button);
 
-        yourButton.setOnClickListener(new View.OnClickListener(){
+        // This crashes the app for me, once I removed this function the app worked normally. Bug maybe?
+        // Ryan
+        /*yourButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 startActivity(new Intent(LoginActivity.this, Home.class));
             }
-        });
+        });*/
 
         //Google Sign-in
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
