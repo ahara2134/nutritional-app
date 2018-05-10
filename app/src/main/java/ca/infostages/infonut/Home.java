@@ -109,18 +109,13 @@ public class Home extends AppCompatActivity implements NutrientDialogFragment.Nu
             }
         });
 
-        //Temporary button to test NewUser Activity
-        Button button = (Button)findViewById(R.id.to_newUser);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent (Home.this, NewUser.class);
-                startActivity(intent);
-            }
-        });
-
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+    }
+
+    public void newUser(View view) {
+        Intent intent = new Intent (Home.this, NewUser.class);
+        startActivity(intent);
     }
 
     /**
