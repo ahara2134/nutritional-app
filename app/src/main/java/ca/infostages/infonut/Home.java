@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -30,7 +31,7 @@ import com.google.firebase.database.ValueEventListener;
 /**
  * Represents the container of all user navigation related tasks.
  */
-public class Home extends AppCompatActivity {
+public class Home extends AppCompatActivity implements NutrientDialogFragment.NutrientDialogListener{
 
     private View view2;
     private FirebaseAuth mAuth;
@@ -109,6 +110,16 @@ public class Home extends AppCompatActivity {
             }
         });*/
 
+        //Temporary button to test NewUser Activity
+        Button button = (Button)findViewById(R.id.to_newUser);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent (Home.this, NewUser.class);
+                startActivity(intent);
+            }
+        });
+
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
@@ -143,6 +154,16 @@ public class Home extends AppCompatActivity {
     public void addNutrientOrIngredient(View view) {
         DialogFragment dialogFragment = new NutrientDialogFragment();
         dialogFragment.show(getSupportFragmentManager(), TAG_NUTRIENT_DIALOG);
+    }
+
+    @Override
+    public void onDialogPositiveClick(DialogFragment dialogFragment) {
+        //
+    }
+
+    @Override
+    public void onDialogNegativeClick(DialogFragment dialogFragment) {
+        //
     }
     public void redButton(View view)
     {

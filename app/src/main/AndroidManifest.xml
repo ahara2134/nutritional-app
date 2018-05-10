@@ -26,8 +26,6 @@
         </activity>
         <activity android:name=".LoginActivity" />
         <activity android:name=".DashboardActivity" />
-        <activity android:name=".MakePlanActivity" />
-        <activity android:name=".ChoosePlanActivity" />
         <activity android:name=".BarcodeReader" />
         <activity android:name=".BarcodeCaptureActivity" />
         <activity android:name=".RegisterActivity" />
