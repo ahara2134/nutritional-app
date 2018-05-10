@@ -30,12 +30,13 @@ import com.google.firebase.auth.GoogleAuthProvider;
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LoginActivity";
     private static final int RC_SIGN_IN = 9001;
-    EditText email, password;
+    private EditText email, password;
     GoogleSignInClient mGoogleSignInClient;
     Button yourButton;
-    String EmailHolder, PasswordHolder;
+    String emailHolder, passwordHolder;
     Button Login;
     Boolean EditTextEmptyCheck;
+    Boolean emailValid;
     ProgressDialog progressDialog;
     private FirebaseAuth firebaseAuth;
     private static final String APP_SHARED_PREFS = "ca.infostages.infonut";
@@ -49,11 +50,13 @@ public class LoginActivity extends AppCompatActivity {
 
         yourButton = (Button) findViewById(R.id.button);
 
-        yourButton.setOnClickListener(new View.OnClickListener(){
+        // This crashes the app for me, once I removed this function the app worked normally. Bug maybe?
+        // Ryan
+        /*yourButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 startActivity(new Intent(LoginActivity.this, Home.class));
             }
-        });
+        });*/
 
         //Google Sign-in
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -104,15 +107,15 @@ public class LoginActivity extends AppCompatActivity {
                 //call method CheckEditTextIsEmptyorNot
                 CheckEditTextIsEmptyOrNot();
 
-                final String fill_field = getString(R.string.fill_field);
-
-                // If EditTextEmptyCheck == true
-                if (EditTextEmptyCheck) {
+                // If all fields were filled out properly
+                if (EditTextEmptyCheck && emailValid) {
                     //then login function called
                     LoginFunction();
-                } else {
+                } else if (!EditTextEmptyCheck) {
                     //if false, display toast
-                    Toast.makeText(LoginActivity.this, fill_field, Toast.LENGTH_LONG).show();
+                    Toast.makeText(LoginActivity.this, getString(R.string.fill_field), Toast.LENGTH_LONG).show();
+                } else{
+                    Toast.makeText(LoginActivity.this, getString(R.string.text_error), Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -190,7 +193,7 @@ public class LoginActivity extends AppCompatActivity {
         progressDialog.show();
 
         //Call signinWithEmailandPassword function with firebase obj
-        firebaseAuth.signInWithEmailAndPassword(EmailHolder, PasswordHolder)
+        firebaseAuth.signInWithEmailAndPassword(emailHolder, passwordHolder)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -220,20 +223,24 @@ public class LoginActivity extends AppCompatActivity {
 
     //check if EditText is empty or not
     public void CheckEditTextIsEmptyOrNot() {
+        emailHolder = email.getText().toString().trim();
+        passwordHolder = password.getText().toString().trim();
 
-        //Get value from email's editText and fill into EmailHolder string
-        EmailHolder = email.getText().toString().trim();
-
-        //get value from password editText
-        PasswordHolder = password.getText().toString().trim();
-
-        //Check if both editText is emoty or not
-        if(TextUtils.isEmpty(EmailHolder) || TextUtils.isEmpty(PasswordHolder))
+        //Check if both editText is empty or not
+        if(TextUtils.isEmpty(emailHolder) || TextUtils.isEmpty(passwordHolder))
         {
             //if empty, set value as false.
             EditTextEmptyCheck = false;
         } else {
             EditTextEmptyCheck = true;
+        }
+
+        //Check if the user's Email contains the '@' symbol.
+        int n = emailHolder.indexOf('@');
+        if(n == -1) {
+            emailValid = false;
+        } else {
+            emailValid = true;
         }
     }
 }
