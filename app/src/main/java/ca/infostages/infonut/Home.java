@@ -87,19 +87,15 @@ public class Home extends AppCompatActivity implements NutrientDialogFragment.Nu
         // Build a GoogleSignInClient with the options specified by gso.
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
-        // Caused by: java.lang.NullPointerException: Attempt to invoke virtual method 'java.lang.String com.google.firebase.auth.FirebaseUser.getUid()' on a null object reference
-        //        at ca.infostages.infonut.Home.onCreate(Home.java:93)
-        // I get this error when the code below is uncommented - Ryan
-
         //Checks if user's demographics are entered in. If not, send to NewUserActivity.
-        /*FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         DatabaseReference planReference;
         planReference = FirebaseDatabase.getInstance().getReference().child("users").child(currentUser.getUid()).child("plan");
         planReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                boolean plan = (boolean)dataSnapshot.getValue();
-                if (!plan) {
+                String plan = dataSnapshot.getValue().toString();
+                if (plan.equals("false")) {
                     Intent intent = new Intent (Home.this, NewUser.class);
                     startActivity(intent);
                 } else {
@@ -111,8 +107,7 @@ public class Home extends AppCompatActivity implements NutrientDialogFragment.Nu
             public void onCancelled(DatabaseError databaseError) {
                 Log.d(TAG, ": " + databaseError.getMessage());
             }
-        });*/
-        // End of error
+        });
 
         //Temporary button to test NewUser Activity
         Button button = (Button)findViewById(R.id.to_newUser);

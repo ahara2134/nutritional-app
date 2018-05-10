@@ -90,7 +90,7 @@ public class NewUser extends AppCompatActivity {
                 mDatabase.child("users").child(uID).child("plan").child("default_plan").setValue(true);
 
                 Toast.makeText(NewUser.this, getString(R.string.submit_confirmation), Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(NewUser.this, Home.class);
+                Intent intent = new Intent(NewUser.this, MainActivity.class);
                 startActivity(intent);
 
             }
