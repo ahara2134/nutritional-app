@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -21,6 +22,7 @@ public class BarcodeReader extends AppCompatActivity implements View.OnClickList
     private static final int RC_BARCODE_CAPTURE = 9001;
     private static final String TAG = "BarcodeMain";
     private static SeekBar seek_bar;
+    private static Button sendResults;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +36,13 @@ public class BarcodeReader extends AppCompatActivity implements View.OnClickList
         Intent intent = new Intent(this, BarcodeCaptureActivity.class);
         startActivityForResult(intent, RC_BARCODE_CAPTURE);
 
+        sendResults = findViewById(R.id.send_results);
+        sendResults.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //RYAN SEND TO RESULTS HERE
+            }
+        });
     }
 
     @Override
