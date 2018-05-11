@@ -84,6 +84,8 @@
     <string name="vitaminC">Vitamin C</string>
     <string name="calcium">Calcium</string>
     <string name="iron">Iron</string>
+    <string name="add">Add</string>
+    <string name="tryAgain">Try Again</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
