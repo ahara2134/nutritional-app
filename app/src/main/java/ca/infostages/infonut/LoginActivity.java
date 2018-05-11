@@ -66,7 +66,7 @@ public class LoginActivity extends AppCompatActivity {
             finish();
 
             //Open other activity
-            Intent intent = new Intent(LoginActivity.this, DashboardActivity.class);
+            Intent intent = new Intent(LoginActivity.this, Home.class);
             startActivity(intent);
         }
 
