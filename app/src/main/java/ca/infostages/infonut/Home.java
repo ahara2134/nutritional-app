@@ -37,6 +37,7 @@ public class Home extends AppCompatActivity {
     private FirebaseAuth mAuth;
     GoogleApiClient mGoogleApiClient;
     GoogleSignInClient mGoogleSignInClient;
+    FirebaseUser currentUser;
 
     private static final String TAG_NUTRIENT_DIALOG = "NUTRIENT_DIALOG";
     private static final String TAG = "Home.java";
@@ -55,7 +56,8 @@ public class Home extends AppCompatActivity {
                     startActivity(intent);
                     return true;
                 case R.id.navigation_plans:
-                    loadFragment(ChoosePlanFragment.newInstance());
+                    Intent intent4 = new Intent(Home.this, Statistics.class);
+                    startActivity(intent4);
                     return true;
                 case R.id.navigation_settings:
                     loadFragment(Results.newInstance());
@@ -87,19 +89,15 @@ public class Home extends AppCompatActivity {
         // Build a GoogleSignInClient with the options specified by gso.
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
-        // Caused by: java.lang.NullPointerException: Attempt to invoke virtual method 'java.lang.String com.google.firebase.auth.FirebaseUser.getUid()' on a null object reference
-        //        at ca.infostages.infonut.Home.onCreate(Home.java:93)
-        // I get this error when the code below is uncommented - Ryan
-
         //Checks if user's demographics are entered in. If not, send to NewUserActivity.
-        /*FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        currentUser = FirebaseAuth.getInstance().getCurrentUser();
         DatabaseReference planReference;
         planReference = FirebaseDatabase.getInstance().getReference().child("users").child(currentUser.getUid()).child("plan");
         planReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                boolean plan = (boolean)dataSnapshot.getValue();
-                if (!plan) {
+                String plan = dataSnapshot.getValue().toString();
+                if (plan.equals("false")) {
                     Intent intent = new Intent (Home.this, NewUser.class);
                     startActivity(intent);
                 } else {
@@ -111,21 +109,15 @@ public class Home extends AppCompatActivity {
             public void onCancelled(DatabaseError databaseError) {
                 Log.d(TAG, ": " + databaseError.getMessage());
             }
-        });*/
-        // End of error
-
-        //Temporary button to test NewUser Activity
-        Button button = (Button)findViewById(R.id.to_newUser);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent (Home.this, NewUser.class);
-                startActivity(intent);
-            }
         });
 
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+    }
+
+    public void newUser(View view) {
+        Intent intent = new Intent (Home.this, NewUser.class);
+        startActivity(intent);
     }
 
     /**
@@ -181,15 +173,19 @@ public class Home extends AppCompatActivity {
         }
     }
 
+    //This is still broken! 
     public void signOut(View view) {
-        mGoogleSignInClient.signOut()
-                .addOnCompleteListener(this, new OnCompleteListener<Void>() {
+        FirebaseAuth.getInstance().signOut();
+        Intent intent = new Intent(Home.this, MainActivity.class);
+        startActivity(intent);
+
+        // Google revoke access
+        mGoogleSignInClient.revokeAccess().addOnCompleteListener(this,
+                new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
-                        //Open other activity
                         Intent intent = new Intent(Home.this, MainActivity.class);
                         startActivity(intent);
-                        finish();
                     }
                 });
     }
