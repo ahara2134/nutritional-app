@@ -45,7 +45,8 @@
         android:text="@string/to_register"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/reg_pw" />
+        app:layout_constraintTop_toBottomOf="@+id/reg_pw"
+        android:backgroundTint="@color/button"/>
 
     <!-- Android sign in button -->
     <com.google.android.gms.common.SignInButton
