@@ -28,10 +28,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+
 /**
  * Represents the container of all user navigation related tasks.
  */
-public class Home extends AppCompatActivity implements NutrientDialogFragment.NutrientDialogListener{
+public class Home extends AppCompatActivity {
 
     private View view2;
     private FirebaseAuth mAuth;
@@ -39,7 +41,6 @@ public class Home extends AppCompatActivity implements NutrientDialogFragment.Nu
     GoogleSignInClient mGoogleSignInClient;
     FirebaseUser currentUser;
 
-    private static final String TAG_NUTRIENT_DIALOG = "NUTRIENT_DIALOG";
     private static final String TAG = "Home.java";
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -56,11 +57,10 @@ public class Home extends AppCompatActivity implements NutrientDialogFragment.Nu
                     startActivity(intent);
                     return true;
                 case R.id.navigation_plans:
-                    Intent intent4 = new Intent(Home.this, Statistics.class);
-                    startActivity(intent4);
-                    return true;
+                    return loadFragment(ChoosePlanFragment.newInstance());
                 case R.id.navigation_settings:
-                    loadFragment(Results.newInstance());
+                    intent = new Intent(Home.this, Statistics.class);
+                    startActivity(intent);
                     return true;
             }
             return false;
@@ -79,15 +79,6 @@ public class Home extends AppCompatActivity implements NutrientDialogFragment.Nu
         view2 = this.getWindow().getDecorView();
 
         mAuth = FirebaseAuth.getInstance();
-
-        //Google Sign-in
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))
-                .requestEmail()
-                .build();
-
-        // Build a GoogleSignInClient with the options specified by gso.
-        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
         //Checks if user's demographics are entered in. If not, send to NewUserActivity.
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -136,31 +127,14 @@ public class Home extends AppCompatActivity implements NutrientDialogFragment.Nu
     }
 
     /**
-     * Opens the MakePlanFragment upon button press from the ChoosePlanFragment
+     * Opens the MakePlanActivity upon button press from the ChoosePlanFragment
      * @param view - view
      */
     public void makePlan(View view) {
-        loadFragment(MakePlanFragment.newInstance());
+        Intent intent = new Intent(Home.this, MakePlanActivity.class);
+        startActivity(intent);
     }
 
-    /**
-     * Shows a dialog which has a list of available nutrients that users can pick from.
-     * @param view - view
-     */
-    public void addNutrientOrIngredient(View view) {
-        DialogFragment dialogFragment = new NutrientDialogFragment();
-        dialogFragment.show(getSupportFragmentManager(), TAG_NUTRIENT_DIALOG);
-    }
-
-    @Override
-    public void onDialogPositiveClick(DialogFragment dialogFragment) {
-        //
-    }
-
-    @Override
-    public void onDialogNegativeClick(DialogFragment dialogFragment) {
-        //
-    }
     public void redButton(View view)
     {
         view2.setBackgroundResource(R.color.red);
@@ -168,34 +142,5 @@ public class Home extends AppCompatActivity implements NutrientDialogFragment.Nu
     public void greenButton(View view)
     {
         view2.setBackgroundResource(R.color.green);
-    }
-
-    public void something(View view){
-        mAuth.signOut();
-        if (mGoogleApiClient.isConnected()) {
-            mGoogleApiClient.disconnect();
-
-            //Open other activity
-            Intent intent = new Intent(Home.this, MainActivity.class);
-            startActivity(intent);
-            finish();
-        }
-    }
-
-    //This is still broken! 
-    public void signOut(View view) {
-        FirebaseAuth.getInstance().signOut();
-        Intent intent = new Intent(Home.this, MainActivity.class);
-        startActivity(intent);
-
-        // Google revoke access
-        mGoogleSignInClient.revokeAccess().addOnCompleteListener(this,
-                new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        Intent intent = new Intent(Home.this, MainActivity.class);
-                        startActivity(intent);
-                    }
-                });
     }
 }
