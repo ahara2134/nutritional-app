@@ -37,6 +37,7 @@ public class Home extends AppCompatActivity implements NutrientDialogFragment.Nu
     private FirebaseAuth mAuth;
     GoogleApiClient mGoogleApiClient;
     GoogleSignInClient mGoogleSignInClient;
+    FirebaseUser currentUser;
 
     private static final String TAG_NUTRIENT_DIALOG = "NUTRIENT_DIALOG";
     private static final String TAG = "Home.java";
@@ -88,7 +89,7 @@ public class Home extends AppCompatActivity implements NutrientDialogFragment.Nu
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
         //Checks if user's demographics are entered in. If not, send to NewUserActivity.
-        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        currentUser = FirebaseAuth.getInstance().getCurrentUser();
         DatabaseReference planReference;
         planReference = FirebaseDatabase.getInstance().getReference().child("users").child(currentUser.getUid()).child("plan");
         planReference.addValueEventListener(new ValueEventListener() {
@@ -180,15 +181,19 @@ public class Home extends AppCompatActivity implements NutrientDialogFragment.Nu
         }
     }
 
+    //This is still broken! 
     public void signOut(View view) {
-        mGoogleSignInClient.signOut()
-                .addOnCompleteListener(this, new OnCompleteListener<Void>() {
+        FirebaseAuth.getInstance().signOut();
+        Intent intent = new Intent(Home.this, MainActivity.class);
+        startActivity(intent);
+
+        // Google revoke access
+        mGoogleSignInClient.revokeAccess().addOnCompleteListener(this,
+                new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
-                        //Open other activity
                         Intent intent = new Intent(Home.this, MainActivity.class);
                         startActivity(intent);
-                        finish();
                     }
                 });
     }
