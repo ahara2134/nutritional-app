@@ -56,7 +56,8 @@ public class Home extends AppCompatActivity implements NutrientDialogFragment.Nu
                     startActivity(intent);
                     return true;
                 case R.id.navigation_plans:
-                    loadFragment(ChoosePlanFragment.newInstance());
+                    Intent intent4 = new Intent(Home.this, Statistics.class);
+                    startActivity(intent4);
                     return true;
                 case R.id.navigation_settings:
                     loadFragment(Results.newInstance());

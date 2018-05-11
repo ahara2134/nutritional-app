@@ -147,6 +147,9 @@ public class LoginActivity extends AppCompatActivity {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
             // Signed in successfully, show authenticated UI.
             firebaseAuthWithGoogle(account);
+            Intent intent = new Intent(LoginActivity.this, Home.class);
+            startActivity(intent);
+            finish();
 
         } catch (ApiException e) {
             // The ApiException status code indicates the detailed failure reason.
@@ -170,8 +173,6 @@ public class LoginActivity extends AppCompatActivity {
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = firebaseAuth.getCurrentUser();
                             Toast.makeText(LoginActivity.this, authSuccess, Toast.LENGTH_LONG).show();
-                            Intent intent = new Intent(LoginActivity.this, Home.class);
-                            startActivity(intent);
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
@@ -203,12 +204,12 @@ public class LoginActivity extends AppCompatActivity {
                             //Hide progress dialog
                             progressDialog.dismiss();
 
-                            //Close current activity
-                            finish();
-
                             //Open userprofileActivity
                             Intent intent = new Intent(LoginActivity.this, Home.class);
                             startActivity(intent);
+
+                            //Close current activity
+                            finish();
                         } else {
 
                             //Hide Progress dialog
