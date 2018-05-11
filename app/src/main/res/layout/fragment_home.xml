@@ -9,5 +9,6 @@
         android:layout_height="wrap_content"
         android:id="@+id/to_newUser"
         android:text="newUser"
-        android:onClick="newUser"/>
+        android:onClick="newUser"
+        android:backgroundTint="@color/button"/>
 </android.support.constraint.ConstraintLayout>

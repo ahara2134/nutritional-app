@@ -38,7 +38,8 @@
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="35dp"
         android:layout_alignParentStart="true"
-        android:text="@string/read_barcode" />
+        android:text="@string/read_barcode"
+        android:background="@color/button"/>
 
     <Button
         android:id="@+id/send_results"
@@ -47,7 +48,8 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_marginBottom="35dp"
-        android:text="Show Results" />
+        android:text="Show Results"
+        android:background="@color/button"/>
 
     <SeekBar
         android:id="@+id/seekBar"
