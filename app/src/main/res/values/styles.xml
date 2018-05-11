@@ -6,10 +6,9 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <!-- Font assistant fix -->
-        <!--<item name="android:textColor">@color/white</item>
+        <item name="android:textColor">@color/white</item>
         <item name="android:windowBackground">@color/colorPrimaryDark</item>
-        <item name="android:fontFamily">@font/assistant</item>-->
+        <item name="android:fontFamily">@font/assistant</item>
     </style>
 
 </resources>
