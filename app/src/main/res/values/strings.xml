@@ -84,6 +84,8 @@
     <string name="vitaminC">Vitamin C</string>
     <string name="calcium">Calcium</string>
     <string name="iron">Iron</string>
+    <string name="bye">Sign Out</string>
+    <string name="signed_out">Logout successful.</string>
     <string name="add">Add</string>
     <string name="tryAgain">Try Again</string>
 

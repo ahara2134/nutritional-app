@@ -66,6 +66,9 @@ public final class BarcodeCaptureActivity extends AppCompatActivity implements B
         super.onCreate(icicle);
         setContentView(R.layout.barcode_capture);
 
+        //Enable back button
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         mPreview = (CameraSourcePreview) findViewById(R.id.preview);
         mGraphicOverlay = (GraphicOverlay<BarcodeGraphic>) findViewById(R.id.graphicOverlay);
 

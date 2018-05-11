@@ -1,10 +1,14 @@
 package ca.infostages.infonut;
 
+import android.app.Fragment;
 import android.content.Intent;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -13,6 +17,7 @@ import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.vision.barcode.Barcode;
 
 import ca.infostages.infonut.R;
+import ca.infostages.infonut.ui.camera.ResultsFragment;
 
 public class BarcodeReader extends AppCompatActivity implements View.OnClickListener{
 
@@ -28,6 +33,10 @@ public class BarcodeReader extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_barcode_reader);
+
+        //Enable Back button
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         seekbar();
         statusMessage = (TextView)findViewById(R.id.status_message);
         barcodeValue = (TextView)findViewById(R.id.barcode_value);

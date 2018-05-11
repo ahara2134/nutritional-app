@@ -46,19 +46,22 @@
                 android:id="@+id/button6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/transFat" />
+                android:text="@string/transFat"
+                android:backgroundTint="@color/button"/>
 
             <Button
                 android:id="@+id/button7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/sodium" />
+                android:text="@string/sodium"
+                android:backgroundTint="@color/button"/>
 
             <Button
                 android:id="@+id/button5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/iron" />
+                android:text="@string/iron"
+                android:backgroundTint="@color/button"/>
 
         </TableRow>
 
@@ -70,19 +73,22 @@
                 android:id="@+id/button8"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/calcium" />
+                android:text="@string/calcium"
+                android:backgroundTint="@color/button"/>
 
             <Button
                 android:id="@+id/button9"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/carbohydrate" />
+                android:text="@string/carbohydrate"
+                android:backgroundTint="@color/button"/>
 
             <Button
                 android:id="@+id/button10"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/cholesterol" />
+                android:text="@string/cholesterol"
+                android:backgroundTint="@color/button"/>
 
         </TableRow>
 
@@ -94,19 +100,22 @@
                 android:id="@+id/button11"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/protein" />
+                android:text="@string/protein"
+                android:backgroundTint="@color/button"/>
 
             <Button
                 android:id="@+id/button12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/sugar" />
+                android:text="@string/sugar"
+                android:backgroundTint="@color/button"/>
 
             <Button
                 android:id="@+id/button13"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/fibre" />
+                android:text="@string/fibre"
+                android:backgroundTint="@color/button"/>
 
         </TableRow>
 
@@ -118,19 +127,22 @@
                 android:id="@+id/button3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/fat" />
+                android:text="@string/fat"
+                android:backgroundTint="@color/button"/>
 
             <Button
                 android:id="@+id/button4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/vitaminA" />
+                android:text="@string/vitaminA"
+                android:backgroundTint="@color/button"/>
 
             <Button
                 android:id="@+id/button14"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/vitaminC" />
+                android:text="@string/vitaminC"
+                android:backgroundTint="@color/button"/>
 
         </TableRow>
 
@@ -142,19 +154,22 @@
                 android:id="@+id/button16"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/add" />
+                android:text="@string/add"
+                android:backgroundTint="@color/button"/>
 
             <Button
                 android:id="@+id/button15"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/saturatedFat" />
+                android:text="@string/saturatedFat"
+                android:backgroundTint="@color/button"/>
 
             <Button
                 android:id="@+id/button17"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/tryAgain" />
+                android:text="@string/tryAgain"
+                android:backgroundTint="@color/button"/>
 
         </TableRow>
     </TableLayout>
