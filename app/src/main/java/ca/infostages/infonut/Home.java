@@ -31,7 +31,7 @@ import com.google.firebase.database.ValueEventListener;
 /**
  * Represents the container of all user navigation related tasks.
  */
-public class Home extends AppCompatActivity implements NutrientDialogFragment.NutrientDialogListener{
+public class Home extends AppCompatActivity {
 
     private View view2;
     private FirebaseAuth mAuth;
@@ -160,15 +160,6 @@ public class Home extends AppCompatActivity implements NutrientDialogFragment.Nu
         dialogFragment.show(getSupportFragmentManager(), TAG_NUTRIENT_DIALOG);
     }
 
-    @Override
-    public void onDialogPositiveClick(DialogFragment dialogFragment) {
-        //
-    }
-
-    @Override
-    public void onDialogNegativeClick(DialogFragment dialogFragment) {
-        //
-    }
     public void redButton(View view)
     {
         view2.setBackgroundResource(R.color.red);

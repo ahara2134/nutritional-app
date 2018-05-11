@@ -1,5 +1,7 @@
 <resources>
 
+    <string name="app_name">InfoNut</string>
+
     <string name="ok">OK</string>
     <string name="permission_camera_rationale">Access to the camera is needed for detection</string>
     <string name="no_camera_permission">This application cannot run because it does not have the camera permission.  The application will now exit.</string>
@@ -12,8 +14,6 @@
     <string name="barcode_success">Barcode read successfully</string>
     <string name="barcode_failure">No barcode captured</string>
     <string name="barcode_error">"Error reading barcode: %1$s"</string>
-
-    <string name="app_name">InfoNut</string>
 
     <!-- Login / Register Strings -->
     <string name="email_hint">E-mail Address</string>
