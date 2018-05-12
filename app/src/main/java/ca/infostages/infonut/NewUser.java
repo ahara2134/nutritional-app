@@ -1,14 +1,11 @@
 package ca.infostages.infonut;
 
-import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.InputType;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -19,8 +16,6 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.Calendar;
-
 public class NewUser extends AppCompatActivity {
     //declare database objects
     private DatabaseReference mDatabase;
@@ -30,16 +25,16 @@ public class NewUser extends AppCompatActivity {
     //declare GUI objects
     private EditText displayName;
     private RadioGroup genderRadioGroup;
-    private RadioGroup dobRadioGroup;
+    private RadioGroup activeRadioGroup;
     private RadioButton genderRadioButton;
-    private RadioButton dobRadioButton;
+    private RadioButton activeRadioButton;
     private Button submit;
     private String name;
     private String gender;
-    private int ageGroup;
+    private int activeLevel;
     private Boolean checkEditTextEmpty;
     private Boolean checkGenderEmpty;
-    private Boolean checkAgeEmpty;
+    private Boolean checkActiveEmpty;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,8 +47,8 @@ public class NewUser extends AppCompatActivity {
 
         //Instantiate GUI objects
         genderRadioGroup = (RadioGroup)findViewById(R.id.radio_gender);
-        dobRadioGroup = (RadioGroup)findViewById(R.id.radio_dob);
-        submit = (Button)findViewById(R.id.button_submit);
+        activeRadioGroup = (RadioGroup)findViewById(R.id.radio_active);
+        submit = (Button)findViewById(R.id.button_next);
         displayName = (EditText)findViewById(R.id.editText_name);
 
         //Button listener for submit button - sets user demographics in database/
@@ -65,39 +60,42 @@ public class NewUser extends AppCompatActivity {
                 String uID = mUser.getUid();
                 name = displayName.getText().toString();
                 CheckEditTextIsEmptyOrNot();
-                if(!checkEditTextEmpty || !checkAgeEmpty || !checkGenderEmpty) {
+                if(!checkEditTextEmpty || !checkActiveEmpty || !checkGenderEmpty) {
                     Toast.makeText(NewUser.this, getString(R.string.fill_field), Toast.LENGTH_LONG).show();
                 } else {
                     int selectedGender = genderRadioGroup.getCheckedRadioButtonId();
                     genderRadioButton = (RadioButton) findViewById(selectedGender);
                     gender = genderRadioButton.getText().toString();
 
-                    int selectedAge = dobRadioGroup.getCheckedRadioButtonId();
-                    dobRadioButton = (RadioButton) findViewById(selectedAge);
-                    String age = dobRadioButton.getText().toString();
+                    int selectedAge = activeRadioGroup.getCheckedRadioButtonId();
+                    activeRadioButton = (RadioButton) findViewById(selectedAge);
+                    String activity = activeRadioButton.getText().toString();
 
-                    //Assign values for age:
-                    //  1: 0-2 years old
-                    //  2: 3-18 years old
-                    //  3: 19 and older
-                    if (age.equals(getString(R.string.dob_infant))) {
-                        ageGroup = 1;
-                    } else if (age.equals(getString(R.string.dob_adolescent))) {
-                        ageGroup = 2;
+                    //Assign values for activity level:
+                    //  1: Sedentary
+                    //  2: Low
+                    //  3: High
+                    if (activity.equals(getString(R.string.active_sedentary))) {
+                        activeLevel = 1;
+                    } else if (activity.equals(getString(R.string.active_low))) {
+                        activeLevel = 2;
                     } else {
-                        ageGroup = 3;
+                        activeLevel = 3;
                     }
 
                     //Writing to database
                     mDatabase.child("users").child(uID).child("display_name").setValue(name);
                     mDatabase.child("users").child(uID).child("gender").setValue(gender);
-                    mDatabase.child("users").child(uID).child("age").setValue(ageGroup);
+                    mDatabase.child("users").child(uID).child("active").setValue(activeLevel);
 
-                    //GAREL - this is where you will be setting the default plan, depending on the gender and date of birth
-                    mDatabase.child("users").child(uID).child("plan").child("default_plan").setValue(true);
-
-                    Toast.makeText(NewUser.this, getString(R.string.submit_confirmation), Toast.LENGTH_LONG).show();
-                    finish();
+                    Intent intent = new Intent(NewUser.this, NewUser2Activity.class);
+                    startActivity(intent);
+//
+//                    //GAREL - this is where you will be setting the default plan, depending on the gender and date of birth
+//                    mDatabase.child("users").child(uID).child("plan").child("default_plan").setValue(true);
+//
+//                    Toast.makeText(NewUser.this, getString(R.string.submit_confirmation), Toast.LENGTH_LONG).show();
+//                    finish();
                 }
 
             }
@@ -117,10 +115,10 @@ public class NewUser extends AppCompatActivity {
         }
 
         //Check if DOB radiobutton was selected
-        if (dobRadioGroup.getCheckedRadioButtonId() == -1) {
-            checkAgeEmpty = false;
+        if (activeRadioGroup.getCheckedRadioButtonId() == -1) {
+            checkActiveEmpty = false;
         } else {
-            checkAgeEmpty = true;
+            checkActiveEmpty = true;
         }
 
         //Check if gender radioButton was selected
