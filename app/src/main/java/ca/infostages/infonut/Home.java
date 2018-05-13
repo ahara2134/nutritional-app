@@ -80,15 +80,6 @@ public class Home extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
-        //Google Sign-in
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))
-                .requestEmail()
-                .build();
-
-        // Build a GoogleSignInClient with the options specified by gso.
-        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-
         //Checks if user's demographics are entered in. If not, send to NewUserActivity.
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
         DatabaseReference planReference;
@@ -151,34 +142,5 @@ public class Home extends AppCompatActivity {
     public void greenButton(View view)
     {
         view2.setBackgroundResource(R.color.green);
-    }
-
-    public void something(View view){
-        mAuth.signOut();
-        if (mGoogleApiClient.isConnected()) {
-            mGoogleApiClient.disconnect();
-
-            //Open other activity
-            Intent intent = new Intent(Home.this, MainActivity.class);
-            startActivity(intent);
-            finish();
-        }
-    }
-
-    //This is still broken! 
-    public void signOut(View view) {
-        FirebaseAuth.getInstance().signOut();
-        Intent intent = new Intent(Home.this, MainActivity.class);
-        startActivity(intent);
-
-        // Google revoke access
-        mGoogleSignInClient.revokeAccess().addOnCompleteListener(this,
-                new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        Intent intent = new Intent(Home.this, MainActivity.class);
-                        startActivity(intent);
-                    }
-                });
     }
 }
