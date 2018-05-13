@@ -40,8 +40,10 @@ public class Statistics extends AppCompatActivity{
     Button iron;
 
     String label;
-    Float nutrientValue = 0.00f;
-    Float remainder = 100f;
+    double nutrientValue = 0;
+    double intake = 100; //CHANGE HERE WITH USER SPECIFIED INTAKE
+    int percent = 0;
+    int full = 100;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,27 +92,10 @@ public class Statistics extends AppCompatActivity{
             @Override
             public void onClick(View view) {
                 label = "Fat";
-                nutrientValue = Float.valueOf(String.valueOf(hashmap.get("fat")));
+                nutrientValue = hashmap.get("fat");
                 System.out.println("Nut value: "+ nutrientValue);
-                List<PieEntry> pieEntries = new ArrayList<>();
-
-                remainder = remainder - nutrientValue;
-                System.out.println("remainder: "+remainder);
-
-                pieEntries.add(new PieEntry(remainder, "Intake"));
-                pieEntries.add(new PieEntry(nutrientValue, label));
-
-                // The name of the chart
-                PieDataSet dataSet = new PieDataSet(pieEntries, label);
-
-                // Color of the chart entries
-                dataSet.setColors(ColorTemplate.JOYFUL_COLORS);
-
-                // Displaying the chart data
-                PieData data = new PieData(dataSet);
-                mChart.setData(data);
-                mChart.animateY(1000); // Animation for the chart
-                mChart.invalidate(); // refresh
+                valueConverter(nutrientValue, intake);
+                createChart();
             }
         });
         saturatedFat.setOnClickListener(new View.OnClickListener() {
@@ -118,34 +103,10 @@ public class Statistics extends AppCompatActivity{
             @Override
             public void onClick(View view) {
                 label = "Saturated Fat";
-                nutrientValue = Float.valueOf(String.valueOf(hashmap.get("saturatedFat")));
+                nutrientValue = hashmap.get("saturatedFat");
                 System.out.println("Nut value: "+ nutrientValue);
-                List<PieEntry> pieEntries = new ArrayList<>();
-
-
-                System.out.println("TOTAL: " + getTotal());
-
-                DecimalFormat df = new DecimalFormat("##.##");
-                nutrientValue = Float.valueOf(df.format(nutrientValue));
-                remainder = Float.valueOf(df.format(remainder));
-
-                pieEntries.add(new PieEntry(nutrientValue, "Intake"));
-                pieEntries.add(new PieEntry(Float.valueOf(df.format(getTotal())), label));
-
-                /*pieEntries.add(new PieEntry(getTotal(), "Intake"));
-                pieEntries.add(new PieEntry(nutrientValue, label));*/
-
-                // The name of the chart
-                PieDataSet dataSet = new PieDataSet(pieEntries, label);
-
-                // Color of the chart entries
-                dataSet.setColors(ColorTemplate.JOYFUL_COLORS);
-
-                // Displaying the chart data
-                PieData data = new PieData(dataSet);
-                mChart.setData(data);
-                mChart.animateY(1000); // Animation for the chart
-                mChart.invalidate(); // refresh
+                valueConverter(nutrientValue, intake);
+                createChart();
             }
         });
         transFat .setOnClickListener(new View.OnClickListener() {
@@ -153,27 +114,10 @@ public class Statistics extends AppCompatActivity{
             @Override
             public void onClick(View view) {
                 label = "Trans Fat";
-                nutrientValue = Float.valueOf(String.valueOf(hashmap.get("transFat")));
+                nutrientValue = hashmap.get("transFat");
                 System.out.println("Nut value: "+ nutrientValue);
-                List<PieEntry> pieEntries = new ArrayList<>();
-
-                remainder = remainder - nutrientValue;
-                System.out.println("remainder: "+remainder);
-
-                pieEntries.add(new PieEntry(remainder, "Intake"));
-                pieEntries.add(new PieEntry(nutrientValue, label));
-
-                // The name of the chart
-                PieDataSet dataSet = new PieDataSet(pieEntries, label);
-
-                // Color of the chart entries
-                dataSet.setColors(ColorTemplate.JOYFUL_COLORS);
-
-                // Displaying the chart data
-                PieData data = new PieData(dataSet);
-                mChart.setData(data);
-                mChart.animateY(1000); // Animation for the chart
-                mChart.invalidate(); // refresh
+                valueConverter(nutrientValue, intake);
+                createChart();
             }
         });
         cholesterol .setOnClickListener(new View.OnClickListener() {
@@ -181,27 +125,10 @@ public class Statistics extends AppCompatActivity{
             @Override
             public void onClick(View view) {
                 label = "Cholesterol";
-                nutrientValue = Float.valueOf(String.valueOf(hashmap.get("cholesterol")));
+                nutrientValue = hashmap.get("cholesterol");
                 System.out.println("Nut value: "+ nutrientValue);
-                List<PieEntry> pieEntries = new ArrayList<>();
-
-                remainder = remainder - nutrientValue;
-                System.out.println("remainder: "+remainder);
-
-                pieEntries.add(new PieEntry(remainder, "Intake"));
-                pieEntries.add(new PieEntry(nutrientValue, label));
-
-                // The name of the chart
-                PieDataSet dataSet = new PieDataSet(pieEntries, label);
-
-                // Color of the chart entries
-                dataSet.setColors(ColorTemplate.JOYFUL_COLORS);
-
-                // Displaying the chart data
-                PieData data = new PieData(dataSet);
-                mChart.setData(data);
-                mChart.animateY(1000); // Animation for the chart
-                mChart.invalidate(); // refresh
+                valueConverter(nutrientValue, intake);
+                createChart();
             }
         });
         sodium .setOnClickListener(new View.OnClickListener() {
@@ -209,27 +136,10 @@ public class Statistics extends AppCompatActivity{
             @Override
             public void onClick(View view) {
                 label = "Sodium";
-                nutrientValue = Float.valueOf(String.valueOf(hashmap.get("sodium")));
+                nutrientValue = hashmap.get("sodium");
                 System.out.println("Nut value: "+ nutrientValue);
-                List<PieEntry> pieEntries = new ArrayList<>();
-
-                remainder = remainder - nutrientValue;
-                System.out.println("remainder: "+remainder);
-
-                pieEntries.add(new PieEntry(remainder, "Intake"));
-                pieEntries.add(new PieEntry(nutrientValue, label));
-
-                // The name of the chart
-                PieDataSet dataSet = new PieDataSet(pieEntries, label);
-
-                // Color of the chart entries
-                dataSet.setColors(ColorTemplate.JOYFUL_COLORS);
-
-                // Displaying the chart data
-                PieData data = new PieData(dataSet);
-                mChart.setData(data);
-                mChart.animateY(1000); // Animation for the chart
-                mChart.invalidate(); // refresh
+                valueConverter(nutrientValue, intake);
+                createChart();
             }
         });
         carbohydrate .setOnClickListener(new View.OnClickListener() {
@@ -237,27 +147,10 @@ public class Statistics extends AppCompatActivity{
             @Override
             public void onClick(View view) {
                 label = "Carbohydrate";
-                nutrientValue = Float.valueOf(String.valueOf(hashmap.get("carbohydrate")));
+                nutrientValue = hashmap.get("carbohydrate");
                 System.out.println("Nut value: "+ nutrientValue);
-                List<PieEntry> pieEntries = new ArrayList<>();
-
-                remainder = remainder - nutrientValue;
-                System.out.println("remainder: "+remainder);
-
-                pieEntries.add(new PieEntry(remainder, "Intake"));
-                pieEntries.add(new PieEntry(nutrientValue, label));
-
-                // The name of the chart
-                PieDataSet dataSet = new PieDataSet(pieEntries, label);
-
-                // Color of the chart entries
-                dataSet.setColors(ColorTemplate.JOYFUL_COLORS);
-
-                // Displaying the chart data
-                PieData data = new PieData(dataSet);
-                mChart.setData(data);
-                mChart.animateY(1000); // Animation for the chart
-                mChart.invalidate(); // refresh
+                valueConverter(nutrientValue, intake);
+                createChart();
             }
         });
         fibre .setOnClickListener(new View.OnClickListener() {
@@ -265,27 +158,10 @@ public class Statistics extends AppCompatActivity{
             @Override
             public void onClick(View view) {
                 label = "Fibre";
-                nutrientValue = Float.valueOf(String.valueOf(hashmap.get("fibre")));
+                nutrientValue = hashmap.get("fibre");
                 System.out.println("Nut value: "+ nutrientValue);
-                List<PieEntry> pieEntries = new ArrayList<>();
-
-                remainder = remainder - nutrientValue;
-                System.out.println("remainder: "+remainder);
-
-                pieEntries.add(new PieEntry(remainder, "Intake"));
-                pieEntries.add(new PieEntry(nutrientValue, label));
-
-                // The name of the chart
-                PieDataSet dataSet = new PieDataSet(pieEntries, label);
-
-                // Color of the chart entries
-                dataSet.setColors(ColorTemplate.JOYFUL_COLORS);
-
-                // Displaying the chart data
-                PieData data = new PieData(dataSet);
-                mChart.setData(data);
-                mChart.animateY(1000); // Animation for the chart
-                mChart.invalidate(); // refresh
+                valueConverter(nutrientValue, intake);
+                createChart();
             }
         });
         sugars .setOnClickListener(new View.OnClickListener() {
@@ -293,27 +169,10 @@ public class Statistics extends AppCompatActivity{
             @Override
             public void onClick(View view) {
                 label = "Sugars";
-                nutrientValue = Float.valueOf(String.valueOf(hashmap.get("sugars")));
+                nutrientValue = hashmap.get("sugars");
                 System.out.println("Nut value: "+ nutrientValue);
-                List<PieEntry> pieEntries = new ArrayList<>();
-
-                remainder = remainder - nutrientValue;
-                System.out.println("remainder: "+remainder);
-
-                pieEntries.add(new PieEntry(remainder, "Intake"));
-                pieEntries.add(new PieEntry(nutrientValue, label));
-
-                // The name of the chart
-                PieDataSet dataSet = new PieDataSet(pieEntries, label);
-
-                // Color of the chart entries
-                dataSet.setColors(ColorTemplate.JOYFUL_COLORS);
-
-                // Displaying the chart data
-                PieData data = new PieData(dataSet);
-                mChart.setData(data);
-                mChart.animateY(1000); // Animation for the chart
-                mChart.invalidate(); // refresh
+                valueConverter(nutrientValue, intake);
+                createChart();
             }
         });
         protein .setOnClickListener(new View.OnClickListener() {
@@ -321,27 +180,10 @@ public class Statistics extends AppCompatActivity{
             @Override
             public void onClick(View view) {
                 label = "Protein";
-                nutrientValue = Float.valueOf(String.valueOf(hashmap.get("protein")));
+                nutrientValue = hashmap.get("protein");
                 System.out.println("Nut value: "+ nutrientValue);
-                List<PieEntry> pieEntries = new ArrayList<>();
-
-                remainder = remainder - nutrientValue;
-                System.out.println("remainder: "+remainder);
-
-                pieEntries.add(new PieEntry(remainder, "Intake"));
-                pieEntries.add(new PieEntry(nutrientValue, label));
-
-                // The name of the chart
-                PieDataSet dataSet = new PieDataSet(pieEntries, label);
-
-                // Color of the chart entries
-                dataSet.setColors(ColorTemplate.JOYFUL_COLORS);
-
-                // Displaying the chart data
-                PieData data = new PieData(dataSet);
-                mChart.setData(data);
-                mChart.animateY(1000); // Animation for the chart
-                mChart.invalidate(); // refresh
+                valueConverter(nutrientValue, intake);
+                createChart();
             }
         });
         vitaminA .setOnClickListener(new View.OnClickListener() {
@@ -349,27 +191,10 @@ public class Statistics extends AppCompatActivity{
             @Override
             public void onClick(View view) {
                 label = "Vitamin A";
-                nutrientValue = Float.valueOf(String.valueOf(hashmap.get("vitaminA")));
+                nutrientValue = hashmap.get("vitaminA");
                 System.out.println("Nut value: "+ nutrientValue);
-                List<PieEntry> pieEntries = new ArrayList<>();
-
-                remainder = remainder - nutrientValue;
-                System.out.println("remainder: "+remainder);
-
-                pieEntries.add(new PieEntry(remainder, "Intake"));
-                pieEntries.add(new PieEntry(nutrientValue, label));
-
-                // The name of the chart
-                PieDataSet dataSet = new PieDataSet(pieEntries, label);
-
-                // Color of the chart entries
-                dataSet.setColors(ColorTemplate.JOYFUL_COLORS);
-
-                // Displaying the chart data
-                PieData data = new PieData(dataSet);
-                mChart.setData(data);
-                mChart.animateY(1000); // Animation for the chart
-                mChart.invalidate(); // refresh
+                valueConverter(nutrientValue, intake);
+                createChart();
             }
         });
         vitaminC .setOnClickListener(new View.OnClickListener() {
@@ -377,27 +202,10 @@ public class Statistics extends AppCompatActivity{
             @Override
             public void onClick(View view) {
                 label = "Vitamin C";
-                nutrientValue = Float.valueOf(String.valueOf(hashmap.get("vitaminC")));
+                nutrientValue = hashmap.get("vitaminC");
                 System.out.println("Nut value: "+ nutrientValue);
-                List<PieEntry> pieEntries = new ArrayList<>();
-
-                remainder = remainder - nutrientValue;
-                System.out.println("remainder: "+remainder);
-
-                pieEntries.add(new PieEntry(remainder, "Intake"));
-                pieEntries.add(new PieEntry(nutrientValue, label));
-
-                // The name of the chart
-                PieDataSet dataSet = new PieDataSet(pieEntries, label);
-
-                // Color of the chart entries
-                dataSet.setColors(ColorTemplate.JOYFUL_COLORS);
-
-                // Displaying the chart data
-                PieData data = new PieData(dataSet);
-                mChart.setData(data);
-                mChart.animateY(1000); // Animation for the chart
-                mChart.invalidate(); // refresh
+                valueConverter(nutrientValue, intake);
+                createChart();
             }
         });
         calcium .setOnClickListener(new View.OnClickListener() {
@@ -405,27 +213,10 @@ public class Statistics extends AppCompatActivity{
             @Override
             public void onClick(View view) {
                 label = "Calcium";
-                nutrientValue = Float.valueOf(String.valueOf(hashmap.get("calcium")));
+                nutrientValue = hashmap.get("calcium");
                 System.out.println("Nut value: "+ nutrientValue);
-                List<PieEntry> pieEntries = new ArrayList<>();
-
-                remainder = remainder - nutrientValue;
-                System.out.println("remainder: "+remainder);
-
-                pieEntries.add(new PieEntry(remainder, "Intake"));
-                pieEntries.add(new PieEntry(nutrientValue, label));
-
-                // The name of the chart
-                PieDataSet dataSet = new PieDataSet(pieEntries, label);
-
-                // Color of the chart entries
-                dataSet.setColors(ColorTemplate.JOYFUL_COLORS);
-
-                // Displaying the chart data
-                PieData data = new PieData(dataSet);
-                mChart.setData(data);
-                mChart.animateY(1000); // Animation for the chart
-                mChart.invalidate(); // refresh
+                valueConverter(nutrientValue, intake);
+                createChart();
             }
         });
         iron .setOnClickListener(new View.OnClickListener() {
@@ -433,33 +224,35 @@ public class Statistics extends AppCompatActivity{
             @Override
             public void onClick(View view) {
                 label = "Iron";
-                nutrientValue = Float.valueOf(String.valueOf(hashmap.get("iron")));
+                nutrientValue = hashmap.get("iron");
                 System.out.println("Nut value: "+ nutrientValue);
-                List<PieEntry> pieEntries = new ArrayList<>();
-
-                remainder = remainder - nutrientValue;
-                System.out.println("remainder: "+remainder);
-
-                pieEntries.add(new PieEntry(remainder, "Intake"));
-                pieEntries.add(new PieEntry(nutrientValue, label));
-
-                // The name of the chart
-                PieDataSet dataSet = new PieDataSet(pieEntries, label);
-
-                // Color of the chart entries
-                dataSet.setColors(ColorTemplate.JOYFUL_COLORS);
-
-                // Displaying the chart data
-                PieData data = new PieData(dataSet);
-                mChart.setData(data);
-                mChart.animateY(1000); // Animation for the chart
-                mChart.invalidate(); // refresh
+                valueConverter(nutrientValue, intake);
+                createChart();
             }
         });
     }
 
-    private Float getTotal() {
-        return remainder - nutrientValue;
+    private void createChart() {
+        List<PieEntry> pieEntries = new ArrayList<>();
+
+        pieEntries.add(new PieEntry(full, "Intake"));
+        pieEntries.add(new PieEntry(percent, label));
+
+        // The name of the chart
+        PieDataSet dataSet = new PieDataSet(pieEntries, label);
+
+        // Color of the chart entries
+        dataSet.setColors(ColorTemplate.JOYFUL_COLORS);
+
+        // Displaying the chart data
+        PieData data = new PieData(dataSet);
+        mChart.setData(data);
+        mChart.animateY(1000); // Animation for the chart
+        mChart.invalidate(); // refresh
     }
 
+    private void valueConverter(double value, double remain) {
+        percent = (int) (value/remain*100);
+        full = 100 - percent;
+    }
 }
