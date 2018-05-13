@@ -59,6 +59,8 @@
     <string name="pick_nutrients">Pick which nutrients you want to track.</string>
     <string name="submit_nutrients">Submit</string>
     <string name="cancel_nutrients">Cancel</string>
+    <string name="nutrient_limit_placeholder">0</string>
+    <string name="nutrient_name_description">User-defined nutrient</string>
 
     <!-- Titles -->
     <string name="title_activity_home">Home</string>
