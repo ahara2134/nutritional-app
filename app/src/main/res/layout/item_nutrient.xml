@@ -22,4 +22,10 @@
         android:inputType="numberDecimal"
         android:text="@string/nutrient_limit_placeholder"/>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/grams_label"
+        android:text="@string/grams_label" />
+
 </LinearLayout>

@@ -8,7 +8,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -16,19 +15,22 @@ public class MakePlanActivity extends AppCompatActivity implements NutrientDialo
 
     private static final String TAG_NUTRIENT_DIALOG = "NUTRIENT_DIALOG";
     private ArrayList<Nutrient> mNutrients;
+    NutrientsAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_make_plan);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        RecyclerView nutrientIntakeList = findViewById(R.id.nutrients_recycler);
+        mNutrients = new ArrayList<>();
+        adapter = new NutrientsAdapter(mNutrients);
+        nutrientIntakeList.setAdapter(adapter);
+        nutrientIntakeList.setLayoutManager(new LinearLayoutManager(this));
     }
 
     @Override
     public void onFinishEditDialog(ArrayList<Integer> nutrients) {
-        RecyclerView nutrientIntakeList = findViewById(R.id.nutrients_recycler);
-        mNutrients = new ArrayList<>();
-
         if (nutrients != null && nutrients.size() > 0) {
             for (Integer arrayIndex : nutrients) {
                 Nutrient nutrient = new Nutrient(
@@ -37,10 +39,7 @@ public class MakePlanActivity extends AppCompatActivity implements NutrientDialo
                 mNutrients.add(nutrient);
             }
         }
-
-        NutrientsAdapter adapter = new NutrientsAdapter(mNutrients);
-        nutrientIntakeList.setAdapter(adapter);
-        nutrientIntakeList.setLayoutManager(new LinearLayoutManager(this));
+        adapter.notifyDataSetChanged();
     }
 
     /**
