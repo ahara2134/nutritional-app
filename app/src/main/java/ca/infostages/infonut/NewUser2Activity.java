@@ -1,5 +1,6 @@
 package ca.infostages.infonut;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -13,7 +14,21 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class NewUser2Activity extends AppCompatActivity implements View.OnClickListener{
+/*
+    References :
+    1) https://www.canada.ca/en/health-canada/services/food-nutrition/
+    healthy-eating/dietary-reference-intakes/tables/reference-values-elements-dietary-
+    reference-intakes-tables-2005.html
+
+    2) https://www.canada.ca/en/health-canada/services/food-nutrition/healthy-eating/
+    dietary-reference-intakes/tables/reference-values-vitamins-dietary-reference-
+    intakes-tables-2005.html
+
+    3) https://www.canada.ca/en/health-canada/services/food-nutrition/healthy-eating/
+    dietary-reference-intakes/tables/reference-values-macronutrients-dietary-reference-
+    intakes-tables-2005.html
+ */
+public class NewUser2Activity extends AppCompatActivity implements View.OnClickListener {
     //declare database objects
     private DatabaseReference mDatabase;
     private FirebaseUser mUser;
@@ -35,7 +50,7 @@ public class NewUser2Activity extends AppCompatActivity implements View.OnClickL
 
         //get gender and active level from previous activity
         Bundle extras = getIntent().getExtras();
-        if(extras != null) {
+        if (extras != null) {
             activeDB = extras.getInt("activeLevel");
             gender = extras.getString("textGender");
         }
@@ -44,34 +59,36 @@ public class NewUser2Activity extends AppCompatActivity implements View.OnClickL
         firebaseAuth = FirebaseAuth.getInstance();
         mUser = firebaseAuth.getCurrentUser();
 
-        ageSpinner = (Spinner)findViewById(R.id.spinner_age);
+        ageSpinner = (Spinner) findViewById(R.id.spinner_age);
         age = ageSpinner.getSelectedItem().toString();
 
-        weightSpinner = (Spinner)findViewById(R.id.spinner_weight);
+        weightSpinner = (Spinner) findViewById(R.id.spinner_weight);
         weightValue = weightSpinner.getSelectedItem().toString();
 
-        submitButton = (Button)findViewById(R.id.button_submit);
+        submitButton = (Button) findViewById(R.id.button_submit);
         submitButton.setOnClickListener(this);
 
-        weightText = (EditText)findViewById(R.id.editText_weight);
+        weightText = (EditText) findViewById(R.id.editText_weight);
         weight = Double.parseDouble(weightText.getText().toString());
     }
 
     @Override
     public void onClick(View v) {
         CheckEditTextIsEmptyOrNot();
-        if(!weightIsEmpty || !ageIsEmpty) {
+        if (!weightIsEmpty || !ageIsEmpty) {
             Toast.makeText(NewUser2Activity.this, getString(R.string.weight_error), Toast.LENGTH_LONG).show();
         } else {
             //Convert lbs to kg
-            if(weightValue.equals(getString(R.string.weight_spinner_2))) {
-                weight=  weight/2.205;
+            if (weightValue.equals(getString(R.string.weight_spinner_2))) {
+                weight = weight / 2.205;
             }
             determinePlan();
             //Writing to database
             String uID = mUser.getUid();
             mDatabase.child("users").child(uID).child("age").setValue(age);
             mDatabase.child("users").child(uID).child("lbs").setValue(weight);
+            Intent intent = new Intent(NewUser2Activity.this, MainActivity.class);
+            startActivity(intent);
         }
 
 
@@ -94,7 +111,7 @@ public class NewUser2Activity extends AppCompatActivity implements View.OnClickL
 
         //If the weight is in kg, and they are either 1) over 227kg OR 2) under 18kg
         if (weightValue.equals(getString(R.string.weight_spinner_2))) {
-            if(weight >=227 || weight <= 18) {
+            if (weight >= 227 || weight <= 18) {
                 weightIsEmpty = false;
             } else {
                 weightIsEmpty = true;
@@ -105,39 +122,63 @@ public class NewUser2Activity extends AppCompatActivity implements View.OnClickL
     //Determine what plan to assign to the user
     public void determinePlan() {
         setAgeDB();
-        double protein = weight * 0.8;
         int calorie = calculateCalorie();
         double carbs = calculateCarbs(calorie);
         double fats = calculateFat(calorie);
         double badFats = calculateBadFats(calorie);
+        double protein = calculateProtein();
+        int sodium = calculateSodium();
+        int iron = calculateIron();
+        int calcium = calculateCalcium();
+        int cholesterol = 300;
+        int vitA = calculateVitA();
+        int vitC = calculateVitC();
+        int fibre = calculateFibre();
+        int potassium = calculatePotassium();
 
+        String uID = mUser.getUid();
+        mDatabase.child("users").child(uID).child("plan").child("default_plan").child("calories").setValue(calorie);
+        mDatabase.child("users").child(uID).child("plan").child("default_plan").child("good_fats").setValue(fats);
+        mDatabase.child("users").child(uID).child("plan").child("default_plan").child("bad_fats").setValue(badFats);
+        mDatabase.child("users").child(uID).child("plan").child("default_plan").child("cholesterol").setValue(cholesterol);
+        mDatabase.child("users").child(uID).child("plan").child("default_plan").child("sodium").setValue(sodium);
+        mDatabase.child("users").child(uID).child("plan").child("default_plan").child("potassium").setValue(potassium);
+        mDatabase.child("users").child(uID).child("plan").child("default_plan").child("Calories").setValue(calorie);
+        mDatabase.child("users").child(uID).child("plan").child("default_plan").child("Calories").setValue(calorie);
+        mDatabase.child("users").child(uID).child("plan").child("default_plan").child("carbohydrates").setValue(carbs);
+        mDatabase.child("users").child(uID).child("plan").child("default_plan").child("fibre").setValue(fibre);
+        mDatabase.child("users").child(uID).child("plan").child("default_plan").child("protein").setValue(protein);
+        mDatabase.child("users").child(uID).child("plan").child("default_plan").child("iron").setValue(iron);
+        mDatabase.child("users").child(uID).child("plan").child("default_plan").child("calcium").setValue(calcium);
+        mDatabase.child("users").child(uID).child("plan").child("default_plan").child("vitamin_A").setValue(vitA);
+        mDatabase.child("users").child(uID).child("plan").child("default_plan").child("vitamin_C").setValue(vitC);
     }
 
     //Convert age groups into number groups for switch case
     public void setAgeDB() {
-        if(age.equals(getString(R.string.age_spinner_2))) {
+        if (age.equals(getString(R.string.age_spinner_2))) {
             ageDB = 1;
-        } else if(age.equals(getString(R.string.age_spinner_3))) {
+        } else if (age.equals(getString(R.string.age_spinner_3))) {
             ageDB = 2;
-        } else if(age.equals(getString(R.string.age_spinner_4))) {
+        } else if (age.equals(getString(R.string.age_spinner_4))) {
             ageDB = 3;
-        } else if(age.equals(getString(R.string.age_spinner_5))) {
+        } else if (age.equals(getString(R.string.age_spinner_5))) {
             ageDB = 4;
-        } else if(age.equals(getString(R.string.age_spinner_6))) {
+        } else if (age.equals(getString(R.string.age_spinner_6))) {
             ageDB = 5;
-        } else if(age.equals(getString(R.string.age_spinner_7))) {
+        } else if (age.equals(getString(R.string.age_spinner_7))) {
             ageDB = 6;
-        } else if(age.equals(getString(R.string.age_spinner_8))) {
+        } else if (age.equals(getString(R.string.age_spinner_8))) {
             ageDB = 7;
-        } else if(age.equals(getString(R.string.age_spinner_9))) {
+        } else if (age.equals(getString(R.string.age_spinner_9))) {
             ageDB = 8;
         }
     }
 
     //Determine how many calories they should be taking
     public int calculateCalorie() {
-        if(activeDB == 1 && gender.equals(getString(R.string.gender_female))) {  //If activity level = SEDANTARY, and female
-            switch(ageDB) {
+        if (activeDB == 1 && gender.equals(getString(R.string.gender_female))) {  //If activity level = SEDANTARY, and female
+            switch (ageDB) {
                 case 1:
                     return 1500;
                 case 2:
@@ -155,8 +196,8 @@ public class NewUser2Activity extends AppCompatActivity implements View.OnClickL
                 case 8:
                     return 1550;
             }
-        } else if(activeDB == 1 && gender.equals(getString(R.string.gender_male))) {
-            switch(ageDB) {
+        } else if (activeDB == 1 && gender.equals(getString(R.string.gender_male))) {
+            switch (ageDB) {
                 case 1:
                     return 1700;
                 case 2:
@@ -174,8 +215,8 @@ public class NewUser2Activity extends AppCompatActivity implements View.OnClickL
                 case 8:
                     return 2000;
             }
-        } else if(activeDB == 2 && gender.equals(getString(R.string.gender_female))) {
-            switch(ageDB) {
+        } else if (activeDB == 2 && gender.equals(getString(R.string.gender_female))) {
+            switch (ageDB) {
                 case 1:
                     return 1800;
                 case 2:
@@ -193,7 +234,7 @@ public class NewUser2Activity extends AppCompatActivity implements View.OnClickL
                 case 8:
                     return 1750;
             }
-        } else if(activeDB == 2 && gender.equals(getString(R.string.gender_male))) {
+        } else if (activeDB == 2 && gender.equals(getString(R.string.gender_male))) {
             switch (ageDB) {
                 case 1:
                     return 2000;
@@ -212,7 +253,7 @@ public class NewUser2Activity extends AppCompatActivity implements View.OnClickL
                 case 8:
                     return 2200;
             }
-        }else if(activeDB == 3 && gender.equals(getString(R.string.gender_female))) {
+        } else if (activeDB == 3 && gender.equals(getString(R.string.gender_female))) {
             switch (ageDB) {
                 case 1:
                     return 2050;
@@ -256,19 +297,149 @@ public class NewUser2Activity extends AppCompatActivity implements View.OnClickL
 
     //Determine how much carbohydrates
     public double calculateCarbs(int cal) {
-        double carbPerCalorie = 300 / 2000;
-        return cal * carbPerCalorie;
+        return (double) cal * 0.45;
     }
 
     //Determine how much fats
-    public double calculateFat(int cal){
-        double fatPerCalorie = 8 / 12;
-        return 100 * fatPerCalorie;
+    public double calculateFat(int cal) {
+        return (double) cal * 0.20;
     }
 
     //Determine how much saturated and transfat is needed
     public double calculateBadFats(int cal) {
-        double fatPerCalorie = 3.1 / 15;
-        return fatPerCalorie * 100;
+        return (double) cal * 0.10;
+    }
+
+    //Determine how much protein is recommended
+    public double calculateProtein() {
+        return weight * 0.8;
+    }
+
+    public int calculateIron() {
+        if (gender.equals(getString(R.string.gender_male))) {
+            if (ageDB == 3 || ageDB == 4) {
+                return 11;
+            } else {
+                return 8;
+            }
+        } else {
+            if (gender.equals(getString(R.string.gender_female))) {
+                if (ageDB == 5 || ageDB == 6) {
+                    return 18;
+                } else  if(ageDB == 3 || ageDB == 4){
+                    return 15;
+                } else {
+                    return 8;
+                }
+            }
+        }
+        return 0;
+    }
+
+    public int calculateSodium() {
+        if (ageDB == 1 || ageDB == 2 || ageDB == 3 ||
+                ageDB == 4 || ageDB == 5 || ageDB == 6) {
+            return 1500;
+        } else if (ageDB == 7) {
+            return 1300;
+        } else {
+            return 1200;
+        }
+    }
+
+    public int calculateCalcium() {
+        if (gender.equals(getString(R.string.gender_male))) {
+            if (ageDB == 1 || ageDB == 2 || ageDB == 3 || ageDB == 4) {
+                return 1300;
+            } else if (ageDB == 5 || ageDB == 6 || ageDB == 7) {
+                return 1000;
+            } else {
+                return 1200;
+            }
+        } else {
+            if (gender.equals(getString(R.string.gender_female))) {
+                if (ageDB == 1 || ageDB == 2 || ageDB == 3 || ageDB == 4) {
+                    return 1300;
+                } else if (ageDB == 5 || ageDB == 6) {
+                    return 1000;
+                } else {
+                    return 1200;
+                }
+            }
+        }
+        return 0;
+    }
+
+    public int calculateVitA() {
+        if (gender.equals(getString(R.string.gender_male))) {
+            if (ageDB == 1 || ageDB == 2 ) {
+                return 600;
+            } else {
+                return 900;
+            }
+        } else {
+            if (gender.equals(getString(R.string.gender_female))) {
+                if (ageDB == 1 || ageDB == 2) {
+                    return 600;
+                } else {
+                    return 700;
+                }
+            }
+        }
+        return 0;
+    }
+
+    public int calculateVitC() {
+        if (gender.equals(getString(R.string.gender_male))) {
+            if (ageDB == 1 || ageDB == 2 ) {
+                return 45;
+            } else if(ageDB == 3 || ageDB == 4) {
+                return 75;
+            } else{
+                return 90;
+            }
+        } else {
+            if (gender.equals(getString(R.string.gender_female))) {
+                if (ageDB == 1 || ageDB == 2 ) {
+                    return 45;
+                } else if(ageDB == 3 || ageDB == 4) {
+                    return 65;
+                } else{
+                    return 75;
+                }
+            }
+        }
+        return 0;
+    }
+
+    public int calculateFibre() {
+        if (gender.equals(getString(R.string.gender_male))) {
+            if (ageDB == 1 || ageDB == 2) {
+                return 31;
+            } else if (ageDB == 8 || ageDB == 7) {
+                return 30;
+            } else {
+                return 38;
+            }
+        } else {
+            if (gender.equals(getString(R.string.gender_female))) {
+                if (ageDB == 1 || ageDB == 2 || ageDB == 3 || ageDB == 4) {
+                    return 26;
+                } else if (ageDB == 5 || ageDB == 6) {
+                    return 25;
+                } else {
+                    return 21;
+                }
+            }
+        }
+        return 0;
+    }
+
+    public int calculatePotassium() {
+        if (ageDB == 1 || ageDB == 2 ) {
+            return 4500;
+        } else {
+            return 4700;
+        }
     }
 }
