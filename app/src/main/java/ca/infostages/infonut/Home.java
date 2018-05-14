@@ -80,27 +80,33 @@ public class Home extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
-        //Checks if user's demographics are entered in. If not, send to NewUserActivity.
+        //Checks if the user is logged in. If not, send to Mainactivity.
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        DatabaseReference planReference;
-        planReference = FirebaseDatabase.getInstance().getReference().child("users").child(currentUser.getUid()).child("plan");
-        planReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                String plan = dataSnapshot.getValue().toString();
-                if (plan.equals("false")) {
-                    Intent intent = new Intent (Home.this, NewUser.class);
-                    startActivity(intent);
-                } else {
-                    loadFragment(HomeFragment.newInstance());
+        if(currentUser == null) {
+            Intent intent = new Intent(Home.this, MainActivity.class);
+            startActivity(intent);
+        } else {
+            //Checks if user's demographics are entered in. If not, send to NewUserActivity.
+            DatabaseReference planReference;
+            planReference = FirebaseDatabase.getInstance().getReference().child("users").child(currentUser.getUid()).child("plan");
+            planReference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    String plan = dataSnapshot.getValue().toString();
+                    if (plan.equals("false")) {
+                        Intent intent = new Intent (Home.this, NewUser.class);
+                        startActivity(intent);
+                    } else {
+                        loadFragment(HomeFragment.newInstance());
+                    }
                 }
-            }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.d(TAG, ": " + databaseError.getMessage());
-            }
-        });
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    Log.d(TAG, ": " + databaseError.getMessage());
+                }
+            });
+        }
 
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
