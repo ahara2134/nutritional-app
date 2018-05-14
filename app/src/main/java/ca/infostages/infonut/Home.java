@@ -81,7 +81,7 @@ public class Home extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
         //Checks if user's demographics are entered in. If not, send to NewUserActivity.
-        currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        /*currentUser = FirebaseAuth.getInstance().getCurrentUser();
         DatabaseReference planReference;
         planReference = FirebaseDatabase.getInstance().getReference().child("users").child(currentUser.getUid()).child("plan");
         planReference.addValueEventListener(new ValueEventListener() {
@@ -100,7 +100,7 @@ public class Home extends AppCompatActivity {
             public void onCancelled(DatabaseError databaseError) {
                 Log.d(TAG, ": " + databaseError.getMessage());
             }
-        });
+        });*/
 
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
