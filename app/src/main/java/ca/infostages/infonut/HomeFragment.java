@@ -1,25 +1,23 @@
 package ca.infostages.infonut;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import com.github.mikephil.charting.charts.PieChart;
-import com.github.mikephil.charting.data.PieData;
-import com.github.mikephil.charting.data.PieDataSet;
-import com.github.mikephil.charting.data.PieEntry;
-import com.github.mikephil.charting.utils.ColorTemplate;
-
-import java.util.ArrayList;
-import java.util.List;
+import android.widget.Button;
 
 public class HomeFragment extends Fragment {
 
-    private PieChart mChart;
+    private Button settings;
+    private Button plans;
+    private Button scan;
+    private Button info;
 
     public static HomeFragment newInstance() {
         return new HomeFragment();
@@ -29,28 +27,48 @@ public class HomeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstance) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
-        mChart = (PieChart) view.findViewById(R.id.pie2);
+        settings    = (Button) view.findViewById(R.id.imageButton9);
+        plans       = (Button) view.findViewById(R.id.imageButton7);
+        scan        = (Button) view.findViewById(R.id.imageButton8);
+        info        = (Button) view.findViewById(R.id.imageButton5);
 
-        mChart.setUsePercentValues(true);
-        mChart.getDescription().setEnabled(false);
+        settings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), Statistics.class);
+                startActivity(intent);
+            }
+        });
 
-        List<PieEntry> pieEntries = new ArrayList<>();
+        plans.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Fragment fragment = new ChoosePlanFragment();
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.fragment_container, fragment);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+            }
+        });
 
-        pieEntries.add(new PieEntry(10, "Pie"));
-        pieEntries.add(new PieEntry(90, "halp"));
+        scan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), Statistics.class);
+                startActivity(intent);
+            }
+        });
 
-        // The name of the chart
-        PieDataSet dataSet = new PieDataSet(pieEntries, "Test");
-
-        // Color of the chart entries
-        dataSet.setColors(ColorTemplate.JOYFUL_COLORS);
-
-        // Displaying the chart data
-        PieData data = new PieData(dataSet);
-        mChart.setData(data);
-        mChart.animateY(1000); // Animation for the chart
-        mChart.invalidate(); // refresh
+        info.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), Statistics.class);
+                startActivity(intent);
+            }
+        });
 
         return view;
     }
+
 }
