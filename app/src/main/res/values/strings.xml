@@ -52,6 +52,7 @@
     <string name="active_high">High</string>
     <string name="age_prompt">What is your age?</string>
     <string name="weight_prompt">What is your weight?</string>
+    <string name="weight_error">Please check your fields and try again.</string>
     <string name="submit_confirmation">Thank you! Now taking you back to the homepage..</string>
 
         <!-- NewUser 2, for the spinners -->
@@ -64,6 +65,8 @@
         <string name="age_spinner_7">31 &#8211; 50 years</string>
         <string name="age_spinner_8">51 &#8211; 70 years</string>
         <string name="age_spinner_9">71 years and up</string>
+        <string name="weight_spinner_1">lbs</string>
+        <string name="weight_spinner_2">kg</string>
 
 
     <!-- Choose Plan strings -->

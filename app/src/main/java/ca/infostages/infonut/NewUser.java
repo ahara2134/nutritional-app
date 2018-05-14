@@ -89,6 +89,8 @@ public class NewUser extends AppCompatActivity {
                     mDatabase.child("users").child(uID).child("active").setValue(activeLevel);
 
                     Intent intent = new Intent(NewUser.this, NewUser2Activity.class);
+                    intent.putExtra("textGender", gender);
+                    intent.putExtra("activeLevel", activeLevel);
                     startActivity(intent);
 //
 //                    //GAREL - this is where you will be setting the default plan, depending on the gender and date of birth
