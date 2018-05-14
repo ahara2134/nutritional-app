@@ -44,6 +44,8 @@
         android:ems="10"
         android:hint="@string/name_hint"
         android:textColorHint="@color/white"
+        android:imeOptions="actionDone"
+        android:textColor="@color/white"
         android:backgroundTint="@color/colorAccent"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
@@ -150,16 +152,6 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/gender_female"
-            android:textColor="@color/white"
-            android:buttonTint="@color/white"
-            />
-
-        <RadioButton
-            android:id="@+id/radioButton_other"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/gender_other"
             android:textColor="@color/white"
             android:buttonTint="@color/white"
             />
