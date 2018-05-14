@@ -43,21 +43,21 @@
             android:layout_height="163dp">
 
             <Button
-                android:id="@+id/button6"
+                android:id="@+id/transFat"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/transFat"
                 android:backgroundTint="@color/button"/>
 
             <Button
-                android:id="@+id/button7"
+                android:id="@+id/sodium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/sodium"
                 android:backgroundTint="@color/button"/>
 
             <Button
-                android:id="@+id/button5"
+                android:id="@+id/iron"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/iron"
@@ -70,21 +70,21 @@
             android:layout_height="match_parent">
 
             <Button
-                android:id="@+id/button8"
+                android:id="@+id/calcium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/calcium"
                 android:backgroundTint="@color/button"/>
 
             <Button
-                android:id="@+id/button9"
+                android:id="@+id/carbohydrate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/carbohydrate"
                 android:backgroundTint="@color/button"/>
 
             <Button
-                android:id="@+id/button10"
+                android:id="@+id/cholesterol"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/cholesterol"
@@ -97,21 +97,21 @@
             android:layout_height="match_parent">
 
             <Button
-                android:id="@+id/button11"
+                android:id="@+id/protein"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/protein"
                 android:backgroundTint="@color/button"/>
 
             <Button
-                android:id="@+id/button12"
+                android:id="@+id/sugar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/sugar"
                 android:backgroundTint="@color/button"/>
 
             <Button
-                android:id="@+id/button13"
+                android:id="@+id/fibre"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/fibre"
@@ -124,21 +124,21 @@
             android:layout_height="match_parent">
 
             <Button
-                android:id="@+id/button3"
+                android:id="@+id/fat"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/fat"
                 android:backgroundTint="@color/button"/>
 
             <Button
-                android:id="@+id/button4"
+                android:id="@+id/vitaminA"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/vitaminA"
                 android:backgroundTint="@color/button"/>
 
             <Button
-                android:id="@+id/button14"
+                android:id="@+id/vitaminC"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/vitaminC"
@@ -158,7 +158,7 @@
                 android:backgroundTint="@color/button"/>
 
             <Button
-                android:id="@+id/button15"
+                android:id="@+id/saturatedFat"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/saturatedFat"
