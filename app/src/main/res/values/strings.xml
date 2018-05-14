@@ -45,7 +45,30 @@
     <string name="dob_adolescent">3 &#8211; 18 years old</string>
     <string name="dob_adult">19 or older</string>
     <string name="submit_form">Submit</string>
+    <string name="next_form">next</string>
+    <string name="active_prompt">What is your daily activity level?</string>
+    <string name="active_sedentary">Sedentary</string>
+    <string name="active_low">Low</string>
+    <string name="active_high">High</string>
+    <string name="age_prompt">What is your age?</string>
+    <string name="weight_prompt">What is your weight?</string>
+    <string name="weight_error">Please check your weight field and try again.</string>
+    <string name="age_error">Please check your age field and try again.</string>
     <string name="submit_confirmation">Thank you! Now taking you back to the homepage..</string>
+
+        <!-- NewUser 2, for the spinners -->
+        <string name="age_spinner_1">Tap for dropdown</string>
+        <string name="age_spinner_2">10 &#8211; 11 years</string>
+        <string name="age_spinner_3">12 &#8211; 13 years</string>
+        <string name="age_spinner_4">14 &#8211; 16 years</string>
+        <string name="age_spinner_5">17 &#8211; 18 years</string>
+        <string name="age_spinner_6">19 &#8211; 30 years</string>
+        <string name="age_spinner_7">31 &#8211; 50 years</string>
+        <string name="age_spinner_8">51 &#8211; 70 years</string>
+        <string name="age_spinner_9">71 years and up</string>
+        <string name="weight_spinner_1">lbs</string>
+        <string name="weight_spinner_2">kg</string>
+
 
     <!-- Choose Plan strings -->
     <string name="make_plan_submit">Make Plan</string>
@@ -115,6 +138,24 @@
         <item>vitamin C</item>
         <item>calcium</item>
         <item>iron</item>
+    </string-array>
+
+    <!--NewUser2 Array -->
+    <string-array name="age_list">
+        <item>Tap for dropdown</item>
+        <item>10 &#8211; 11 years</item>
+        <item>12 &#8211; 13 years</item>
+        <item>14 &#8211; 16 years</item>
+        <item>17 &#8211; 18 years</item>
+        <item>19 &#8211; 30 years</item>
+        <item>31 &#8211; 50 years</item>
+        <item>51 &#8211; 70 years</item>
+        <item>71 years and up</item>
+    </string-array>
+
+    <string-array name="weight_list">
+        <item>lbs</item>
+        <item>kg</item>
     </string-array>
 
 </resources>
