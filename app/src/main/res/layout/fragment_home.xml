@@ -11,4 +11,15 @@
         android:text="newUser"
         android:onClick="newUser"
         android:backgroundTint="@color/button"/>
+
+    <com.github.mikephil.charting.charts.PieChart
+        android:id="@+id/pie2"
+        android:layout_width="369dp"
+        android:layout_height="348dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp">
+
+    </com.github.mikephil.charting.charts.PieChart>
 </android.support.constraint.ConstraintLayout>
