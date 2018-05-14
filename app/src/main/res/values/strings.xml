@@ -52,7 +52,8 @@
     <string name="active_high">High</string>
     <string name="age_prompt">What is your age?</string>
     <string name="weight_prompt">What is your weight?</string>
-    <string name="weight_error">Please check your fields and try again.</string>
+    <string name="weight_error">Please check your weight field and try again.</string>
+    <string name="age_error">Please check your age field and try again.</string>
     <string name="submit_confirmation">Thank you! Now taking you back to the homepage..</string>
 
         <!-- NewUser 2, for the spinners -->

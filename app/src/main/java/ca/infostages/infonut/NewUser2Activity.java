@@ -41,7 +41,7 @@ public class NewUser2Activity extends AppCompatActivity implements View.OnClickL
     private String age, weightValue, gender;
     private int activeDB, ageDB;
     private double weight;
-    private boolean ageIsEmpty, weightIsEmpty;
+    private boolean ageIsValid, weightIsValid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,23 +60,25 @@ public class NewUser2Activity extends AppCompatActivity implements View.OnClickL
         mUser = firebaseAuth.getCurrentUser();
 
         ageSpinner = (Spinner) findViewById(R.id.spinner_age);
-        age = ageSpinner.getSelectedItem().toString();
 
         weightSpinner = (Spinner) findViewById(R.id.spinner_weight);
-        weightValue = weightSpinner.getSelectedItem().toString();
 
         submitButton = (Button) findViewById(R.id.button_submit);
         submitButton.setOnClickListener(this);
 
         weightText = (EditText) findViewById(R.id.editText_weight);
-        weight = Double.parseDouble(weightText.getText().toString());
     }
 
     @Override
     public void onClick(View v) {
+        age = ageSpinner.getSelectedItem().toString();
+        weightValue = weightSpinner.getSelectedItem().toString();
+        weight = Double.parseDouble(weightText.getText().toString());
         CheckEditTextIsEmptyOrNot();
-        if (!weightIsEmpty || !ageIsEmpty) {
+        if (!weightIsValid) {
             Toast.makeText(NewUser2Activity.this, getString(R.string.weight_error), Toast.LENGTH_LONG).show();
+        } else if(!ageIsValid) {
+            Toast.makeText(NewUser2Activity.this, getString(R.string.age_error), Toast.LENGTH_LONG).show();
         } else {
             //Convert lbs to kg
             if (weightValue.equals(getString(R.string.weight_spinner_2))) {
@@ -87,8 +89,7 @@ public class NewUser2Activity extends AppCompatActivity implements View.OnClickL
             String uID = mUser.getUid();
             mDatabase.child("users").child(uID).child("age").setValue(age);
             mDatabase.child("users").child(uID).child("lbs").setValue(weight);
-            Intent intent = new Intent(NewUser2Activity.this, MainActivity.class);
-            startActivity(intent);
+            finish();
         }
 
 
@@ -97,24 +98,26 @@ public class NewUser2Activity extends AppCompatActivity implements View.OnClickL
     //check if EditText is empty or not
     public void CheckEditTextIsEmptyOrNot() {
         if (age.equals(getString(R.string.age_spinner_1))) {
-            ageIsEmpty = false;
+            ageIsValid = false;
+        } else {
+            ageIsValid = true;
         }
 
         //If the weight is in pounds, and they are either 1) over 500lbs OR 2) under 40lbs
         if (weightValue.equals(getString(R.string.weight_spinner_1))) {
-            if (weight >= 500 || weight <= 40) {
-                weightIsEmpty = false;
+            if (weight >= 500.0 || weight <= 40.0) {
+                weightIsValid = false;
             } else {
-                weightIsEmpty = true;
+                weightIsValid = true;
             }
         }
 
         //If the weight is in kg, and they are either 1) over 227kg OR 2) under 18kg
         if (weightValue.equals(getString(R.string.weight_spinner_2))) {
-            if (weight >= 227 || weight <= 18) {
-                weightIsEmpty = false;
+            if (weight >= 227.0 || weight <= 18.0) {
+                weightIsValid = false;
             } else {
-                weightIsEmpty = true;
+                weightIsValid = true;
             }
         }
     }
