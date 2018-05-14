@@ -43,13 +43,16 @@
             android:label="Dashboard" />
         <activity
             android:name=".NewUser"
-            android:label="Welcome" />
+            android:label="Welcome"
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".Statistics"
             android:label="Details" />
-        <activity android:name=".MakePlanActivity"
+        <activity
+            android:name=".MakePlanActivity"
             android:label="@string/make_plan_activity"
-            android:parentActivityName=".Home"/>
+            android:parentActivityName=".Home" />
+        <activity android:name=".NewUser2Activity"></activity>
     </application>
 
 </manifest>
