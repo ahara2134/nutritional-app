@@ -17,7 +17,7 @@ public class NutritionData extends AsyncTask<Void,Void,Void>{
     String data = "";
     private String barcode;
     private static String dataParsed = "";
-    private HashMap<String, Double> hashMap = new HashMap<>();
+    public static HashMap<String, Double> nutritionHashMap = new HashMap<>();
     public NutritionData(String barcode) {
         this.barcode = barcode;
     }
@@ -60,19 +60,19 @@ public class NutritionData extends AsyncTask<Void,Void,Void>{
             String calcium = nutrients.getString("calcium_serving");
             String iron = nutrients.getString("iron_serving");
 
-            hashMap.put("fat",convertNutrition(fat));
-            hashMap.put("saturatedFat",convertNutrition(saturatedFat));
-            hashMap.put("transFat",convertNutrition(transFat));
-            hashMap.put("cholesterol",convertNutrition(cholesterol));
-            hashMap.put("sodium",convertNutrition(sodium));
-            hashMap.put("carbohydrate",convertNutrition(carbohydrate));
-            hashMap.put("fibre",convertNutrition(fibre));
-            hashMap.put("sugars",convertNutrition(sugars));
-            hashMap.put("protein",convertNutrition(protein));
-            hashMap.put("vitaminA",convertNutrition(vitaminA));
-            hashMap.put("vitaminC",convertNutrition(vitaminC));
-            hashMap.put("calcium",convertNutrition(calcium));
-            hashMap.put("iron",convertNutrition(iron));
+            nutritionHashMap.put("fat",convertNutrition(fat));
+            nutritionHashMap.put("saturatedFat",convertNutrition(saturatedFat));
+            nutritionHashMap.put("transFat",convertNutrition(transFat));
+            nutritionHashMap.put("cholesterol",convertNutrition(cholesterol));
+            nutritionHashMap.put("sodium",convertNutrition(sodium));
+            nutritionHashMap.put("carbohydrate",convertNutrition(carbohydrate));
+            nutritionHashMap.put("fibre",convertNutrition(fibre));
+            nutritionHashMap.put("sugars",convertNutrition(sugars));
+            nutritionHashMap.put("protein",convertNutrition(protein));
+            nutritionHashMap.put("vitaminA",convertNutrition(vitaminA));
+            nutritionHashMap.put("vitaminC",convertNutrition(vitaminC));
+            nutritionHashMap.put("calcium",convertNutrition(calcium));
+            nutritionHashMap.put("iron",convertNutrition(iron));
 
             dataParsed = "Fat: " + fat + "\n"
                     + "Saturated Fat: " + saturatedFat + "\n"
@@ -111,6 +111,4 @@ public class NutritionData extends AsyncTask<Void,Void,Void>{
         dNutrition = Double.parseDouble(str);
         return dNutrition;
     }
-
-
 }
