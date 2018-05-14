@@ -142,6 +142,13 @@ public class NutritionData extends AsyncTask<Void,Void,Void>{
 
     }
 
+    /**
+     * Calculates the badFats by adding
+     * transfat and saturated fats
+     * @param transFat
+     * @param saturatedFat
+     * @return
+     */
     private String badFatCalculator(String transFat, String saturatedFat) {
         double transfat = Double.parseDouble(transFat);
         double saturated = Double.parseDouble(saturatedFat);
@@ -150,6 +157,11 @@ public class NutritionData extends AsyncTask<Void,Void,Void>{
         return "" + badFatD;
     }
 
+    /**
+     * Converts the nutrition from a string value to a double value
+     * @param nutrition
+     * @return
+     */
     private double convertNutrition(String nutrition) {
         double dNutrition;
         String str = nutrition;

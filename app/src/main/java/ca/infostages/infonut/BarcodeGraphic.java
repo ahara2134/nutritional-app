@@ -24,6 +24,9 @@ import com.google.android.gms.vision.barcode.Barcode;
 
 import ca.infostages.infonut.ui.camera.GraphicOverlay;
 
+/**
+ * Mostly unused class from Google vision API
+ */
 public class BarcodeGraphic extends GraphicOverlay.Graphic {
 
     private int mId;
