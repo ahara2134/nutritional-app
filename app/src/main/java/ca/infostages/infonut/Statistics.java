@@ -255,4 +255,5 @@ public class Statistics extends AppCompatActivity{
         percent = (int) (value/remain*100);
         full = 100 - percent;
     }
+    
 }
