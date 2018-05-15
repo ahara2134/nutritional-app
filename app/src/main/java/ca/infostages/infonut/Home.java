@@ -57,7 +57,7 @@ public class Home extends AppCompatActivity {
         //Add back navigation in the title bar
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
-        //Checks if the user is logged in. If not, send to Mainactivity.
+/*        //Checks if the user is logged in. If not, send to Mainactivity.
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if(currentUser == null) {
             Intent intent = new Intent(Home.this, MainActivity.class);
@@ -83,7 +83,7 @@ public class Home extends AppCompatActivity {
                     Log.d(TAG, ": " + databaseError.getMessage());
                 }
             });
-        }
+        }*/
     }
 
     /**

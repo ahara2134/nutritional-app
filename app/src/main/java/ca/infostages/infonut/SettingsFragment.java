@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,7 +39,7 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstance) {
         View view = inflater.inflate(R.layout.fragment_settings, container, false);
-        button_bye = (Button)view.findViewById(R.id.button_bye);
+        /*button_bye = (Button)view.findViewById(R.id.button_bye);*/
         name = (TextView)view.findViewById(R.id.textView_username);
         age = (TextView)view.findViewById(R.id.textView_age);
         email = (TextView)view.findViewById(R.id.textView_email);
@@ -53,6 +54,10 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
 
             button_bye.setOnClickListener(this);
         }
+
+        //Enable Back button
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         return view;
     }
 
