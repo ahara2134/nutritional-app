@@ -2,8 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="ca.infostages.infonut">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
 
@@ -18,14 +16,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
-            android:label="Infosessions">
+            android:name=".Home"
+            android:label="Infosession" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".MainActivity"
+            android:label="Infosessions"/>
         <activity
             android:name=".LoginActivity"
             android:label="Log in" />
@@ -38,9 +39,6 @@
         <activity
             android:name=".RegisterActivity"
             android:label="Sign Up" />
-        <activity
-            android:name=".Home"
-            android:label="Dashboard" />
         <activity
             android:name=".NewUser"
             android:label="Welcome"
