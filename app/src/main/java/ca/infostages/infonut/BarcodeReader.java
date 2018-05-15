@@ -10,7 +10,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.SeekBar;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.google.android.gms.common.api.CommonStatusCodes;
@@ -28,6 +30,9 @@ public class BarcodeReader extends AppCompatActivity implements View.OnClickList
     private static final String TAG = "BarcodeMain";
     private static SeekBar seek_bar;
     private static Button sendResults;
+    private Switch switchServing;
+    private Switch switch100;
+    private Button showResult;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,9 +54,40 @@ public class BarcodeReader extends AppCompatActivity implements View.OnClickList
         sendResults.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //RYAN SEND TO RESULTS HERE
+                Intent intent = new Intent(BarcodeReader.this, Statistics.class);
+                intent.putExtra("servingChecked", switchServing.isChecked());
+                intent.putExtra("100Checked", switch100.isChecked());
+                startActivity(intent);
             }
         });
+
+        switchServing = findViewById(R.id.switch_serving);
+        switch100 = findViewById(R.id.switch_100);
+
+        switchServing.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(switchServing.isChecked()) {
+                    switch100.setChecked(false);
+                } else {
+                    switch100.setChecked(true);
+                }
+
+
+            }
+        });
+
+        switch100.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(switch100.isChecked()) {
+                    switchServing.setChecked(false);
+                } else {
+                    switchServing.setChecked(true);
+                }
+            }
+        });
+
     }
 
     @Override
@@ -61,6 +97,8 @@ public class BarcodeReader extends AppCompatActivity implements View.OnClickList
             Intent intent = new Intent(this, BarcodeCaptureActivity.class);
             startActivityForResult(intent, RC_BARCODE_CAPTURE);
         }
+
+
     }
 
     @Override

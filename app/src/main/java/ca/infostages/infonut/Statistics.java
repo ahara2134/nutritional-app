@@ -68,6 +68,11 @@ public class Statistics extends AppCompatActivity{
 
         final HashMap<String, Double> hashmap =  NutritionData.nutritionHashMap;
 
+        boolean checkedServing = getIntent().getBooleanExtra("servingChecked", true);
+        boolean checked100 = getIntent().getBooleanExtra("100Checked", false);
+        System.out.println("CHECKED SERVING: " + checkedServing);
+        System.out.println("CHECKED 100: " + checked100);
+
         mChart.setUsePercentValues(true);
         mChart.getDescription().setEnabled(false);
 
