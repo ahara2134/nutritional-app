@@ -40,7 +40,7 @@
             android:name=".RegisterActivity"
             android:label="Sign Up" />
         <activity
-            android:name=".NewUser"
+            android:name=".NewUserActivity"
             android:label="Welcome"
             android:theme="@style/AppTheme" />
         <activity
