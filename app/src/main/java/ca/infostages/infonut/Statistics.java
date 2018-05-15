@@ -2,6 +2,7 @@ package ca.infostages.infonut;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.LightingColorFilter;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -35,13 +36,13 @@ public class Statistics extends AppCompatActivity{
 
     private PieChart mChart;
     Button fat;
-    Button saturatedFat;
-    Button transFat;
+    Button goodFat;
+    Button badFat;
     Button cholesterol;
     Button sodium;
     Button carbohydrate;
     Button fibre;
-    Button sugars;
+    Button potassium;
     Button protein;
     Button vitaminA;
     Button vitaminC;
@@ -81,13 +82,13 @@ public class Statistics extends AppCompatActivity{
         mChart = (PieChart) findViewById(R.id.pie);
 
         fat = findViewById(R.id.fat);
-        saturatedFat = findViewById(R.id.saturatedFat);
-        transFat = findViewById(R.id.transFat);
+        goodFat = findViewById(R.id.saturatedFat);
+        badFat = findViewById(R.id.transFat);
         cholesterol = findViewById(R.id.cholesterol);
         sodium = findViewById(R.id.sodium);
         carbohydrate = findViewById(R.id.carbohydrate);
         fibre = findViewById(R.id.fibre);
-        sugars = findViewById(R.id.sugar);
+        potassium = findViewById(R.id.sugar);
         protein = findViewById(R.id.protein);
         vitaminA = findViewById(R.id.vitaminA);
         vitaminC = findViewById(R.id.vitaminC);
@@ -111,7 +112,7 @@ public class Statistics extends AppCompatActivity{
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     String plan = dataSnapshot.getValue().toString();
                     if (plan.equals("false")) {
-                        Intent intent = new Intent(Statistics.this, NewUser.class);
+                        Intent intent = new Intent(Statistics.this, Home.class);
                         startActivity(intent);
                     } else {
                         default_bad_fats = dataSnapshot.child("bad_fats").getValue(Long.class);
@@ -178,6 +179,7 @@ public class Statistics extends AppCompatActivity{
         fat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                buttonChange();
                 label = "Fat";
                 if(checkedServing) {
                     nutrientValue = hashmap.get("fat");
@@ -189,13 +191,15 @@ public class Statistics extends AppCompatActivity{
                 System.out.println("Nut value: "+ nutrientValue);
                 valueConverter(nutrientValue, intake);
                 createChart();
+                fat.getBackground().setColorFilter(new LightingColorFilter(0xFFFFFFFF, 0xFFAA0000));
+                fat.setTextColor(getApplication().getResources().getColor(R.color.black));
             }
         });
-        saturatedFat.setOnClickListener(new View.OnClickListener() {
+        // change this to good fats!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        goodFat.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
-                label = "Saturated Fat";
                 if(checkedServing) {
                     nutrientValue = hashmap.get("saturatedFat");
                 } else {
@@ -203,16 +207,21 @@ public class Statistics extends AppCompatActivity{
                     nutrientValue = consumptionManip(nutrientValue, servingAmount);
                 }
                 intake = default_bad_fats;
+                buttonChange();
+                label = "Good Fat";
+                nutrientValue = hashmap.get("saturatedFat");
                 System.out.println("Nut value: "+ nutrientValue);
                 valueConverter(nutrientValue, intake);
                 createChart();
+                goodFat.getBackground().setColorFilter(new LightingColorFilter(0xFFFFFFFF, 0xFFAA0000));
+                goodFat.setTextColor(getApplication().getResources().getColor(R.color.black));
             }
         });
-        transFat .setOnClickListener(new View.OnClickListener() {
+        // change this to bad fats!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        badFat .setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
-                label = "Trans Fat";
                 if(checkedServing) {
                     nutrientValue = hashmap.get("transFat");
                 } else {
@@ -220,15 +229,21 @@ public class Statistics extends AppCompatActivity{
                     nutrientValue = consumptionManip(nutrientValue, servingAmount);
                 }
                 intake = default_bad_fats;
+                buttonChange();
+                label = "Bad Fat";
+                nutrientValue = hashmap.get("transFat");
                 System.out.println("Nut value: "+ nutrientValue);
                 valueConverter(nutrientValue, intake);
                 createChart();
+                badFat.getBackground().setColorFilter(new LightingColorFilter(0xFFFFFFFF, 0xFFAA0000));
+                badFat.setTextColor(getApplication().getResources().getColor(R.color.black));
             }
         });
         cholesterol .setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
+                buttonChange();
                 label = "Cholesterol";
                 if(checkedServing) {
                     nutrientValue = hashmap.get("cholesterol");
@@ -240,12 +255,15 @@ public class Statistics extends AppCompatActivity{
                 System.out.println("Nut value: "+ nutrientValue);
                 valueConverter(nutrientValue, intake);
                 createChart();
+                cholesterol.getBackground().setColorFilter(new LightingColorFilter(0xFFFFFFFF, 0xFFAA0000));
+                cholesterol.setTextColor(getApplication().getResources().getColor(R.color.black));
             }
         });
         sodium .setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
+                buttonChange();
                 label = "Sodium";
                 if(checkedServing) {
                     nutrientValue = hashmap.get("sodium");
@@ -257,12 +275,15 @@ public class Statistics extends AppCompatActivity{
                 System.out.println("Nut value: "+ nutrientValue);
                 valueConverter(nutrientValue, intake);
                 createChart();
+                sodium.getBackground().setColorFilter(new LightingColorFilter(0xFFFFFFFF, 0xFFAA0000));
+                sodium.setTextColor(getApplication().getResources().getColor(R.color.black));
             }
         });
         carbohydrate .setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
+                buttonChange();
                 label = "Carbohydrate";
                 if(checkedServing) {
                     nutrientValue = hashmap.get("carbohydrate");
@@ -274,12 +295,15 @@ public class Statistics extends AppCompatActivity{
                 System.out.println("Nut value: "+ nutrientValue);
                 valueConverter(nutrientValue, intake);
                 createChart();
+                carbohydrate.getBackground().setColorFilter(new LightingColorFilter(0xFFFFFFFF, 0xFFAA0000));
+                carbohydrate.setTextColor(getApplication().getResources().getColor(R.color.black));
             }
         });
         fibre .setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
+                buttonChange();
                 label = "Fibre";
                 if(checkedServing) {
                     nutrientValue = hashmap.get("fibre");
@@ -291,12 +315,16 @@ public class Statistics extends AppCompatActivity{
                 System.out.println("Nut value: "+ nutrientValue);
                 valueConverter(nutrientValue, intake);
                 createChart();
+                fibre.getBackground().setColorFilter(new LightingColorFilter(0xFFFFFFFF, 0xFFAA0000));
+                fibre.setTextColor(getApplication().getResources().getColor(R.color.black));
             }
         });
-        sugars .setOnClickListener(new View.OnClickListener() {
+        // change this to potassium!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        potassium .setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
+                buttonChange();
                 label = "Sugars";
                 if(checkedServing) {
                     nutrientValue = hashmap.get("sugars");
@@ -308,12 +336,15 @@ public class Statistics extends AppCompatActivity{
                 System.out.println("Nut value: "+ nutrientValue);
                 valueConverter(nutrientValue, intake);
                 createChart();
+                potassium.getBackground().setColorFilter(new LightingColorFilter(0xFFFFFFFF, 0xFFAA0000));
+                potassium.setTextColor(getApplication().getResources().getColor(R.color.black));
             }
         });
         protein .setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
+                buttonChange();
                 label = "Protein";
                 if(checkedServing) {
                     nutrientValue = hashmap.get("protein");
@@ -325,12 +356,15 @@ public class Statistics extends AppCompatActivity{
                 System.out.println("Nut value: "+ nutrientValue);
                 valueConverter(nutrientValue, intake);
                 createChart();
+                protein.getBackground().setColorFilter(new LightingColorFilter(0xFFFFFFFF, 0xFFAA0000));
+                protein.setTextColor(getApplication().getResources().getColor(R.color.black));
             }
         });
         vitaminA .setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
+                buttonChange();
                 label = "Vitamin A";
                 if(checkedServing) {
                     nutrientValue = hashmap.get("vitaminA");
@@ -342,12 +376,15 @@ public class Statistics extends AppCompatActivity{
                 System.out.println("Nut value: "+ nutrientValue);
                 valueConverter(nutrientValue, intake);
                 createChart();
+                vitaminA.getBackground().setColorFilter(new LightingColorFilter(0xFFFFFFFF, 0xFFAA0000));
+                vitaminA.setTextColor(getApplication().getResources().getColor(R.color.black));
             }
         });
         vitaminC .setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
+                buttonChange();
                 label = "Vitamin C";
                 if(checkedServing) {
                     nutrientValue = hashmap.get("vitaminC");
@@ -359,12 +396,15 @@ public class Statistics extends AppCompatActivity{
                 System.out.println("Nut value: "+ nutrientValue);
                 valueConverter(nutrientValue, intake);
                 createChart();
+                vitaminC.getBackground().setColorFilter(new LightingColorFilter(0xFFFFFFFF, 0xFFAA0000));
+                vitaminC.setTextColor(getApplication().getResources().getColor(R.color.black));
             }
         });
         calcium .setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
+                buttonChange();
                 label = "Calcium";
                 if(checkedServing) {
                     nutrientValue = hashmap.get("calcium");
@@ -376,12 +416,15 @@ public class Statistics extends AppCompatActivity{
                 System.out.println("Nut value: "+ nutrientValue);
                 valueConverter(nutrientValue, intake);
                 createChart();
+                calcium.getBackground().setColorFilter(new LightingColorFilter(0xFFFFFFFF, 0xFFAA0000));
+                calcium.setTextColor(getApplication().getResources().getColor(R.color.black));
             }
         });
         iron .setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
+                buttonChange();
                 label = "Iron";
                 if(checkedServing) {
                     nutrientValue = hashmap.get("iron");
@@ -394,8 +437,42 @@ public class Statistics extends AppCompatActivity{
                 System.out.println("Nut value: "+ nutrientValue);
                 valueConverter(nutrientValue, intake);
                 createChart();
+                iron.getBackground().setColorFilter(new LightingColorFilter(0xFFFFFFFF, 0xFFAA0000));
+                iron.setTextColor(getApplication().getResources().getColor(R.color.black));
             }
         });
+    }
+
+    /**
+     * Changes the background and text color of all the buttons
+     */
+    private void buttonChange(){
+        iron.getBackground().clearColorFilter();
+        iron.setTextColor(getResources().getColor(R.color.white));
+        fat.getBackground().clearColorFilter();
+        fat.setTextColor(getResources().getColor(R.color.white));
+        goodFat.getBackground().clearColorFilter();
+        goodFat.setTextColor(getResources().getColor(R.color.white));
+        badFat.getBackground().clearColorFilter();
+        badFat.setTextColor(getResources().getColor(R.color.white));
+        cholesterol.getBackground().clearColorFilter();
+        cholesterol.setTextColor(getResources().getColor(R.color.white));
+        sodium.getBackground().clearColorFilter();
+        sodium.setTextColor(getResources().getColor(R.color.white));
+        carbohydrate.getBackground().clearColorFilter();
+        carbohydrate.setTextColor(getResources().getColor(R.color.white));
+        fibre.getBackground().clearColorFilter();
+        fibre.setTextColor(getResources().getColor(R.color.white));
+        potassium.getBackground().clearColorFilter();
+        potassium.setTextColor(getResources().getColor(R.color.white));
+        protein.getBackground().clearColorFilter();
+        protein.setTextColor(getResources().getColor(R.color.white));
+        vitaminA.getBackground().clearColorFilter();
+        vitaminA.setTextColor(getResources().getColor(R.color.white));
+        vitaminC.getBackground().clearColorFilter();
+        vitaminC.setTextColor(getResources().getColor(R.color.white));
+        calcium.getBackground().clearColorFilter();
+        calcium.setTextColor(getResources().getColor(R.color.white));
     }
 
     private void createChart() {

@@ -2,8 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="ca.infostages.infonut">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
 
@@ -42,7 +40,7 @@
             android:name=".RegisterActivity"
             android:label="Sign Up" />
         <activity
-            android:name=".NewUser"
+            android:name=".NewUserActivity"
             android:label="Welcome"
             android:theme="@style/AppTheme" />
         <activity
