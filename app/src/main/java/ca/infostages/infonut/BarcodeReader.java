@@ -96,24 +96,26 @@ public class BarcodeReader extends AppCompatActivity implements View.OnClickList
         }
     }
 
+    /**
+     * Seekbar allows user to specify a specific portion
+     * of what they eat
+     * Default is set to 100%
+     */
     public void seekbar() {
         seek_bar = (SeekBar) findViewById(R.id.seekBar);
         seek_bar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                /*System.out.println("THIS IS THE SEEK BAR: " + progress);*/
                 portionsize = progress / 4.0;
             }
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
-
             }
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-
             }
         });
     }

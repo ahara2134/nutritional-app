@@ -89,7 +89,8 @@ public class NewUser2Activity extends AppCompatActivity implements View.OnClickL
             String uID = mUser.getUid();
             mDatabase.child("users").child(uID).child("age").setValue(age);
             mDatabase.child("users").child(uID).child("lbs").setValue(weight);
-            finish();
+            Intent intent = new Intent(NewUser2Activity.this, Home.class);
+            startActivity(intent);
         }
 
 
@@ -146,8 +147,6 @@ public class NewUser2Activity extends AppCompatActivity implements View.OnClickL
         mDatabase.child("users").child(uID).child("plan").child("default_plan").child("cholesterol").setValue(cholesterol);
         mDatabase.child("users").child(uID).child("plan").child("default_plan").child("sodium").setValue(sodium);
         mDatabase.child("users").child(uID).child("plan").child("default_plan").child("potassium").setValue(potassium);
-        mDatabase.child("users").child(uID).child("plan").child("default_plan").child("Calories").setValue(calorie);
-        mDatabase.child("users").child(uID).child("plan").child("default_plan").child("Calories").setValue(calorie);
         mDatabase.child("users").child(uID).child("plan").child("default_plan").child("carbohydrates").setValue(carbs);
         mDatabase.child("users").child(uID).child("plan").child("default_plan").child("fibre").setValue(fibre);
         mDatabase.child("users").child(uID).child("plan").child("default_plan").child("protein").setValue(protein);
@@ -300,22 +299,36 @@ public class NewUser2Activity extends AppCompatActivity implements View.OnClickL
 
     //Determine how much carbohydrates
     public double calculateCarbs(int cal) {
-        return (double) cal * 0.45;
+        double calPerCarb = cal * 0.45;
+        return calPerCarb / 4.0;
     }
 
     //Determine how much fats
     public double calculateFat(int cal) {
-        return (double) cal * 0.20;
+        if(ageDB == 1 || ageDB == 2 || ageDB == 3 || ageDB == 4) {
+            double calByFat = (double)cal * 0.25;
+            return calByFat / 9;
+        } else {
+            double calByFat = (double)cal * 0.20;
+            return calByFat / 9;
+        }
     }
 
     //Determine how much saturated and transfat is needed
     public double calculateBadFats(int cal) {
-        return (double) cal * 0.10;
+        double calByFat = (double) cal * 0.10;
+        return calByFat / 9;
     }
 
     //Determine how much protein is recommended
     public double calculateProtein() {
-        return weight * 0.8;
+        if (ageDB == 1 || ageDB == 2) {
+            return weight * 0.95;
+        } else if (ageDB == 3 || ageDB == 4) {
+            return weight * 0.85;
+        } else {
+            return weight * 0.8;
+        }
     }
 
     public int calculateIron() {
