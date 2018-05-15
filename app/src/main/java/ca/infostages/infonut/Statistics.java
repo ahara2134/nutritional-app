@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -16,6 +17,13 @@ import com.github.mikephil.charting.listener.OnChartGestureListener;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.github.mikephil.charting.utils.MPPointF;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 
 import java.text.DecimalFormat;
@@ -40,12 +48,29 @@ public class Statistics extends AppCompatActivity{
     Button calcium;
     Button iron;
 
+    //default plans
+    private Long default_bad_fats;
+    private Long default_calcium;
+    private Long default_calories;
+    private Long default_carbohydrates;
+    private Long default_cholesterol;
+    private Long default_fibre;
+    private Long default_good_fats;
+    private Long default_iron;
+    private Long default_potassium;
+    private Long default_protein;
+    private Long default_sodium;
+    private Long default_vitamin_A;
+    private Long default_vitamin_C;
+
     String label;
     double nutrientValue = 0;
     double intake = 100; //CHANGE HERE WITH USER SPECIFIED INTAKE
     int percent = 0;
     int full = 100;
 
+    FirebaseUser currentUser;
+    private static final String TAG = "Statistics.java";
 
 
     @Override
@@ -71,7 +96,61 @@ public class Statistics extends AppCompatActivity{
 
         final HashMap<String, Double> hashmap =  NutritionData.nutritionHashMap;
 
+        //GET FIREBASE STUFF HERE
 
+        currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if(currentUser == null) {
+            Intent intent = new Intent(Statistics.this, MainActivity.class);
+            startActivity(intent);
+        } else {
+            //Checks if user's demographics are entered in. If not, send to NewUserActivity.
+            DatabaseReference planReference;
+            planReference = FirebaseDatabase.getInstance().getReference().child("users").child(currentUser.getUid()).child("plan").child("default_plan");
+            planReference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    String plan = dataSnapshot.getValue().toString();
+                    if (plan.equals("false")) {
+                        Intent intent = new Intent(Statistics.this, NewUser.class);
+                        startActivity(intent);
+                    } else {
+                        default_bad_fats = dataSnapshot.child("bad_fats").getValue(Long.class);
+                        default_calcium = dataSnapshot.child("calcium").getValue(Long.class);
+                        default_calories = dataSnapshot.child("calories").getValue(Long.class);
+                        default_carbohydrates = dataSnapshot.child("carbohydrates").getValue(Long.class);
+                        default_cholesterol = dataSnapshot.child("cholesterol").getValue(Long.class);
+                        default_fibre = dataSnapshot.child("fibre").getValue(Long.class);
+                        default_good_fats = dataSnapshot.child("good_fats").getValue(Long.class);
+                        default_iron = dataSnapshot.child("iron").getValue(Long.class);
+                        default_potassium = dataSnapshot.child("potassium").getValue(Long.class);
+                        default_protein = dataSnapshot.child("protein").getValue(Long.class);
+                        default_sodium = dataSnapshot.child("sodium").getValue(Long.class);
+                        default_vitamin_A = dataSnapshot.child("vitamin_A").getValue(Long.class);
+                        default_vitamin_C = dataSnapshot.child("vitamin_C").getValue(Long.class);
+
+                        System.out.println("1: " + default_bad_fats );
+                        System.out.println("2: " + default_calcium );
+                        System.out.println("3: " + default_calories );
+                        System.out.println("4: " + default_carbohydrates );
+                        System.out.println("5: " + default_cholesterol);
+                        System.out.println("6: " + default_fibre );
+                        System.out.println("7: " + default_good_fats );
+                        System.out.println("8: " + default_iron );
+                        System.out.println("9: " + default_potassium );
+                        System.out.println("10: " + default_protein);
+                        System.out.println("11: " + default_sodium);
+                        System.out.println("12: " + default_vitamin_A );
+                        System.out.println("13: " + default_vitamin_C );
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    Log.d(TAG, ": " + databaseError.getMessage());
+                }
+            });
+        }
+        //==================================
 
         boolean checkedServing = getIntent().getBooleanExtra("servingChecked", true);
         boolean checked100 = getIntent().getBooleanExtra("100Checked", false);

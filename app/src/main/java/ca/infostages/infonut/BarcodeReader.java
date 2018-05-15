@@ -97,7 +97,7 @@ public class BarcodeReader extends AppCompatActivity implements View.OnClickList
                     //=======================================================
                     LayoutInflater layoutInflaterAndroid = LayoutInflater.from(c);
                     View mView = layoutInflaterAndroid.inflate(R.layout.user_input_dialog_box, null);
-                    AlertDialog.Builder alertDialogBuilderUserInput = new AlertDialog.Builder(c, R.style.MyDialogTheme);
+                    AlertDialog.Builder alertDialogBuilderUserInput = new AlertDialog.Builder(c);
                     alertDialogBuilderUserInput.setView(mView);
 
                     final EditText userInputDialogEditText = (EditText) mView.findViewById(R.id.userInputDialog);
