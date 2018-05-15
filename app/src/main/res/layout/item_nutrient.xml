@@ -7,6 +7,14 @@
     android:paddingTop="10dp"
     android:paddingBottom="10dp">
 
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/item_delete_btn"
+        android:contentDescription="@string/delete_description"
+        android:background="@null"
+        android:src="@android:drawable/ic_delete"/>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

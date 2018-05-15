@@ -8,28 +8,45 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Activity for user plan creation and
  */
-public class MakePlanActivity extends AppCompatActivity implements NutrientDialogFragment.NutrientDialogListener {
+public class MakePlanActivity extends AppCompatActivity
+        implements NutrientDialogFragment.NutrientDialogListener {
 
     private static final String TAG_NUTRIENT_DIALOG = "NUTRIENT_DIALOG";
+    private EditText title;
     private ArrayList<Nutrient> mNutrients;
-    NutrientsAdapter adapter;
+    private NutrientsAdapter adapter;
+    private DatabaseReference mDatabase;
+    private RecyclerView nutrientIntakeList;
+    private FirebaseUser user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_make_plan);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        RecyclerView nutrientIntakeList = findViewById(R.id.nutrients_recycler);
+        nutrientIntakeList = findViewById(R.id.nutrients_recycler);
         mNutrients = new ArrayList<>();
         adapter = new NutrientsAdapter(mNutrients);
         nutrientIntakeList.setAdapter(adapter);
         nutrientIntakeList.setLayoutManager(new LinearLayoutManager(this));
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        title = findViewById(R.id.plan_title_edit);
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        user = auth.getCurrentUser();
+
     }
 
     @Override
@@ -63,5 +80,24 @@ public class MakePlanActivity extends AppCompatActivity implements NutrientDialo
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    /**
+     * Writes the plan to Firebase and closes the activity.
+     * @param view - view
+     */
+    public void submitPlan(View view) {
+        HashMap<String, Double> hashMap = new HashMap<>();
+        for (int index = 0; index < nutrientIntakeList.getChildCount();++index) {
+            NutrientsAdapter.ViewHolder holder = (NutrientsAdapter.ViewHolder) nutrientIntakeList
+                    .findViewHolderForAdapterPosition(index);
+            hashMap.put(holder.nameTextView.getText().toString(),
+                    Double.parseDouble(holder.limitEditText.getText().toString()));
+        }
+        Plan plan = new Plan(title.getText().toString(), hashMap);
+        if (user != null) {
+            mDatabase.child("users").child(user.getUid()).child("plan").setValue(plan);
+        }
+        finish();
     }
 }

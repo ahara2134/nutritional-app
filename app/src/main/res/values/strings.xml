@@ -85,6 +85,7 @@
     <string name="nutrient_limit_placeholder">0</string>
     <string name="nutrient_name_description">User-defined nutrient</string>
     <string name="grams_label">grams</string>
+    <string name="delete_description">Delete</string>
 
     <!-- Titles -->
     <string name="title_activity_home">Home</string>
@@ -128,8 +129,7 @@
     <string-array name="nutrient_list">
         <item>Calories</item>
         <item>Fat</item>
-        <item>Saturated fat</item>
-        <item>Trans fat</item>
+        <item>Bad Fat</item>
         <item>Cholesterol</item>
         <item>Sodium</item>
         <item>Carbohydrate</item>
