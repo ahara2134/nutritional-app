@@ -38,7 +38,7 @@
             android:label="Sign Up" />
         <activity
             android:name=".Home"
-            android:label="Dashboard" />
+            android:label="Dashboard"/>
         <activity
             android:name=".NewUser"
             android:label="Welcome"

@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -40,6 +41,7 @@ public class Home extends AppCompatActivity {
     GoogleApiClient mGoogleApiClient;
     GoogleSignInClient mGoogleSignInClient;
     FirebaseUser currentUser;
+    private Toolbar toolbar;
 
     private static final String TAG = "Home.java";
 
@@ -80,6 +82,18 @@ public class Home extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
+/*        toolbar = findViewById(R.id.toolbarId);
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });*/
+
+        //Add back navigation in the title bar
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+
         //Checks if user's demographics are entered in. If not, send to NewUserActivity.
         /*currentUser = FirebaseAuth.getInstance().getCurrentUser();
         DatabaseReference planReference;
@@ -104,6 +118,32 @@ public class Home extends AppCompatActivity {
 
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+    }
+
+    /**
+     * This will take the user back to the previous activity
+     * @param item what button is being selected
+     * @return super.onOptionsItemSelected(item)
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            //Title bar back press triggers onBackPressed()
+            onBackPressed();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    //Both navigation bar back press and title bar back press will trigger this method
+    @Override
+    public void onBackPressed() {
+        if (getFragmentManager().getBackStackEntryCount() > 0 ) {
+            getFragmentManager().popBackStack();
+        }
+        else {
+            super.onBackPressed();
+        }
     }
 
     public void newUser(View view) {

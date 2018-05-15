@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +33,9 @@ public class HomeFragment extends Fragment {
         plans       = (ImageButton) view.findViewById(R.id.imageButton7);
         scan        = (ImageButton) view.findViewById(R.id.imageButton8);
         info        = (ImageButton) view.findViewById(R.id.imageButton5);
+
+        //Enable Back button
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
         /**
          * This will connect the user to the Results.java fragment from the HomeFragment.java fragment
