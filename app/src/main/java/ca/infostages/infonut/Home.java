@@ -4,8 +4,8 @@ import android.support.v4.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -28,32 +28,9 @@ public class Home extends AppCompatActivity {
     private View view2;
     private FirebaseAuth mAuth;
     private FirebaseUser currentUser;
+    private Toolbar toolbar;
 
     private static final String TAG = "Home.java";
-
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-            = new BottomNavigationView.OnNavigationItemSelectedListener() {
-
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            Intent intent;
-            switch (item.getItemId()) {
-                case R.id.navigation_home:
-                    return loadFragment(HomeFragment.newInstance());
-                case R.id.navigation_camera:
-                    intent = new Intent(Home.this, BarcodeReader.class);
-                    startActivity(intent);
-                    return true;
-                case R.id.navigation_plans:
-                    return loadFragment(ChoosePlanFragment.newInstance());
-                case R.id.navigation_settings:
-                    intent = new Intent(Home.this, Statistics.class);
-                    startActivity(intent);
-                    return true;
-            }
-            return false;
-        }
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +44,18 @@ public class Home extends AppCompatActivity {
         view2 = this.getWindow().getDecorView();
 
         mAuth = FirebaseAuth.getInstance();
+
+/*        toolbar = findViewById(R.id.toolbarId);
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });*/
+
+        //Add back navigation in the title bar
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
         //Checks if the user is logged in. If not, send to Mainactivity.
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -95,9 +84,32 @@ public class Home extends AppCompatActivity {
                 }
             });
         }
+    }
 
-        BottomNavigationView navigation = findViewById(R.id.navigation);
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+    /**
+     * This will take the user back to the previous activity
+     * @param item what button is being selected
+     * @return super.onOptionsItemSelected(item)
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            //Title bar back press triggers onBackPressed()
+            onBackPressed();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    //Both navigation bar back press and title bar back press will trigger this method
+    @Override
+    public void onBackPressed() {
+        if (getFragmentManager().getBackStackEntryCount() > 0 ) {
+            getFragmentManager().popBackStack();
+        }
+        else {
+            super.onBackPressed();
+        }
     }
 
     //Temporary button to take you to new user
