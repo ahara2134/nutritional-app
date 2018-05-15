@@ -20,6 +20,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.GestureDetector;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
@@ -333,5 +334,31 @@ public final class BarcodeCaptureActivity extends AppCompatActivity implements B
     @Override
     public void onBarcodeDetected(Barcode barcode) {
         //do something with barcode data returned
+    }
+
+    /**
+     * This will take the user back to the previous activity
+     * @param item what button is being selected
+     * @return super.onOptionsItemSelected(item)
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            //Title bar back press triggers onBackPressed()
+            onBackPressed();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    //Both navigation bar back press and title bar back press will trigger this method
+    @Override
+    public void onBackPressed() {
+        if (getFragmentManager().getBackStackEntryCount() > 0 ) {
+            getFragmentManager().popBackStack();
+        }
+        else {
+            super.onBackPressed(); // In this case, this will always go to this
+        }
     }
 }

@@ -35,6 +35,8 @@ public class Results extends Fragment implements View.OnClickListener {
         View view = inflater.inflate(R.layout.fragment_results, container, false);
         button_bye = (Button)view.findViewById(R.id.button_bye);
         button_bye.setOnClickListener(this);
+        //Enable Back button
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         return view;
     }
 
