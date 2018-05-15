@@ -27,6 +27,7 @@ public class BarcodeReader extends AppCompatActivity implements View.OnClickList
     private static final String TAG = "BarcodeMain";
     private static SeekBar seek_bar;
     private static Button sendResults;
+    private Button results;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +58,8 @@ public class BarcodeReader extends AppCompatActivity implements View.OnClickList
         sendResults.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //RYAN SEND TO RESULTS HERE
+                Intent intent2 = new Intent(BarcodeReader.this, Statistics.class);
+                startActivity(intent2);
             }
         });
     }
