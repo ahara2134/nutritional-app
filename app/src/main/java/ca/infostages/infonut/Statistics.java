@@ -28,13 +28,13 @@ public class Statistics extends AppCompatActivity{
 
     private PieChart mChart;
     Button fat;
-    Button saturatedFat;
-    Button transFat;
+    Button goodFat;
+    Button badFat;
     Button cholesterol;
     Button sodium;
     Button carbohydrate;
     Button fibre;
-    Button sugars;
+    Button potassium;
     Button protein;
     Button vitaminA;
     Button vitaminC;
@@ -55,13 +55,13 @@ public class Statistics extends AppCompatActivity{
         mChart = (PieChart) findViewById(R.id.pie);
 
         fat = findViewById(R.id.fat);
-        saturatedFat = findViewById(R.id.saturatedFat);
-        transFat = findViewById(R.id.transFat);
+        goodFat = findViewById(R.id.saturatedFat);
+        badFat = findViewById(R.id.transFat);
         cholesterol = findViewById(R.id.cholesterol);
         sodium = findViewById(R.id.sodium);
         carbohydrate = findViewById(R.id.carbohydrate);
         fibre = findViewById(R.id.fibre);
-        sugars = findViewById(R.id.sugar);
+        potassium = findViewById(R.id.sugar);
         protein = findViewById(R.id.protein);
         vitaminA = findViewById(R.id.vitaminA);
         vitaminC = findViewById(R.id.vitaminC);
@@ -104,33 +104,33 @@ public class Statistics extends AppCompatActivity{
             }
         });
         // change this to good fats!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        saturatedFat.setOnClickListener(new View.OnClickListener() {
+        goodFat.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
                 buttonChange();
-                label = "Saturated Fat";
+                label = "Good Fat";
                 nutrientValue = hashmap.get("saturatedFat");
                 System.out.println("Nut value: "+ nutrientValue);
                 valueConverter(nutrientValue, intake);
                 createChart();
-                saturatedFat.getBackground().setColorFilter(new LightingColorFilter(0xFFFFFFFF, 0xFFAA0000));
-                saturatedFat.setTextColor(getApplication().getResources().getColor(R.color.black));
+                goodFat.getBackground().setColorFilter(new LightingColorFilter(0xFFFFFFFF, 0xFFAA0000));
+                goodFat.setTextColor(getApplication().getResources().getColor(R.color.black));
             }
         });
         // change this to bad fats!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        transFat .setOnClickListener(new View.OnClickListener() {
+        badFat .setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
                 buttonChange();
-                label = "Trans Fat";
+                label = "Bad Fat";
                 nutrientValue = hashmap.get("transFat");
                 System.out.println("Nut value: "+ nutrientValue);
                 valueConverter(nutrientValue, intake);
                 createChart();
-                transFat.getBackground().setColorFilter(new LightingColorFilter(0xFFFFFFFF, 0xFFAA0000));
-                transFat.setTextColor(getApplication().getResources().getColor(R.color.black));
+                badFat.getBackground().setColorFilter(new LightingColorFilter(0xFFFFFFFF, 0xFFAA0000));
+                badFat.setTextColor(getApplication().getResources().getColor(R.color.black));
             }
         });
         cholesterol .setOnClickListener(new View.OnClickListener() {
@@ -190,7 +190,7 @@ public class Statistics extends AppCompatActivity{
             }
         });
         // change this to potassium!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        sugars .setOnClickListener(new View.OnClickListener() {
+        potassium .setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
@@ -200,8 +200,8 @@ public class Statistics extends AppCompatActivity{
                 System.out.println("Nut value: "+ nutrientValue);
                 valueConverter(nutrientValue, intake);
                 createChart();
-                sugars.getBackground().setColorFilter(new LightingColorFilter(0xFFFFFFFF, 0xFFAA0000));
-                sugars.setTextColor(getApplication().getResources().getColor(R.color.black));
+                potassium.getBackground().setColorFilter(new LightingColorFilter(0xFFFFFFFF, 0xFFAA0000));
+                potassium.setTextColor(getApplication().getResources().getColor(R.color.black));
             }
         });
         protein .setOnClickListener(new View.OnClickListener() {
@@ -276,15 +276,18 @@ public class Statistics extends AppCompatActivity{
         });
     }
 
+    /**
+     * Changes the background and text color of all the buttons
+     */
     private void buttonChange(){
         iron.getBackground().clearColorFilter();
         iron.setTextColor(getResources().getColor(R.color.white));
         fat.getBackground().clearColorFilter();
         fat.setTextColor(getResources().getColor(R.color.white));
-        saturatedFat.getBackground().clearColorFilter();
-        saturatedFat.setTextColor(getResources().getColor(R.color.white));
-        transFat.getBackground().clearColorFilter();
-        transFat.setTextColor(getResources().getColor(R.color.white));
+        goodFat.getBackground().clearColorFilter();
+        goodFat.setTextColor(getResources().getColor(R.color.white));
+        badFat.getBackground().clearColorFilter();
+        badFat.setTextColor(getResources().getColor(R.color.white));
         cholesterol.getBackground().clearColorFilter();
         cholesterol.setTextColor(getResources().getColor(R.color.white));
         sodium.getBackground().clearColorFilter();
@@ -293,8 +296,8 @@ public class Statistics extends AppCompatActivity{
         carbohydrate.setTextColor(getResources().getColor(R.color.white));
         fibre.getBackground().clearColorFilter();
         fibre.setTextColor(getResources().getColor(R.color.white));
-        sugars.getBackground().clearColorFilter();
-        sugars.setTextColor(getResources().getColor(R.color.white));
+        potassium.getBackground().clearColorFilter();
+        potassium.setTextColor(getResources().getColor(R.color.white));
         protein.getBackground().clearColorFilter();
         protein.setTextColor(getResources().getColor(R.color.white));
         vitaminA.getBackground().clearColorFilter();
