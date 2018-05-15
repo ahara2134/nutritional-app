@@ -17,6 +17,7 @@ import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.github.mikephil.charting.utils.MPPointF;
 
+
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -45,6 +46,8 @@ public class Statistics extends AppCompatActivity{
     int percent = 0;
     int full = 100;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,6 +70,8 @@ public class Statistics extends AppCompatActivity{
         iron = findViewById(R.id.iron);
 
         final HashMap<String, Double> hashmap =  NutritionData.nutritionHashMap;
+
+
 
         boolean checkedServing = getIntent().getBooleanExtra("servingChecked", true);
         boolean checked100 = getIntent().getBooleanExtra("100Checked", false);

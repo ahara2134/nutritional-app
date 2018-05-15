@@ -1,16 +1,23 @@
 package ca.infostages.infonut;
 
+import android.app.AlertDialog;
 import android.app.Fragment;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -33,6 +40,8 @@ public class BarcodeReader extends AppCompatActivity implements View.OnClickList
     private Switch switchServing;
     private Switch switch100;
     private Button showResult;
+    private String result;
+    final Context c = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +66,8 @@ public class BarcodeReader extends AppCompatActivity implements View.OnClickList
                 Intent intent = new Intent(BarcodeReader.this, Statistics.class);
                 intent.putExtra("servingChecked", switchServing.isChecked());
                 intent.putExtra("100Checked", switch100.isChecked());
+                intent.putExtra("100Portion", result);
+                intent.putExtra("sliderPortion", portionsize);
                 startActivity(intent);
             }
         });
@@ -80,11 +91,46 @@ public class BarcodeReader extends AppCompatActivity implements View.OnClickList
         switch100.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(switch100.isChecked()) {
+                if (switch100.isChecked()) {
                     switchServing.setChecked(false);
+
+                    //=======================================================
+                    LayoutInflater layoutInflaterAndroid = LayoutInflater.from(c);
+                    View mView = layoutInflaterAndroid.inflate(R.layout.user_input_dialog_box, null);
+                    AlertDialog.Builder alertDialogBuilderUserInput = new AlertDialog.Builder(c, R.style.MyDialogTheme);
+                    alertDialogBuilderUserInput.setView(mView);
+
+                    final EditText userInputDialogEditText = (EditText) mView.findViewById(R.id.userInputDialog);
+                    alertDialogBuilderUserInput
+                            .setCancelable(false)
+                            .setPositiveButton("Send", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialogBox, int id) {
+                                    // ToDo get user input here
+                                    result = userInputDialogEditText.getText().toString();
+                                }
+                            })
+                            .setNegativeButton("Cancel",
+                                    new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialogBox, int id) {
+                                            dialogBox.cancel();
+                                        }
+                                    });
+
+                    AlertDialog alertDialogAndroid = alertDialogBuilderUserInput.create();
+                   // alertDialogAndroid.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+
+                    alertDialogAndroid.show();
+                    alertDialogAndroid.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(Color.BLACK);
+                    alertDialogAndroid.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.BLACK);
+                    //======================================
+
+
                 } else {
                     switchServing.setChecked(true);
                 }
+
+
+
             }
         });
 
