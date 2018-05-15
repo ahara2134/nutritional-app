@@ -1,6 +1,5 @@
 package ca.infostages.infonut;
 
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,16 +9,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 
-import com.google.android.gms.auth.api.Auth;
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -28,8 +20,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
-
 /**
  * Represents the container of all user navigation related tasks.
  */
@@ -37,9 +27,7 @@ public class Home extends AppCompatActivity {
 
     private View view2;
     private FirebaseAuth mAuth;
-    GoogleApiClient mGoogleApiClient;
-    GoogleSignInClient mGoogleSignInClient;
-    FirebaseUser currentUser;
+    private FirebaseUser currentUser;
 
     private static final String TAG = "Home.java";
 
@@ -94,7 +82,7 @@ public class Home extends AppCompatActivity {
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     String plan = dataSnapshot.getValue().toString();
                     if (plan.equals("false")) {
-                        Intent intent = new Intent (Home.this, NewUser.class);
+                        Intent intent = new Intent (Home.this, NewUserActivity.class);
                         startActivity(intent);
                     } else {
                         loadFragment(HomeFragment.newInstance());
@@ -112,8 +100,9 @@ public class Home extends AppCompatActivity {
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
 
+    //Temporary button to take you to new user
     public void newUser(View view) {
-        Intent intent = new Intent (Home.this, NewUser.class);
+        Intent intent = new Intent (Home.this, NewUserActivity.class);
         startActivity(intent);
     }
 
