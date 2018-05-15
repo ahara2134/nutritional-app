@@ -13,8 +13,6 @@ public class Plan {
     private HashMap<String, Double> ingredients;
     private Boolean isSelectedPlan;
 
-    public Plan() {}
-
     public Plan(String planTitle, HashMap<String, Double> nutrients, HashMap<String, Double> ingredients, Boolean isSelectedPlan) {
         setPlanTitle(planTitle);
         setNutrients(nutrients);

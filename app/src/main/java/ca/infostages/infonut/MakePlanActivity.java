@@ -11,6 +11,9 @@ import android.view.View;
 
 import java.util.ArrayList;
 
+/**
+ * Activity for user plan creation and
+ */
 public class MakePlanActivity extends AppCompatActivity implements NutrientDialogFragment.NutrientDialogListener {
 
     private static final String TAG_NUTRIENT_DIALOG = "NUTRIENT_DIALOG";
