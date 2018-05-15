@@ -112,12 +112,6 @@ public class Home extends AppCompatActivity {
         }
     }
 
-    //Temporary button to take you to new user
-    public void newUser(View view) {
-        Intent intent = new Intent (Home.this, NewUserActivity.class);
-        startActivity(intent);
-    }
-
     /**
      * Replaces the content of the current fragment with a new one.
      * @param fragment - a fragment that has been selected through the bottom navigation.
