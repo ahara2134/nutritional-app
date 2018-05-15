@@ -93,6 +93,8 @@
     <string name="cancel_nutrients">Cancel</string>
     <string name="nutrient_limit_placeholder">0</string>
     <string name="nutrient_name_description">User-defined nutrient</string>
+    <string name="grams_label">grams</string>
+    <string name="delete_description">Delete</string>
 
     <!-- Titles -->
     <string name="title_activity_home">Home</string>
@@ -132,19 +134,19 @@
 
     <!-- MakePlan arrays -->
     <string-array name="nutrient_list">
-        <item>fat</item>
-        <item>saturated fat</item>
-        <item>trans fat</item>
-        <item>cholesterol</item>
-        <item>sodium</item>
-        <item>carbohydrate</item>
-        <item>fibre</item>
-        <item>sugars</item>
-        <item>protein</item>
-        <item>vitamin A</item>
-        <item>vitamin C</item>
-        <item>calcium</item>
-        <item>iron</item>
+        <item>Calories</item>
+        <item>Fat</item>
+        <item>Bad Fat</item>
+        <item>Cholesterol</item>
+        <item>Sodium</item>
+        <item>Carbohydrate</item>
+        <item>Potassium</item>
+        <item>Fibre</item>
+        <item>Protein</item>
+        <item>Vitamin A</item>
+        <item>Vitamin C</item>
+        <item>Calcium</item>
+        <item>Iron</item>
     </string-array>
 
     <!--NewUser2 Array -->

@@ -15,11 +15,18 @@ public class Plan {
 
     public Plan() {}
 
-    public Plan(String planTitle, HashMap<String, Double> nutrients, HashMap<String, Double> ingredients, Boolean isSelectedPlan) {
+    public Plan(String planTitle, HashMap<String, Double> nutrients) {
+        setPlanTitle(planTitle);
+        setNutrients(nutrients);
+        setSelectedPlan(isSelectedPlan);
+    }
+
+    public Plan(String planTitle, HashMap<String, Double> nutrients,
+                HashMap<String, Double> ingredients) {
         setPlanTitle(planTitle);
         setNutrients(nutrients);
         setIngredients(ingredients);
-        setSelectedPlan(isSelectedPlan);
+        this.isSelectedPlan = false;
     }
 
     /**
