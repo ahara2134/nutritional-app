@@ -70,6 +70,13 @@
         android:layout_centerHorizontal="true"
         android:text="Set your portion size" />
 
+    <Switch
+        android:id="@+id/switch1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/read_barcode"
+        android:layout_centerHorizontal="true"
+        android:text="Switch" />
 
 
 </RelativeLayout>

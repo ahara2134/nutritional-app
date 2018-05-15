@@ -46,7 +46,8 @@ public class NutritionData extends AsyncTask<Void,Void,Void>{
             String servingSize = product.getString("serving_size");
             String quantity = product.getString("quantity");
 
-            String fat = nutrients.getString("fat_value");
+            //gets the nutrients by key per serving
+            String fat = nutrients.getString("fat_serving");
             String saturatedFat = nutrients.getString("saturated-fat_serving");
             String transFat = nutrients.getString("trans-fat_serving");
             String cholesterol = nutrients.getString("cholesterol_serving");
@@ -59,10 +60,31 @@ public class NutritionData extends AsyncTask<Void,Void,Void>{
             String vitaminC = nutrients.getString("vitamin-c_serving");
             String calcium = nutrients.getString("calcium_serving");
             String iron = nutrients.getString("iron_serving");
+            String potassium = nutrients.getString("potassium_serving");
 
+            String badfat_serving = badFatCalculator(transFat, saturatedFat);
+
+            //gets the nutrients by key per 100g
+            String fat_100 = nutrients.getString("fat_100g");
+            String saturatedFat_100 = nutrients.getString("saturated-fat_100g");
+            String transFat_100 = nutrients.getString("trans-fat_100g");
+            String cholesterol_100 = nutrients.getString("cholesterol_100g");
+            String sodium_100 = nutrients.getString("sodium_100g");
+            String carbohydrate_100 = nutrients.getString("carbohydrates_100g");
+            String fibre_100 = nutrients.getString("fiber_100g");
+            String sugars_100 = nutrients.getString("sugars_100g");
+            String protein_100 = nutrients.getString("proteins_100g");
+            String vitaminA_100 = nutrients.getString("vitamin-a_100g");
+            String vitaminC_100 = nutrients.getString("vitamin-c_100g");
+            String calcium_100 = nutrients.getString("calcium_100g");
+            String iron_100 = nutrients.getString("iron_100g");
+            String potassium_100 = nutrients.getString("potassium_100g");
+
+            String badfat_100 = badFatCalculator(transFat_100, saturatedFat_100);
+
+            //add nutrition by serving into hashmap
             nutritionHashMap.put("fat",convertNutrition(fat));
-            nutritionHashMap.put("saturatedFat",convertNutrition(saturatedFat));
-            nutritionHashMap.put("transFat",convertNutrition(transFat));
+            nutritionHashMap.put("badFat",convertNutrition(badfat_serving));
             nutritionHashMap.put("cholesterol",convertNutrition(cholesterol));
             nutritionHashMap.put("sodium",convertNutrition(sodium));
             nutritionHashMap.put("carbohydrate",convertNutrition(carbohydrate));
@@ -73,6 +95,22 @@ public class NutritionData extends AsyncTask<Void,Void,Void>{
             nutritionHashMap.put("vitaminC",convertNutrition(vitaminC));
             nutritionHashMap.put("calcium",convertNutrition(calcium));
             nutritionHashMap.put("iron",convertNutrition(iron));
+            nutritionHashMap.put("potassium",convertNutrition(potassium));
+
+            //add nutrition by 100g into hashmap
+            nutritionHashMap.put("fat_100",convertNutrition(fat_100));
+            nutritionHashMap.put("badFat_100",convertNutrition(badfat_100));
+            nutritionHashMap.put("cholesterol_100",convertNutrition(cholesterol_100));
+            nutritionHashMap.put("sodium_100",convertNutrition(sodium_100));
+            nutritionHashMap.put("carbohydrate_100",convertNutrition(carbohydrate_100));
+            nutritionHashMap.put("fibre_100",convertNutrition(fibre_100));
+            nutritionHashMap.put("sugars_100",convertNutrition(sugars_100));
+            nutritionHashMap.put("protein_100",convertNutrition(protein_100));
+            nutritionHashMap.put("vitaminA_100",convertNutrition(vitaminA_100));
+            nutritionHashMap.put("vitaminC_100",convertNutrition(vitaminC_100));
+            nutritionHashMap.put("calcium_100",convertNutrition(calcium_100));
+            nutritionHashMap.put("iron_100",convertNutrition(iron_100));
+            nutritionHashMap.put("potassium_100",convertNutrition(potassium_100));
 
             dataParsed = "Fat: " + fat + "\n"
                     + "Saturated Fat: " + saturatedFat + "\n"
@@ -104,6 +142,26 @@ public class NutritionData extends AsyncTask<Void,Void,Void>{
 
     }
 
+    /**
+     * Calculates the badFats by adding
+     * transfat and saturated fats
+     * @param transFat
+     * @param saturatedFat
+     * @return
+     */
+    private String badFatCalculator(String transFat, String saturatedFat) {
+        double transfat = Double.parseDouble(transFat);
+        double saturated = Double.parseDouble(saturatedFat);
+
+        double badFatD = transfat + saturated;
+        return "" + badFatD;
+    }
+
+    /**
+     * Converts the nutrition from a string value to a double value
+     * @param nutrition
+     * @return
+     */
     private double convertNutrition(String nutrition) {
         double dNutrition;
         String str = nutrition;
