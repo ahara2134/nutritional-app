@@ -72,11 +72,22 @@
         android:text="Set your portion size" />
 
     <Switch
-        android:id="@+id/switch1"
+        android:id="@+id/switch_serving"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/read_barcode"
-        android:layout_centerHorizontal="true"
-        android:text="Switch" />
+        android:layout_alignEnd="@+id/seekText"
+        android:layout_centerVertical="true"
+        android:checked="true"
+        android:text="Per Serving" />
+
+    <Switch
+        android:id="@+id/switch_100"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/seekText"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="204dp"
+        android:checked="false"
+        android:text="Per 100g" />
 
 </RelativeLayout>
