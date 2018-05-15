@@ -19,18 +19,19 @@
         app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
         <ImageButton
-            android:id="@+id/imageButton8"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            app:srcCompat="@drawable/scan" />
-
-        <ImageButton
             android:id="@+id/imageButton9"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             app:srcCompat="@drawable/settings" />
+
+        <ImageButton
+            android:id="@+id/imageButton5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/faq" />
+
     </LinearLayout>
 
     <LinearLayout
@@ -49,11 +50,11 @@
         app:layout_constraintVertical_bias="0.252">
 
         <ImageButton
-            android:id="@+id/imageButton5"
+            android:id="@+id/imageButton8"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            app:srcCompat="@drawable/faq" />
+            app:srcCompat="@drawable/scan" />
 
         <ImageButton
             android:id="@+id/imageButton7"

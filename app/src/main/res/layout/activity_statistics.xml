@@ -24,8 +24,8 @@
     </com.github.mikephil.charting.charts.PieChart>
 
     <TableLayout
-        android:layout_width="353dp"
-        android:layout_height="246dp"
+        android:layout_width="333dp"
+        android:layout_height="237dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
@@ -46,22 +46,22 @@
                 android:id="@+id/transFat"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/transFat"
-                android:backgroundTint="@color/button"/>
+                android:backgroundTint="@color/button"
+                android:text="@string/badFat" />
 
             <Button
                 android:id="@+id/sodium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/sodium"
-                android:backgroundTint="@color/button"/>
+                android:backgroundTint="@color/button"
+                android:text="@string/sodium" />
 
             <Button
                 android:id="@+id/iron"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/iron"
-                android:backgroundTint="@color/button"/>
+                android:backgroundTint="@color/button"
+                android:text="@string/iron" />
 
         </TableRow>
 
@@ -73,22 +73,22 @@
                 android:id="@+id/calcium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/calcium"
-                android:backgroundTint="@color/button"/>
+                android:backgroundTint="@color/button"
+                android:text="@string/calcium" />
 
             <Button
                 android:id="@+id/carbohydrate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/carbohydrate"
-                android:backgroundTint="@color/button"/>
+                android:backgroundTint="@color/button"
+                android:text="@string/carbohydrate" />
 
             <Button
                 android:id="@+id/cholesterol"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/cholesterol"
-                android:backgroundTint="@color/button"/>
+                android:backgroundTint="@color/button"
+                android:text="@string/cholesterol" />
 
         </TableRow>
 
@@ -100,22 +100,22 @@
                 android:id="@+id/protein"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/protein"
-                android:backgroundTint="@color/button"/>
+                android:backgroundTint="@color/button"
+                android:text="@string/protein" />
 
             <Button
                 android:id="@+id/sugar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/sugar"
-                android:backgroundTint="@color/button"/>
+                android:backgroundTint="@color/button"
+                android:text="@string/potassium" />
 
             <Button
                 android:id="@+id/fibre"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/fibre"
-                android:backgroundTint="@color/button"/>
+                android:backgroundTint="@color/button"
+                android:text="@string/fibre" />
 
         </TableRow>
 
@@ -127,22 +127,22 @@
                 android:id="@+id/fat"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/fat"
-                android:backgroundTint="@color/button"/>
+                android:backgroundTint="@color/button"
+                android:text="@string/fat" />
 
             <Button
                 android:id="@+id/vitaminA"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/vitaminA"
-                android:backgroundTint="@color/button"/>
+                android:backgroundTint="@color/button"
+                android:text="@string/vitaminA" />
 
             <Button
                 android:id="@+id/vitaminC"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/vitaminC"
-                android:backgroundTint="@color/button"/>
+                android:backgroundTint="@color/button"
+                android:text="@string/vitaminC" />
 
         </TableRow>
 
@@ -154,22 +154,22 @@
                 android:id="@+id/button16"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/add"
-                android:backgroundTint="@color/button"/>
+                android:backgroundTint="@color/button"
+                android:text="@string/add" />
 
             <Button
                 android:id="@+id/saturatedFat"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/saturatedFat"
-                android:backgroundTint="@color/button"/>
+                android:backgroundTint="@color/button"
+                android:text="@string/goodFat" />
 
             <Button
                 android:id="@+id/button17"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/tryAgain"
-                android:backgroundTint="@color/button"/>
+                android:backgroundTint="@color/button"
+                android:text="@string/snapCam" />
 
         </TableRow>
     </TableLayout>

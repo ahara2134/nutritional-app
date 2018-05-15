@@ -7,26 +7,32 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.util.List;
 
+/**
+ * An adapter for nutrient objects that can be applied to RecyclerViews.
+ */
 public class NutrientsAdapter extends RecyclerView.Adapter<NutrientsAdapter.ViewHolder> {
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView nameTextView;
-        public EditText limitEditText;
+    class ViewHolder extends RecyclerView.ViewHolder {
+        TextView nameTextView;
+        EditText limitEditText;
+        ImageButton deleteButton;
 
-        public ViewHolder(View itemView) {
+        ViewHolder(View itemView) {
             super(itemView);
             nameTextView = itemView.findViewById(R.id.nutrient_name);
             limitEditText = itemView.findViewById(R.id.nutrient_limit);
+            deleteButton = itemView.findViewById(R.id.item_delete_btn);
         }
     }
 
     private List<Nutrient> nutrients;
 
-    public NutrientsAdapter(List<Nutrient> nutrients) {
+    NutrientsAdapter(List<Nutrient> nutrients) {
         this.nutrients = nutrients;
     }
 
@@ -40,11 +46,20 @@ public class NutrientsAdapter extends RecyclerView.Adapter<NutrientsAdapter.View
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         Nutrient nutrient = nutrients.get(position);
 
         TextView textView = holder.nameTextView;
         textView.setText(nutrient.getNutrientName());
+
+        ImageButton imageButton = holder.deleteButton;
+        imageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                nutrients.remove(holder.getAdapterPosition());
+                notifyItemRemoved(holder.getAdapterPosition());
+            }
+        });
     }
 
     @Override
