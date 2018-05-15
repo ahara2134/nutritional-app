@@ -16,7 +16,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class NewUser extends AppCompatActivity {
+public class NewUserActivity extends AppCompatActivity {
     //declare database objects
     private DatabaseReference mDatabase;
     private FirebaseUser mUser;
@@ -61,7 +61,7 @@ public class NewUser extends AppCompatActivity {
                 name = displayName.getText().toString();
                 CheckEditTextIsEmptyOrNot();
                 if(!checkEditTextEmpty || !checkActiveEmpty || !checkGenderEmpty) {
-                    Toast.makeText(NewUser.this, getString(R.string.fill_field), Toast.LENGTH_LONG).show();
+                    Toast.makeText(NewUserActivity.this, getString(R.string.fill_field), Toast.LENGTH_LONG).show();
                 } else {
                     int selectedGender = genderRadioGroup.getCheckedRadioButtonId();
                     genderRadioButton = (RadioButton) findViewById(selectedGender);
@@ -88,7 +88,7 @@ public class NewUser extends AppCompatActivity {
                     mDatabase.child("users").child(uID).child("gender").setValue(gender);
                     mDatabase.child("users").child(uID).child("active").setValue(activeLevel);
 
-                    Intent intent = new Intent(NewUser.this, NewUser2Activity.class);
+                    Intent intent = new Intent(NewUserActivity.this, NewUser2Activity.class);
                     intent.putExtra("textGender", gender);
                     intent.putExtra("activeLevel", activeLevel);
                     startActivity(intent);
@@ -96,7 +96,7 @@ public class NewUser extends AppCompatActivity {
 //                    //GAREL - this is where you will be setting the default plan, depending on the gender and date of birth
 //                    mDatabase.child("users").child(uID).child("plan").child("default_plan").setValue(true);
 //
-//                    Toast.makeText(NewUser.this, getString(R.string.submit_confirmation), Toast.LENGTH_LONG).show();
+//                    Toast.makeText(NewUserActivity.this, getString(R.string.submit_confirmation), Toast.LENGTH_LONG).show();
 //                    finish();
                 }
 
