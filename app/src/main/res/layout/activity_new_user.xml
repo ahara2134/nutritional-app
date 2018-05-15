@@ -14,7 +14,6 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:text="@string/welcome"
-        android:textColor="@color/black"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.177"
@@ -29,7 +28,6 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:text="@string/name_prompt"
-        android:textColor="@color/black"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.072"
@@ -45,6 +43,8 @@
         android:layout_marginTop="12dp"
         android:ems="10"
         android:hint="@string/name_hint"
+        android:textColorHint="@color/white"
+        android:backgroundTint="@color/colorAccent"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.152"
@@ -52,14 +52,13 @@
         app:layout_constraintTop_toBottomOf="@+id/textView_name" />
 
     <TextView
-        android:id="@+id/textView_dob"
+        android:id="@+id/textView_active"
         android:layout_width="wrap_content"
         android:layout_height="29dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
-        android:text="@string/dob_prompt"
-        android:textColor="@color/black"
+        android:text="@string/active_prompt"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.084"
@@ -67,7 +66,7 @@
         app:layout_constraintTop_toBottomOf="@+id/editText_name" />
 
     <RadioGroup
-        android:id="@+id/radio_dob"
+        android:id="@+id/radio_active"
         android:layout_width="275dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -76,28 +75,37 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.16"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView_dob" >
+        app:layout_constraintTop_toBottomOf="@+id/textView_active" >
 
         <RadioButton
-            android:id="@+id/radioButton_infant"
+            android:id="@+id/radioButton_sedentary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/dob_infant" />
+            android:text="@string/active_sedentary"
+            android:textColor="@color/white"
+            android:buttonTint="@color/white"
+            />
 
         <RadioButton
-            android:id="@+id/radioButton_adolescent"
+            android:id="@+id/radioButton_low"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/dob_adolescent" />
+            android:text="@string/active_low"
+            android:textColor="@color/white"
+            android:buttonTint="@color/white"
+            />
 
         <RadioButton
-            android:id="@+id/radioButton_adult"
+            android:id="@+id/radioButton_high"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/dob_adult" />
+            android:text="@string/active_high"
+            android:textColor="@color/white"
+            android:buttonTint="@color/white"
+            />
     </RadioGroup>
 
     <TextView
@@ -108,12 +116,11 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:text="@string/gender_prompt"
-        android:textColor="@color/black"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.105"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/radio_dob" />
+        app:layout_constraintTop_toBottomOf="@+id/radio_active" />
 
     <RadioGroup
         android:id="@+id/radio_gender"
@@ -132,32 +139,42 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/gender_male" />
+            android:text="@string/gender_male"
+            android:textColor="@color/white"
+            android:buttonTint="@color/white"
+            />
 
         <RadioButton
             android:id="@+id/radioButton_female"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/gender_female" />
+            android:text="@string/gender_female"
+            android:textColor="@color/white"
+            android:buttonTint="@color/white"
+            />
 
         <RadioButton
             android:id="@+id/radioButton_other"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/gender_other" />
+            android:text="@string/gender_other"
+            android:textColor="@color/white"
+            android:buttonTint="@color/white"
+            />
     </RadioGroup>
 
     <Button
-        android:id="@+id/button_submit"
+        android:id="@+id/button_next"
         android:layout_width="334dp"
         android:layout_height="50dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
-        android:text="@string/submit_form"
+        android:text="@string/next_form"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

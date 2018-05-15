@@ -18,15 +18,15 @@ import java.util.ArrayList;
 public class NutrientDialogFragment extends DialogFragment {
 
     private ArrayList<Integer> nutrients;
-    NutrientDialogListener mListener;
+    NutrientDialogListener listener;
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         try {
-            mListener = (NutrientDialogListener) context;
+            listener = (NutrientDialogListener) context;
         } catch (ClassCastException e) {
-            throw new ClassCastException(context.toString() + " must implement Nutrient DialogListener");
+            throw new ClassCastException(context.toString() + " must implement NutrientDialogListener");
         }
     }
 
@@ -39,13 +39,11 @@ public class NutrientDialogFragment extends DialogFragment {
                 .setPositiveButton(R.string.submit_nutrients, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        mListener.onDialogPositiveClick(NutrientDialogFragment.this);
-                        dismiss();
+                        sendBackResult();
                     }
                 }).setNegativeButton(R.string.cancel_nutrients, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                mListener.onDialogNegativeClick(NutrientDialogFragment.this);
                 dismiss();
             }
         }).setMultiChoiceItems(R.array.nutrient_list, null,
@@ -62,10 +60,17 @@ public class NutrientDialogFragment extends DialogFragment {
         return builder.create();
     }
 
-    public interface NutrientDialogListener {
-        void onDialogPositiveClick(DialogFragment dialogFragment);
-        void onDialogNegativeClick(DialogFragment dialogFragment);
+    private void sendBackResult() {
+        listener.onFinishEditDialog(nutrients);
+        dismiss();
     }
 
-
+    public interface NutrientDialogListener {
+        /**
+         * A listener that allows parent activities to retrieve a list of
+         * nutrients from this dialog.
+         * @param nutrients
+         */
+        void onFinishEditDialog(ArrayList<Integer> nutrients);
+    }
 }
