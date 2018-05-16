@@ -112,7 +112,7 @@ public class NutritionData extends AsyncTask<Void,Void,Void>{
             nutritionHashMap.put("iron_100",convertNutrition(iron_100));
             nutritionHashMap.put("potassium_100",convertNutrition(potassium_100));
 
-            dataParsed = "Fat: " + fat + "\n"
+            /*dataParsed = "Fat: " + fat + "\n"
                     + "Saturated Fat: " + saturatedFat + "\n"
                     + "Trans Fat: " + transFat + "\n"
                     + "Cholesterol: " + cholesterol + "\n"
@@ -125,7 +125,7 @@ public class NutritionData extends AsyncTask<Void,Void,Void>{
                     + "Vitamin C: " + vitaminC + "\n"
                     + "Calcium: " + calcium + "\n"
                     + "Iron: " + iron + "\n"
-                    + "Quantity: " + quantity + "\n";
+                    + "Quantity: " + quantity + "\n";*/
 
         } catch (IOException | JSONException e) {
             e.printStackTrace();
@@ -137,7 +137,7 @@ public class NutritionData extends AsyncTask<Void,Void,Void>{
     @Override
     protected void onPostExecute(Void aVoid) {
         super.onPostExecute(aVoid);
-        BarcodeReader.statusMessage.setText(dataParsed);
+        //BarcodeReader.statusMessage.setText(dataParsed);
         //send data here OR pass hashmap
 
     }

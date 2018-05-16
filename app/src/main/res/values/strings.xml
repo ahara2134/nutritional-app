@@ -56,18 +56,18 @@
     <string name="age_error">Please check your age field and try again.</string>
     <string name="submit_confirmation">Thank you! Now taking you back to the homepage..</string>
 
-        <!-- NewUserActivity 2, for the spinners -->
-        <string name="age_spinner_1">Tap for dropdown</string>
-        <string name="age_spinner_2">10 &#8211; 11 years</string>
-        <string name="age_spinner_3">12 &#8211; 13 years</string>
-        <string name="age_spinner_4">14 &#8211; 16 years</string>
-        <string name="age_spinner_5">17 &#8211; 18 years</string>
-        <string name="age_spinner_6">19 &#8211; 30 years</string>
-        <string name="age_spinner_7">31 &#8211; 50 years</string>
-        <string name="age_spinner_8">51 &#8211; 70 years</string>
-        <string name="age_spinner_9">71 years and up</string>
-        <string name="weight_spinner_1">lbs</string>
-        <string name="weight_spinner_2">kg</string>
+    <!-- NewUserActivity 2, for the spinners -->
+    <string name="age_spinner_1">Tap for dropdown</string>
+    <string name="age_spinner_2">10 &#8211; 11 years</string>
+    <string name="age_spinner_3">12 &#8211; 13 years</string>
+    <string name="age_spinner_4">14 &#8211; 16 years</string>
+    <string name="age_spinner_5">17 &#8211; 18 years</string>
+    <string name="age_spinner_6">19 &#8211; 30 years</string>
+    <string name="age_spinner_7">31 &#8211; 50 years</string>
+    <string name="age_spinner_8">51 &#8211; 70 years</string>
+    <string name="age_spinner_9">71 years and up</string>
+    <string name="weight_spinner_1">lbs</string>
+    <string name="weight_spinner_2">kg</string>
 
     <!-- Settings plage -->
     <string name="choose_plan">primary plan</string>
@@ -93,6 +93,8 @@
     <string name="cancel_nutrients">Cancel</string>
     <string name="nutrient_limit_placeholder">0</string>
     <string name="nutrient_name_description">User-defined nutrient</string>
+    <string name="grams_label">grams</string>
+    <string name="delete_description">Delete</string>
 
     <!-- Titles -->
     <string name="title_activity_home">Home</string>
@@ -132,19 +134,19 @@
 
     <!-- MakePlan arrays -->
     <string-array name="nutrient_list">
-        <item>fat</item>
-        <item>saturated fat</item>
-        <item>trans fat</item>
-        <item>cholesterol</item>
-        <item>sodium</item>
-        <item>carbohydrate</item>
-        <item>fibre</item>
-        <item>sugars</item>
-        <item>protein</item>
-        <item>vitamin A</item>
-        <item>vitamin C</item>
-        <item>calcium</item>
-        <item>iron</item>
+        <item>Calories</item>
+        <item>Fat</item>
+        <item>Bad Fat</item>
+        <item>Cholesterol</item>
+        <item>Sodium</item>
+        <item>Carbohydrate</item>
+        <item>Potassium</item>
+        <item>Fibre</item>
+        <item>Protein</item>
+        <item>Vitamin A</item>
+        <item>Vitamin C</item>
+        <item>Calcium</item>
+        <item>Iron</item>
     </string-array>
 
     <!--NewUser2 Array -->
