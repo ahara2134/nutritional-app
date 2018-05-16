@@ -94,7 +94,7 @@ public class MakePlanActivity extends AppCompatActivity
             hashMap.put(holder.nameTextView.getText().toString(),
                     Double.parseDouble(holder.limitEditText.getText().toString()));
         }
-        Plan plan = new Plan(title.getText().toString(), hashMap);
+        Plan plan = new Plan(title.getText().toString(), hashMap, false);
         if (user != null) {
             mDatabase.child("users").child(user.getUid()).child("plan").push().setValue(plan);
         }

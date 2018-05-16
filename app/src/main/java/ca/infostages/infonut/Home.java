@@ -73,8 +73,6 @@ public class Home extends AppCompatActivity {
                     if (plan.equals("false")) {
                         Intent intent = new Intent (Home.this, NewUserActivity.class);
                         startActivity(intent);
-                    } else {
-                        loadFragment(HomeFragment.newInstance());
                     }
                 }
 
@@ -135,7 +133,7 @@ public class Home extends AppCompatActivity {
         if (fragment != null) {
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.fragment_container, fragment)
-                    .commit();
+                    .commitAllowingStateLoss();
         }
     }
 
