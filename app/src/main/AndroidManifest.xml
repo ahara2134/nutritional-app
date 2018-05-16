@@ -17,7 +17,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".Home"
-            android:label="Infosession" >
+            android:label="Infosession">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -26,7 +26,7 @@
         </activity>
         <activity
             android:name=".MainActivity"
-            android:label="Infosessions"/>
+            android:label="Infosessions" />
         <activity
             android:name=".LoginActivity"
             android:label="Log in" />
@@ -50,7 +50,7 @@
             android:name=".MakePlanActivity"
             android:label="@string/make_plan_activity"
             android:parentActivityName=".Home" />
-        <activity android:name=".NewUser2Activity"></activity>
+        <activity android:name=".NewUser2Activity" />
     </application>
 
 </manifest>

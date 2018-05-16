@@ -56,18 +56,18 @@
     <string name="age_error">Please check your age field and try again.</string>
     <string name="submit_confirmation">Thank you! Now taking you back to the homepage..</string>
 
-        <!-- NewUserActivity 2, for the spinners -->
-        <string name="age_spinner_1">Tap for dropdown</string>
-        <string name="age_spinner_2">10 &#8211; 11 years</string>
-        <string name="age_spinner_3">12 &#8211; 13 years</string>
-        <string name="age_spinner_4">14 &#8211; 16 years</string>
-        <string name="age_spinner_5">17 &#8211; 18 years</string>
-        <string name="age_spinner_6">19 &#8211; 30 years</string>
-        <string name="age_spinner_7">31 &#8211; 50 years</string>
-        <string name="age_spinner_8">51 &#8211; 70 years</string>
-        <string name="age_spinner_9">71 years and up</string>
-        <string name="weight_spinner_1">lbs</string>
-        <string name="weight_spinner_2">kg</string>
+    <!-- NewUserActivity 2, for the spinners -->
+    <string name="age_spinner_1">Tap for dropdown</string>
+    <string name="age_spinner_2">10 &#8211; 11 years</string>
+    <string name="age_spinner_3">12 &#8211; 13 years</string>
+    <string name="age_spinner_4">14 &#8211; 16 years</string>
+    <string name="age_spinner_5">17 &#8211; 18 years</string>
+    <string name="age_spinner_6">19 &#8211; 30 years</string>
+    <string name="age_spinner_7">31 &#8211; 50 years</string>
+    <string name="age_spinner_8">51 &#8211; 70 years</string>
+    <string name="age_spinner_9">71 years and up</string>
+    <string name="weight_spinner_1">lbs</string>
+    <string name="weight_spinner_2">kg</string>
 
     <!-- Settings plage -->
     <string name="choose_plan">primary plan</string>

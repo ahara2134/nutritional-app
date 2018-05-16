@@ -38,7 +38,7 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstance) {
         View view = inflater.inflate(R.layout.fragment_settings, container, false);
-        button_bye = (Button)view.findViewById(R.id.button_bye);
+        button_bye = (Button)view.findViewById(R.id.button_signout);
         name = (TextView)view.findViewById(R.id.textView_username);
         age = (TextView)view.findViewById(R.id.textView_age);
         email = (TextView)view.findViewById(R.id.textView_email);
