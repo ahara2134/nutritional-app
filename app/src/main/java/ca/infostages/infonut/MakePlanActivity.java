@@ -6,9 +6,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -39,6 +42,7 @@ public class MakePlanActivity extends AppCompatActivity
         setContentView(R.layout.activity_make_plan);
         if (getSupportActionBar() != null)
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING);
         nutrientIntakeList = findViewById(R.id.nutrients_recycler);
         mNutrients = new ArrayList<>();
         adapter = new NutrientsAdapter(mNutrients);
@@ -107,6 +111,13 @@ public class MakePlanActivity extends AppCompatActivity
                         .child(plan.getPlanTitle())
                         .setValue(plan);
             }
+            Toast planSavedToast = Toast.makeText(this,
+                    "Your custom plan has been saved. Go to settings to activate it.",
+                    Toast.LENGTH_LONG);
+            TextView textView = planSavedToast.getView().findViewById(android.R.id.message);
+            if (textView != null)
+                textView.setGravity(Gravity.CENTER);
+            planSavedToast.show();
             finish();
         } else {
             Toast chooseNutrientsToast = Toast.makeText(this,
