@@ -38,7 +38,7 @@ public class HomeFragment extends Fragment {
         ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
         /**
-         * This will connect the user to the Results.java fragment from the HomeFragment.java fragment
+         * This will connect the user to the SettingsFragment.java fragment from the HomeFragment.java fragment
          */
         settings.setOnClickListener(new View.OnClickListener() {
             @Override

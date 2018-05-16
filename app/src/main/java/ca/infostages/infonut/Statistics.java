@@ -32,22 +32,25 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class Statistics extends AppCompatActivity{
-
+public class Statistics extends AppCompatActivity {
+    //define a piechart
     private PieChart mChart;
-    Button fat;
-    Button goodFat;
-    Button badFat;
-    Button cholesterol;
-    Button sodium;
-    Button carbohydrate;
-    Button fibre;
-    Button potassium;
-    Button protein;
-    Button vitaminA;
-    Button vitaminC;
-    Button calcium;
-    Button iron;
+
+    //define all the buttons
+    private Button fat;
+    private Button goodFat;
+    private Button badFat;
+    private Button cholesterol;
+    private Button sodium;
+    private Button carbohydrate;
+    private Button fibre;
+    private Button potassium;
+    private Button protein;
+    private Button vitaminA;
+    private Button vitaminC;
+    private Button calcium;
+    private Button iron;
+    private Button calories;
 
     //default plans
     private Long default_bad_fats;
@@ -66,13 +69,12 @@ public class Statistics extends AppCompatActivity{
 
     String label;
     double nutrientValue = 0;
-    double intake = 100; //CHANGE HERE WITH USER SPECIFIED INTAKE
+    double intake = 100;
     int percent = 0;
     int full = 100;
 
     FirebaseUser currentUser;
     private static final String TAG = "Statistics.java";
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,10 +96,9 @@ public class Statistics extends AppCompatActivity{
         vitaminC = findViewById(R.id.vitaminC);
         calcium = findViewById(R.id.calcium);
         iron = findViewById(R.id.iron);
+        calories = findViewById(R.id.calories);
 
-        final HashMap<String, Double> hashmap =  NutritionData.nutritionHashMap;
-
-        //GET FIREBASE STUFF HERE
+        final HashMap<String, Double> hashmap = NutritionData.nutritionHashMap;
 
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if(currentUser == null) {
@@ -128,20 +129,6 @@ public class Statistics extends AppCompatActivity{
                         default_sodium = dataSnapshot.child("sodium").getValue(Long.class);
                         default_vitamin_A = dataSnapshot.child("vitamin_A").getValue(Long.class);
                         default_vitamin_C = dataSnapshot.child("vitamin_C").getValue(Long.class);
-
-                        System.out.println("1: " + default_bad_fats );
-                        System.out.println("2: " + default_calcium );
-                        System.out.println("3: " + default_calories );
-                        System.out.println("4: " + default_carbohydrates );
-                        System.out.println("5: " + default_cholesterol);
-                        System.out.println("6: " + default_fibre );
-                        System.out.println("7: " + default_good_fats );
-                        System.out.println("8: " + default_iron );
-                        System.out.println("9: " + default_potassium );
-                        System.out.println("10: " + default_protein);
-                        System.out.println("11: " + default_sodium);
-                        System.out.println("12: " + default_vitamin_A );
-                        System.out.println("13: " + default_vitamin_C );
                     }
                 }
 
@@ -151,10 +138,8 @@ public class Statistics extends AppCompatActivity{
                 }
             });
         }
-        //==================================
 
         final boolean checkedServing = getIntent().getBooleanExtra("servingChecked", true);
-        System.out.println("CHECKED SERVING: " + checkedServing);
         final double servingAmount = getIntent().getDoubleExtra("100Portion", 100);
         mChart.setUsePercentValues(true);
         mChart.getDescription().setEnabled(false);
@@ -176,6 +161,19 @@ public class Statistics extends AppCompatActivity{
         mChart.animateY(1000); // Animation for the chart
         mChart.invalidate(); // refresh
 
+        /**
+         * Buttons assigning starts here.
+         * Calories is just a placeholder; due to the API not
+         * supporting calories.
+         */
+
+        calories.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Current API does not include calories.
+            }
+        });
+
         fat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -195,21 +193,19 @@ public class Statistics extends AppCompatActivity{
                 fat.setTextColor(getApplication().getResources().getColor(R.color.black));
             }
         });
-        // change this to good fats!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        goodFat.setOnClickListener(new View.OnClickListener() {
 
+        goodFat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(checkedServing) {
-                    nutrientValue = hashmap.get("saturatedFat");
+                    nutrientValue = hashmap.get("goodFat");
                 } else {
-                    nutrientValue = hashmap.get("saturatedFat_100");
+                    nutrientValue = hashmap.get("goodFat_100");
                     nutrientValue = consumptionManip(nutrientValue, servingAmount);
                 }
-                intake = default_bad_fats;
+                intake = default_good_fats;
                 buttonChange();
                 label = "Good Fat";
-                nutrientValue = hashmap.get("saturatedFat");
                 System.out.println("Nut value: "+ nutrientValue);
                 valueConverter(nutrientValue, intake);
                 createChart();
@@ -217,21 +213,20 @@ public class Statistics extends AppCompatActivity{
                 goodFat.setTextColor(getApplication().getResources().getColor(R.color.black));
             }
         });
-        // change this to bad fats!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
         badFat .setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
                 if(checkedServing) {
-                    nutrientValue = hashmap.get("transFat");
+                    nutrientValue = hashmap.get("badFat");
                 } else {
-                    nutrientValue = hashmap.get("transFat_100");
+                    nutrientValue = hashmap.get("badFat_100");
                     nutrientValue = consumptionManip(nutrientValue, servingAmount);
                 }
                 intake = default_bad_fats;
                 buttonChange();
                 label = "Bad Fat";
-                nutrientValue = hashmap.get("transFat");
                 System.out.println("Nut value: "+ nutrientValue);
                 valueConverter(nutrientValue, intake);
                 createChart();
@@ -239,6 +234,7 @@ public class Statistics extends AppCompatActivity{
                 badFat.setTextColor(getApplication().getResources().getColor(R.color.black));
             }
         });
+
         cholesterol .setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -259,8 +255,8 @@ public class Statistics extends AppCompatActivity{
                 cholesterol.setTextColor(getApplication().getResources().getColor(R.color.black));
             }
         });
-        sodium .setOnClickListener(new View.OnClickListener() {
 
+        sodium .setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 buttonChange();
@@ -279,6 +275,7 @@ public class Statistics extends AppCompatActivity{
                 sodium.setTextColor(getApplication().getResources().getColor(R.color.black));
             }
         });
+
         carbohydrate .setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -299,6 +296,7 @@ public class Statistics extends AppCompatActivity{
                 carbohydrate.setTextColor(getApplication().getResources().getColor(R.color.black));
             }
         });
+
         fibre .setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -319,20 +317,20 @@ public class Statistics extends AppCompatActivity{
                 fibre.setTextColor(getApplication().getResources().getColor(R.color.black));
             }
         });
-        // change this to potassium!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
         potassium .setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
                 buttonChange();
-                label = "Sugars";
+                label = "Potassium";
                 if(checkedServing) {
-                    nutrientValue = hashmap.get("sugars");
+                    nutrientValue = hashmap.get("potassium");
                 } else {
-                    nutrientValue = hashmap.get("sugars_100");
+                    nutrientValue = hashmap.get("potassium_100");
                     nutrientValue = consumptionManip(nutrientValue, servingAmount);
                 }
-
+                intake = default_potassium;
                 System.out.println("Nut value: "+ nutrientValue);
                 valueConverter(nutrientValue, intake);
                 createChart();

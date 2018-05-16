@@ -151,11 +151,11 @@
             android:layout_height="163dp">
 
             <Button
-                android:id="@+id/button16"
+                android:id="@+id/calories"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/button"
-                android:text="@string/add" />
+                android:text="@string/calories" />
 
             <Button
                 android:id="@+id/saturatedFat"
