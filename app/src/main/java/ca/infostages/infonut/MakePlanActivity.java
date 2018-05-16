@@ -96,7 +96,7 @@ public class MakePlanActivity extends AppCompatActivity
         }
         Plan plan = new Plan(title.getText().toString(), hashMap);
         if (user != null) {
-            mDatabase.child("users").child(user.getUid()).child("plan").setValue(plan);
+            mDatabase.child("users").child(user.getUid()).child("plan").push().setValue(plan);
         }
         finish();
     }
