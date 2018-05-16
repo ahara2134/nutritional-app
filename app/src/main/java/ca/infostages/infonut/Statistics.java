@@ -32,23 +32,25 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class Statistics extends AppCompatActivity{
-
+public class Statistics extends AppCompatActivity {
+    //define a piechart
     private PieChart mChart;
-    Button fat;
-    Button goodFat;
-    Button badFat;
-    Button cholesterol;
-    Button sodium;
-    Button carbohydrate;
-    Button fibre;
-    Button potassium;
-    Button protein;
-    Button vitaminA;
-    Button vitaminC;
-    Button calcium;
-    Button iron;
-    Button calories;
+
+    //define all the buttons
+    private Button fat;
+    private Button goodFat;
+    private Button badFat;
+    private Button cholesterol;
+    private Button sodium;
+    private Button carbohydrate;
+    private Button fibre;
+    private Button potassium;
+    private Button protein;
+    private Button vitaminA;
+    private Button vitaminC;
+    private Button calcium;
+    private Button iron;
+    private Button calories;
 
     //default plans
     private Long default_bad_fats;
@@ -74,7 +76,6 @@ public class Statistics extends AppCompatActivity{
     FirebaseUser currentUser;
     private static final String TAG = "Statistics.java";
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -97,7 +98,7 @@ public class Statistics extends AppCompatActivity{
         iron = findViewById(R.id.iron);
         calories = findViewById(R.id.calories);
 
-        final HashMap<String, Double> hashmap =  NutritionData.nutritionHashMap;
+        final HashMap<String, Double> hashmap = NutritionData.nutritionHashMap;
 
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if(currentUser == null) {
@@ -159,6 +160,12 @@ public class Statistics extends AppCompatActivity{
         mChart.setData(data);
         mChart.animateY(1000); // Animation for the chart
         mChart.invalidate(); // refresh
+
+        /**
+         * Buttons assigning starts here.
+         * Calories is just a placeholder; due to the API not
+         * supporting calories.
+         */
 
         calories.setOnClickListener(new View.OnClickListener() {
             @Override

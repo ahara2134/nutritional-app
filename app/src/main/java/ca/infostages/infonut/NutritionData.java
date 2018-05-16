@@ -115,6 +115,7 @@ public class NutritionData extends AsyncTask<Void,Void,Void>{
             nutritionHashMap.put("iron_100",convertNutrition(iron_100));
             nutritionHashMap.put("potassium_100",convertNutrition(potassium_100));
 
+
         } catch (IOException | JSONException e) {
             e.printStackTrace();
         }
@@ -125,9 +126,8 @@ public class NutritionData extends AsyncTask<Void,Void,Void>{
     @Override
     protected void onPostExecute(Void aVoid) {
         super.onPostExecute(aVoid);
-        BarcodeReader.statusMessage.setText("FINISHED!");
+        //BarcodeReader.statusMessage.setText("FINISHED!");
         //send data here OR pass hashmap
-
     }
 
     /**
