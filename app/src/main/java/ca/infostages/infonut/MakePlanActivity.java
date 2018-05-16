@@ -108,7 +108,7 @@ public class MakePlanActivity extends AppCompatActivity
                 mDatabase.child("users")
                         .child(user.getUid())
                         .child("plan")
-                        .push()
+                        .child(plan.getPlanTitle())
                         .setValue(plan);
             }
             Toast planSavedToast = Toast.makeText(this,
