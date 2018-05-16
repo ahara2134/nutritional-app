@@ -26,7 +26,7 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
     public static SettingsFragment newInstance() {
         return new SettingsFragment();
     }
-    Button button_bye;
+    Button buttonSignOut;
     TextView name, age, email, activity;
     String nameHolder, ageHolder, emailHolder, activityHolder;
     private FirebaseAuth mAuth;
@@ -38,7 +38,7 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstance) {
         View view = inflater.inflate(R.layout.fragment_settings, container, false);
-        button_bye = (Button)view.findViewById(R.id.button_signout);
+        buttonSignOut = (Button)view.findViewById(R.id.button_signout);
         name = (TextView)view.findViewById(R.id.textView_username);
         age = (TextView)view.findViewById(R.id.textView_age);
         email = (TextView)view.findViewById(R.id.textView_email);
@@ -51,7 +51,7 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
             updateAge();
             updateActive();
 
-            button_bye.setOnClickListener(this);
+            buttonSignOut.setOnClickListener(this);
         }
         return view;
     }
@@ -106,15 +106,25 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
         });
     }
 
-    //Updates age textview to reflect the current user's.
+    //Updates activity level textview to reflect the current user's.
     public void updateActive() {
         planReference = FirebaseDatabase.getInstance().getReference().child("users").child(currentUser.getUid()).child("active");
         planReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 activityHolder = dataSnapshot.getValue().toString();
+                String sedantary = "Sedantary Activity Level";
+                String lowActivity = "Low Activity Level";
+                String highActivity = "High Activity Level";
                 if (!activityHolder.equals("false")) {
-                    activity.setText(activityHolder);
+                    if(activityHolder.equals("1")) {
+                        activity.setText(sedantary);
+                    } else if(activityHolder.equals("2")) {
+                        activity.setText(lowActivity);
+                    } else {
+                        activity.setText(highActivity);
+                    }
+
                 }
             }
             @Override

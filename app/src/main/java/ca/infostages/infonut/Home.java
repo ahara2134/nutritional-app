@@ -110,12 +110,6 @@ public class Home extends AppCompatActivity {
         }
     }
 
-    //Temporary button to take you to new user
-    public void newUser(View view) {
-        Intent intent = new Intent (Home.this, NewUserActivity.class);
-        startActivity(intent);
-    }
-
     /**
      * Opens the MakePlanActivity upon button press from the ChoosePlanFragment
      * @param view - view
