@@ -73,8 +73,6 @@ public class Home extends AppCompatActivity {
                     if (plan.equals("false")) {
                         Intent intent = new Intent (Home.this, NewUserActivity.class);
                         startActivity(intent);
-                    } else {
-                        loadFragment(HomeFragment.newInstance());
                     }
                 }
 
@@ -113,27 +111,24 @@ public class Home extends AppCompatActivity {
     }
 
     /**
-     * Replaces the content of the current fragment with a new one.
-     * @param fragment - a fragment that has been selected through the bottom navigation.
-     * @return a boolean indicating success or failure.
-     */
-    private boolean loadFragment(Fragment fragment) {
-        if (fragment != null) {
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fragment_container, fragment)
-                    .commit();
-            return true;
-        }
-        return false;
-    }
-
-    /**
      * Opens the MakePlanActivity upon button press from the ChoosePlanFragment
      * @param view - view
      */
     public void makePlan(View view) {
         Intent intent = new Intent(Home.this, MakePlanActivity.class);
         startActivity(intent);
+    }
+
+    /**
+     * Replaces the content of the current fragment with a new one.
+     * @param fragment - a fragment that has been selected through the bottom navigation.
+     */
+    private void loadFragment(Fragment fragment) {
+        if (fragment != null) {
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_container, fragment)
+                    .commitAllowingStateLoss();
+        }
     }
 
     public void redButton(View view)
