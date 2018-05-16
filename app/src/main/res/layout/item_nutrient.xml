@@ -5,15 +5,16 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:paddingTop="10dp"
-    android:paddingBottom="10dp">
+    android:paddingBottom="10dp"
+    android:gravity="center">
 
     <ImageButton
+        android:id="@+id/item_delete_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/item_delete_btn"
-        android:contentDescription="@string/delete_description"
         android:background="@null"
-        android:src="@android:drawable/ic_delete"/>
+        android:contentDescription="@string/delete_description"
+        android:src="@android:drawable/ic_delete" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -24,16 +25,19 @@
         android:id="@+id/nutrient_name" />
 
     <EditText
+        android:id="@+id/nutrient_limit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/nutrient_limit"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:backgroundTint="@color/colorAccent"
         android:inputType="numberDecimal"
-        android:text="@string/nutrient_limit_placeholder"/>
+        android:text="@string/nutrient_limit_placeholder" />
 
     <TextView
+        android:id="@+id/grams_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/grams_label"
         android:text="@string/grams_label" />
 
 </LinearLayout>
