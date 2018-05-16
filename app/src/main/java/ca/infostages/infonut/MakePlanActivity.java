@@ -48,7 +48,6 @@ public class MakePlanActivity extends AppCompatActivity
         title = findViewById(R.id.plan_title_edit);
         FirebaseAuth auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
-
     }
 
     @Override
@@ -96,12 +95,17 @@ public class MakePlanActivity extends AppCompatActivity
                 NutrientsAdapter.ViewHolder holder =
                         (NutrientsAdapter.ViewHolder) nutrientIntakeList
                         .findViewHolderForAdapterPosition(index);
-                hashMap.put(holder.nameTextView.getText().toString(),
+                hashMap.put(holder.nameTextView.getText().toString().replaceAll("\\s+",
+                        "_").toLowerCase(),
                         Double.parseDouble(holder.limitEditText.getText().toString()));
             }
             Plan plan = new Plan(title.getText().toString(), hashMap, false);
             if (user != null) {
-                mDatabase.child("users").child(user.getUid()).child("plan").push().setValue(plan);
+                mDatabase.child("users")
+                        .child(user.getUid())
+                        .child("plan")
+                        .child(plan.getPlanTitle())
+                        .setValue(plan);
             }
             finish();
         } else {
