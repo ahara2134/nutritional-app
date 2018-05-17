@@ -444,6 +444,11 @@ public class Statistics extends AppCompatActivity {
                 iron.setTextColor(getApplication().getResources().getColor(R.color.black));
             }
         });
+
+        //
+        mChart.setCenterText("You can change this to w/e" );
+        mChart.setCenterTextSize(14f);
+        mChart.setCenterTextColor(Color.BLUE);
     }
 
     /**
