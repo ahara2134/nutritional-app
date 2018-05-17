@@ -69,7 +69,7 @@ public class Statistics extends AppCompatActivity {
     private Long default_vitamin_A = 0l;
     private Long default_vitamin_C = 0l;
 
-    private static String selected_plan = "";
+    static String selected_plan = "";
 
     String label;
     double nutrientValue = 0;
@@ -140,24 +140,26 @@ public class Statistics extends AppCompatActivity {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
 
-                   /* default_bad_fats = dataSnapshot.child("bad_fat").getValue(Long.class);
+                    //default_bad_fats = dataSnapshot.child("bad_fat").getValue(Long.class);
                     //default_calcium = dataSnapshot.child("calcium").getValue(Long.class);
                     //default_calories = dataSnapshot.child("calories").getValue(Long.class);
-                    default_carbohydrates = dataSnapshot.child("carbohydrate").getValue(Long.class);
+                    default_carbohydrates = dataSnapshot.child("carbohydrates").getValue(Long.class);
                     //default_cholesterol = dataSnapshot.child("cholesterol").getValue(Long.class);
                     //default_fibre = dataSnapshot.child("fibre").getValue(Long.class);
                     //default_good_fats = dataSnapshot.child("good_fats").getValue(Long.class);
                     //default_iron = dataSnapshot.child("iron").getValue(Long.class);
                     //default_potassium = dataSnapshot.child("potassium").getValue(Long.class);
-                    default_protein = dataSnapshot.child("protein").getValue(Long.class);
+                    //default_protein = dataSnapshot.child("protein").getValue(Long.class);
                     //default_sodium = dataSnapshot.child("sodium").getValue(Long.class);
                     //default_vitamin_A = dataSnapshot.child("vitamin_A").getValue(Long.class);
-                    //default_vitamin_C = dataSnapshot.child("vitamin_C").getValue(Long.class);*/
+                    //default_vitamin_C = dataSnapshot.child("vitamin_C").getValue(Long.class);
+
+                    System.out.println("DEFAULT CARBS: " + default_carbohydrates);
 
                     default_bad_fats = 100L;
                     default_calcium = 100L;
                     default_calories = 100L;
-                    default_carbohydrates = 100L;
+                    //default_carbohydrates = 100L;
                     default_cholesterol = 100L;
                     default_fibre = 100L;
                     default_good_fats = 100L;
