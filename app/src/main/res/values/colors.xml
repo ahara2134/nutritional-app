@@ -4,9 +4,9 @@
     <color name="colorPrimaryDark">#1A2732</color>
     <color name="colorAccent">#38668C</color>
     <color name="button">#44525D</color>
-    <color name="icon_red">#F64160</color>
-    <color name="icon_blue">#25A0C8</color>
-    <color name="icon_orange">#EA8710</color>
+    <color name="icon_red">#dc3b56</color>
+    <color name="icon_blue">#2087a9</color>
+    <color name="icon_orange">#da7b09</color>
     <color name="icon_green">#3AC787</color>
     <color name="red">#FF0000</color>
     <color name="green">#00FF00</color>

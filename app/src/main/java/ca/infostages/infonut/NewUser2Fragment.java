@@ -184,7 +184,7 @@ public class NewUser2Fragment extends Fragment implements View.OnClickListener{
         mDatabase.child("users").child(uID).child("plan").child("default_plan").child("vitamin_A").setValue(vitA);
         mDatabase.child("users").child(uID).child("plan").child("default_plan").child("vitamin_C").setValue(vitC);
         mDatabase.child("users").child(uID).child("plan").child("default_plan").child("planTitle").setValue("default plan");
-        mDatabase.child("users").child(uID).child("selected_plan").setValue("default plan");
+        mDatabase.child("users").child(uID).child("selected_plan").setValue("default_plan");
     }
 
     //Convert age groups into number groups for switch case

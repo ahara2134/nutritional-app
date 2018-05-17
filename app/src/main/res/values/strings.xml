@@ -134,6 +134,12 @@
     <string name="calories">Calories</string>
     <string name="snapCam">Camera</string>
 
+    <!-- FAQ strings -->
+    <string name="faq_barcode">Using the Barcode</string>
+    <string name="faq_barcode_details">Making sure that you have a clear, close-up of the barcode, position your phone so that the barcode can be clearly seen. The camera will then automatically read the barcode and take you to the next page.</string>
+    <string name="faq_plans">Using the Plans</string>
+    <string name="faq_settings">Using the Settings</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
