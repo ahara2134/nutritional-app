@@ -126,6 +126,9 @@ public class StatisticsActivity extends AppCompatActivity {
                     Log.d(TAG, ": " + databaseError.getMessage());
                 }
             });
+            // entry label styling
+            mChart.setEntryLabelColor(Color.WHITE);
+            mChart.setEntryLabelTextSize(12f);
         }
 
         System.out.println("Selected Plan456: " + selected_plan);
@@ -182,9 +185,7 @@ public class StatisticsActivity extends AppCompatActivity {
                 intake = default_bad_fats;
                 System.out.println("Nut value: "+ nutrientValue);
                 valueConverter(nutrientValue, intake);
-                mChart.setCenterText(percent + "%" );
-                mChart.setCenterTextSize(14f);
-                mChart.setCenterTextColor(Color.BLUE);
+                chartSetting();
                 createChart();
                 fat.getBackground().setColorFilter(new LightingColorFilter(0xFFFFFFFF, 0xFFAA0000));
                 fat.setTextColor(getApplication().getResources().getColor(R.color.black));
@@ -205,9 +206,7 @@ public class StatisticsActivity extends AppCompatActivity {
                 label = "Good Fat";
                 System.out.println("Nut value: "+ nutrientValue);
                 valueConverter(nutrientValue, intake);
-                mChart.setCenterText(percent + "%" );
-                mChart.setCenterTextSize(14f);
-                mChart.setCenterTextColor(Color.BLUE);
+                chartSetting();
                 createChart();
                 goodFat.getBackground().setColorFilter(new LightingColorFilter(0xFFFFFFFF, 0xFFAA0000));
                 goodFat.setTextColor(getApplication().getResources().getColor(R.color.black));
@@ -229,9 +228,7 @@ public class StatisticsActivity extends AppCompatActivity {
                 label = "Bad Fat";
                 System.out.println("Nut value: "+ nutrientValue);
                 valueConverter(nutrientValue, intake);
-                mChart.setCenterText(percent + "%" );
-                mChart.setCenterTextSize(14f);
-                mChart.setCenterTextColor(Color.BLUE);
+                chartSetting();
                 createChart();
                 badFat.getBackground().setColorFilter(new LightingColorFilter(0xFFFFFFFF, 0xFFAA0000));
                 badFat.setTextColor(getApplication().getResources().getColor(R.color.black));
@@ -253,9 +250,7 @@ public class StatisticsActivity extends AppCompatActivity {
                 intake = default_cholesterol;
                 System.out.println("Nut value: "+ nutrientValue);
                 valueConverter(nutrientValue, intake);
-                mChart.setCenterText(percent + "%" );
-                mChart.setCenterTextSize(14f);
-                mChart.setCenterTextColor(Color.BLUE);
+                chartSetting();
                 createChart();
                 cholesterol.getBackground().setColorFilter(new LightingColorFilter(0xFFFFFFFF, 0xFFAA0000));
                 cholesterol.setTextColor(getApplication().getResources().getColor(R.color.black));
@@ -276,9 +271,7 @@ public class StatisticsActivity extends AppCompatActivity {
                 intake = default_sodium;
                 System.out.println("Nut value: "+ nutrientValue);
                 valueConverter(nutrientValue, intake);
-                mChart.setCenterText(percent + "%" );
-                mChart.setCenterTextSize(14f);
-                mChart.setCenterTextColor(Color.BLUE);
+                chartSetting();
                 createChart();
                 sodium.getBackground().setColorFilter(new LightingColorFilter(0xFFFFFFFF, 0xFFAA0000));
                 sodium.setTextColor(getApplication().getResources().getColor(R.color.black));
@@ -300,9 +293,7 @@ public class StatisticsActivity extends AppCompatActivity {
                 intake = default_carbohydrates;
                 System.out.println("Nut value: "+ nutrientValue);
                 valueConverter(nutrientValue, intake);
-                mChart.setCenterText(percent + "%" );
-                mChart.setCenterTextSize(14f);
-                mChart.setCenterTextColor(Color.BLUE);
+                chartSetting();
                 createChart();
                 carbohydrate.getBackground().setColorFilter(new LightingColorFilter(0xFFFFFFFF, 0xFFAA0000));
                 carbohydrate.setTextColor(getApplication().getResources().getColor(R.color.black));
@@ -324,9 +315,7 @@ public class StatisticsActivity extends AppCompatActivity {
                 intake = default_fibre;
                 System.out.println("Nut value: "+ nutrientValue);
                 valueConverter(nutrientValue, intake);
-                mChart.setCenterText(percent + "%" );
-                mChart.setCenterTextSize(14f);
-                mChart.setCenterTextColor(Color.BLUE);
+                chartSetting();
                 createChart();
                 fibre.getBackground().setColorFilter(new LightingColorFilter(0xFFFFFFFF, 0xFFAA0000));
                 fibre.setTextColor(getApplication().getResources().getColor(R.color.black));
@@ -348,9 +337,7 @@ public class StatisticsActivity extends AppCompatActivity {
                 intake = default_potassium;
                 System.out.println("Nut value: "+ nutrientValue);
                 valueConverter(nutrientValue, intake);
-                mChart.setCenterText(percent + "%" );
-                mChart.setCenterTextSize(14f);
-                mChart.setCenterTextColor(Color.BLUE);
+                chartSetting();
                 createChart();
                 potassium.getBackground().setColorFilter(new LightingColorFilter(0xFFFFFFFF, 0xFFAA0000));
                 potassium.setTextColor(getApplication().getResources().getColor(R.color.black));
@@ -371,9 +358,7 @@ public class StatisticsActivity extends AppCompatActivity {
                 intake = default_protein;
                 System.out.println("Nut value: "+ nutrientValue);
                 valueConverter(nutrientValue, intake);
-                mChart.setCenterText(percent + "%" );
-                mChart.setCenterTextSize(14f);
-                mChart.setCenterTextColor(Color.BLUE);
+                chartSetting();
                 createChart();
                 protein.getBackground().setColorFilter(new LightingColorFilter(0xFFFFFFFF, 0xFFAA0000));
                 protein.setTextColor(getApplication().getResources().getColor(R.color.black));
@@ -394,9 +379,7 @@ public class StatisticsActivity extends AppCompatActivity {
                 intake = default_vitamin_A;
                 System.out.println("Nut value: "+ nutrientValue);
                 valueConverter(nutrientValue, intake);
-                mChart.setCenterText(percent + "%" );
-                mChart.setCenterTextSize(14f);
-                mChart.setCenterTextColor(Color.BLUE);
+                chartSetting();
                 createChart();
                 vitaminA.getBackground().setColorFilter(new LightingColorFilter(0xFFFFFFFF, 0xFFAA0000));
                 vitaminA.setTextColor(getApplication().getResources().getColor(R.color.black));
@@ -417,9 +400,7 @@ public class StatisticsActivity extends AppCompatActivity {
                 intake = default_vitamin_C;
                 System.out.println("Nut value: "+ nutrientValue);
                 valueConverter(nutrientValue, intake);
-                mChart.setCenterText(percent + "%" );
-                mChart.setCenterTextSize(14f);
-                mChart.setCenterTextColor(Color.BLUE);
+                chartSetting();
                 createChart();
                 vitaminC.getBackground().setColorFilter(new LightingColorFilter(0xFFFFFFFF, 0xFFAA0000));
                 vitaminC.setTextColor(getApplication().getResources().getColor(R.color.black));
@@ -440,9 +421,7 @@ public class StatisticsActivity extends AppCompatActivity {
                 intake = default_calcium;
                 System.out.println("Nut value: "+ nutrientValue);
                 valueConverter(nutrientValue, intake);
-                mChart.setCenterText(percent + "%" );
-                mChart.setCenterTextSize(14f);
-                mChart.setCenterTextColor(Color.BLUE);
+                chartSetting();
                 createChart();
                 calcium.getBackground().setColorFilter(new LightingColorFilter(0xFFFFFFFF, 0xFFAA0000));
                 calcium.setTextColor(getApplication().getResources().getColor(R.color.black));
@@ -464,9 +443,7 @@ public class StatisticsActivity extends AppCompatActivity {
                 intake = default_iron;
                 System.out.println("Nut value: "+ nutrientValue);
                 valueConverter(nutrientValue, intake);
-                mChart.setCenterText(percent + "%" );
-                mChart.setCenterTextSize(14f);
-                mChart.setCenterTextColor(Color.BLUE);
+                chartSetting();
                 createChart();
                 iron.getBackground().setColorFilter(new LightingColorFilter(0xFFFFFFFF, 0xFFAA0000));
                 iron.setTextColor(getApplication().getResources().getColor(R.color.black));
@@ -632,6 +609,15 @@ public class StatisticsActivity extends AppCompatActivity {
             });
         }
 
+    }
+
+    public void chartSetting(){
+        // entry label styling
+        mChart.setEntryLabelColor(Color.WHITE);
+        mChart.setEntryLabelTextSize(12f);
+        mChart.setCenterText(percent + "%" );
+        mChart.setCenterTextSize(14f);
+        mChart.setCenterTextColor(Color.BLUE);
     }
 
 }
