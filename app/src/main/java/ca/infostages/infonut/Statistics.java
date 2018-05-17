@@ -67,7 +67,7 @@ public class Statistics extends AppCompatActivity {
     private Long default_vitamin_A = 0l;
     private Long default_vitamin_C = 0l;
 
-    private String selected_plan = "";
+    private static String selected_plan = "";
 
     String label;
     double nutrientValue = 0;
@@ -109,8 +109,6 @@ public class Statistics extends AppCompatActivity {
         } else {
             //Checks if user's demographics are entered in. If not, send to NewUserActivity.
             DatabaseReference planReference;
-
-            //===========================================================
 
             planReference = FirebaseDatabase.getInstance().getReference().child("users").child(currentUser.getUid());
             planReference.addValueEventListener(new ValueEventListener() {
@@ -154,22 +152,19 @@ public class Statistics extends AppCompatActivity {
                     //default_vitamin_A = dataSnapshot.child("vitamin_A").getValue(Long.class);
                     //default_vitamin_C = dataSnapshot.child("vitamin_C").getValue(Long.class);*/
 
-
-                      default_bad_fats = 0L;
-                      default_calcium = 0L;
-                      default_calories = 0L;
-                      default_carbohydrates = 0L;
-                     default_cholesterol = 0L;
-                     default_fibre = 0L;
-                     default_good_fats = 0L;
-                     default_iron = 0L;
-                     default_potassium = 0L;
-                     default_protein = 0L;
-                     default_sodium = 0L;
-                     default_vitamin_A = 0L;
-                     default_vitamin_C = 0L;
-
-
+                    default_bad_fats = 100L;
+                    default_calcium = 100L;
+                    default_calories = 100L;
+                    default_carbohydrates = 100L;
+                    default_cholesterol = 100L;
+                    default_fibre = 100L;
+                    default_good_fats = 100L;
+                    default_iron = 100L;
+                    default_potassium = 100L;
+                    default_protein = 100L;
+                    default_sodium = 100L;
+                    default_vitamin_A = 100L;
+                    default_vitamin_C = 100L;
                 }
 
                 @Override
