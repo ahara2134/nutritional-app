@@ -96,6 +96,7 @@ public class StatisticsActivity extends AppCompatActivity {
         iron = findViewById(R.id.iron);
         calories = findViewById(R.id.calories);
 
+
         final HashMap<String, Double> hashmap = NutritionData.nutritionHashMap;
 
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -126,9 +127,9 @@ public class StatisticsActivity extends AppCompatActivity {
                     Log.d(TAG, ": " + databaseError.getMessage());
                 }
             });
-            // entry label styling
-            mChart.setEntryLabelColor(Color.WHITE);
-            mChart.setEntryLabelTextSize(12f);
+//            // entry label styling
+//            mChart.setEntryLabelColor(Color.WHITE);
+//            mChart.setEntryLabelTextSize(12f);
         }
 
         System.out.println("Selected Plan456: " + selected_plan);
@@ -142,7 +143,8 @@ public class StatisticsActivity extends AppCompatActivity {
         mChart.getDescription().setEnabled(false);
 
         List<PieEntry> pieEntries = new ArrayList<>();
-
+        pieEntries.add(new PieEntry(95, "Intake"));
+        pieEntries.add(new PieEntry(5, "Test"));
         // The name of the chart
         PieDataSet dataSet = new PieDataSet(pieEntries, label);
 
@@ -496,11 +498,7 @@ public class StatisticsActivity extends AppCompatActivity {
         PieDataSet dataSet = new PieDataSet(pieEntries, label);
 
         // Color of the chart entries
-        if(100 == percent){
             dataSet.setColors(ColorTemplate.JOYFUL_COLORS);
-        } else {
-            dataSet.setColor(Color.RED);
-        }
 
         // Displaying the chart data
         PieData data = new PieData(dataSet);
