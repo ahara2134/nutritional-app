@@ -11,22 +11,19 @@ public class Plan {
     private String planTitle;
     private HashMap<String, Double> nutrients;
     private HashMap<String, Double> ingredients;
-    private Boolean isSelectedPlan;
 
     public Plan() {}
 
-    public Plan(String planTitle, HashMap<String, Double> nutrients, Boolean isSelectedPlan) {
+    public Plan(String planTitle, HashMap<String, Double> nutrients) {
         setPlanTitle(planTitle);
         setNutrients(nutrients);
-        setSelectedPlan(isSelectedPlan);
     }
 
     public Plan(String planTitle, HashMap<String, Double> nutrients,
-                HashMap<String, Double> ingredients, Boolean isSelectedPlan) {
+                HashMap<String, Double> ingredients) {
         setPlanTitle(planTitle);
         setNutrients(nutrients);
         setIngredients(ingredients);
-        setSelectedPlan(isSelectedPlan);
     }
 
     /**
@@ -87,21 +84,5 @@ public class Plan {
         } else {
             this.ingredients = null;
         }
-    }
-
-    /**
-     * Returns a boolean indicating whether or not this plan has been selected by the user.
-     * @return true when plan is selected; false otherwise.
-     */
-    public Boolean getSelectedPlan() {
-        return isSelectedPlan;
-    }
-
-    /**
-     * Sets whether the plan is selected or not by the user.
-     * @param selectedPlan - a boolean value indicating selection.
-     */
-    public void setSelectedPlan(Boolean selectedPlan) {
-        isSelectedPlan = selectedPlan;
     }
 }
