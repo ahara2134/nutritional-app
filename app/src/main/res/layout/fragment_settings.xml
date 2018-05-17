@@ -77,13 +77,54 @@
         android:layout_height="37dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:background="@color/button"
+        android:layout_marginTop="196dp"
+        android:background="@color/icon_red"
         android:text="@string/bye"
         android:textSize="17sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.533"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView_activity" />
+        app:layout_constraintTop_toBottomOf="@+id/spinner_plans" />
+
+    <Button
+        android:id="@+id/button_newUser"
+        android:layout_width="348dp"
+        android:layout_height="37dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="20dp"
+        android:background="@color/button"
+        android:text="@string/to_newUser"
+        android:textSize="17sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.538"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/image_placeholder" />
+
+    <TextView
+        android:id="@+id/textView_plan"
+        android:layout_width="111dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:text="@string/change_plan"
+        android:textSize="17sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_newUser" />
+
+    <Spinner
+        android:id="@+id/spinner_plans"
+        android:layout_width="177dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="48dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
+        android:background="@color/icon_blue"
+        android:entries="@array/plan_list"
+        android:popupBackground="@color/icon_blue"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/textView_plan"
+        app:layout_constraintTop_toBottomOf="@+id/button_newUser" />
 
 </android.support.constraint.ConstraintLayout>
