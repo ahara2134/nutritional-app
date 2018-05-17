@@ -54,14 +54,15 @@ public class NutritionData extends AsyncTask<Void,Void,Void>{
             String sodium = nutrients.getString("sodium_serving");
             String carbohydrate = nutrients.getString("carbohydrates_serving");
             String fibre = nutrients.getString("fiber_serving");
-            String sugars = nutrients.getString("sugars_serving");
             String protein = nutrients.getString("proteins_serving");
             String vitaminA = nutrients.getString("vitamin-a_serving");
             String vitaminC = nutrients.getString("vitamin-c_serving");
             String calcium = nutrients.getString("calcium_serving");
             String iron = nutrients.getString("iron_serving");
             String potassium = nutrients.getString("potassium_serving");
-
+            String monoUnsaturatedFat = nutrients.getString("monounsaturated-fat_serving");
+            String polyUnsaturatedFat = nutrients.getString("polyunsaturated-fat_serving");
+            String goodfat_serving = goodFatCalculator(polyUnsaturatedFat, monoUnsaturatedFat);
             String badfat_serving = badFatCalculator(transFat, saturatedFat);
 
             //gets the nutrients by key per 100g
@@ -72,24 +73,26 @@ public class NutritionData extends AsyncTask<Void,Void,Void>{
             String sodium_100 = nutrients.getString("sodium_100g");
             String carbohydrate_100 = nutrients.getString("carbohydrates_100g");
             String fibre_100 = nutrients.getString("fiber_100g");
-            String sugars_100 = nutrients.getString("sugars_100g");
             String protein_100 = nutrients.getString("proteins_100g");
             String vitaminA_100 = nutrients.getString("vitamin-a_100g");
             String vitaminC_100 = nutrients.getString("vitamin-c_100g");
             String calcium_100 = nutrients.getString("calcium_100g");
             String iron_100 = nutrients.getString("iron_100g");
             String potassium_100 = nutrients.getString("potassium_100g");
+            String monoUnsaturatedFat_100 = nutrients.getString("monounsaturated-fat_100g");
+            String polyUnsaturatedFat_100 = nutrients.getString("polyunsaturated-fat_100g");
 
             String badfat_100 = badFatCalculator(transFat_100, saturatedFat_100);
+            String goodfat_100 = goodFatCalculator(polyUnsaturatedFat_100, monoUnsaturatedFat_100);
 
             //add nutrition by serving into hashmap
             nutritionHashMap.put("fat",convertNutrition(fat));
+            nutritionHashMap.put("goodFat",convertNutrition(goodfat_serving));
             nutritionHashMap.put("badFat",convertNutrition(badfat_serving));
             nutritionHashMap.put("cholesterol",convertNutrition(cholesterol));
             nutritionHashMap.put("sodium",convertNutrition(sodium));
             nutritionHashMap.put("carbohydrate",convertNutrition(carbohydrate));
             nutritionHashMap.put("fibre",convertNutrition(fibre));
-            nutritionHashMap.put("sugars",convertNutrition(sugars));
             nutritionHashMap.put("protein",convertNutrition(protein));
             nutritionHashMap.put("vitaminA",convertNutrition(vitaminA));
             nutritionHashMap.put("vitaminC",convertNutrition(vitaminC));
@@ -99,12 +102,12 @@ public class NutritionData extends AsyncTask<Void,Void,Void>{
 
             //add nutrition by 100g into hashmap
             nutritionHashMap.put("fat_100",convertNutrition(fat_100));
+            nutritionHashMap.put("goodFat_100", convertNutrition(goodfat_100));
             nutritionHashMap.put("badFat_100",convertNutrition(badfat_100));
             nutritionHashMap.put("cholesterol_100",convertNutrition(cholesterol_100));
             nutritionHashMap.put("sodium_100",convertNutrition(sodium_100));
             nutritionHashMap.put("carbohydrate_100",convertNutrition(carbohydrate_100));
             nutritionHashMap.put("fibre_100",convertNutrition(fibre_100));
-            nutritionHashMap.put("sugars_100",convertNutrition(sugars_100));
             nutritionHashMap.put("protein_100",convertNutrition(protein_100));
             nutritionHashMap.put("vitaminA_100",convertNutrition(vitaminA_100));
             nutritionHashMap.put("vitaminC_100",convertNutrition(vitaminC_100));
@@ -112,20 +115,6 @@ public class NutritionData extends AsyncTask<Void,Void,Void>{
             nutritionHashMap.put("iron_100",convertNutrition(iron_100));
             nutritionHashMap.put("potassium_100",convertNutrition(potassium_100));
 
-            /*dataParsed = "Fat: " + fat + "\n"
-                    + "Saturated Fat: " + saturatedFat + "\n"
-                    + "Trans Fat: " + transFat + "\n"
-                    + "Cholesterol: " + cholesterol + "\n"
-                    + "Sodium: " + sodium + "\n"
-                    + "Carbohydrate: " + carbohydrate + "\n"
-                    + "Fibre: " + fibre + "\n"
-                    + "Sugar: " + sugars + "\n"
-                    + "Protein: " + protein + "\n"
-                    + "Vitamin A: " + vitaminA + "\n"
-                    + "Vitamin C: " + vitaminC + "\n"
-                    + "Calcium: " + calcium + "\n"
-                    + "Iron: " + iron + "\n"
-                    + "Quantity: " + quantity + "\n";*/
 
         } catch (IOException | JSONException e) {
             e.printStackTrace();
@@ -137,9 +126,8 @@ public class NutritionData extends AsyncTask<Void,Void,Void>{
     @Override
     protected void onPostExecute(Void aVoid) {
         super.onPostExecute(aVoid);
-        //BarcodeReader.statusMessage.setText(dataParsed);
+        //BarcodeReader.statusMessage.setText("FINISHED!");
         //send data here OR pass hashmap
-
     }
 
     /**
@@ -155,6 +143,14 @@ public class NutritionData extends AsyncTask<Void,Void,Void>{
 
         double badFatD = transfat + saturated;
         return "" + badFatD;
+    }
+
+    private String goodFatCalculator(String poly, String mono) {
+        double polyFat = Double.parseDouble(poly);
+        double monoFat = Double.parseDouble(mono);
+
+        double goodFatD = polyFat + monoFat;
+        return "" + goodFatD;
     }
 
     /**

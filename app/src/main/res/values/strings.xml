@@ -78,6 +78,13 @@
     <string name="active_placeholder">activity level</string>
     <string name="bye">Sign Out</string>
     <string name="signed_out">Logout successful.</string>
+    <string name="to_newUser">Change information</string>
+    <string name="change_plan">Change Plan:</string>
+
+    <!-- FAQ strings -->
+    <string name="q_barcode">Using the barcode scanner</string>
+    <string name="q_plans">Creating a Plan</string>
+    <string name="q_settings">Changing your settings</string>
 
     <!-- Choose Plan strings -->
     <string name="make_plan_submit">Make Plan</string>
@@ -85,7 +92,8 @@
     <!-- Make Plan strings -->
     <string name="plan_title">Plan Name</string>
     <string name="plan_title_placeholder">Plan Title</string>
-    <string name="nutrients_header">Pick the nutrients you want to watch for.</string>
+    <string name="nutrients_header">Pick the nutrients you want to watch for using the "+" button
+    and then edit your daily limit for those nutrients once they appear below.</string>
     <string name="blacklisted_ingredients">Blacklisted Ingredients</string>
     <string name="plan_submit">Submit</string>
     <string name="pick_nutrients">Pick which nutrients you want to track.</string>
@@ -123,7 +131,7 @@
     <string name="vitaminC">Vitamin C</string>
     <string name="calcium">Calcium</string>
     <string name="iron">Iron</string>
-    <string name="add">Add</string>
+    <string name="calories">Calories</string>
     <string name="snapCam">Barcode Camera</string>
 
     <!-- TODO: Remove or change this placeholder text -->
@@ -165,6 +173,16 @@
     <string-array name="weight_list">
         <item>lbs</item>
         <item>kg</item>
+    </string-array>
+
+    <!--User Settings Array -->
+    <string-array name="plan_list">
+        <item>Default plan</item>
+        <item> </item>
+        <item> </item>
+        <item> </item>
+        <item> </item>
+        <item> </item>
     </string-array>
 
 </resources>

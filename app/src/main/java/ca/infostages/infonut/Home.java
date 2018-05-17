@@ -55,7 +55,8 @@ public class Home extends AppCompatActivity {
         });*/
 
         //Add back navigation in the title bar
-        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        if (getSupportActionBar() != null)
+            getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
 /*        //Checks if the user is logged in. If not, send to Mainactivity.
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -108,12 +109,6 @@ public class Home extends AppCompatActivity {
         else {
             super.onBackPressed();
         }
-    }
-
-    //Temporary button to take you to new user
-    public void newUser(View view) {
-        Intent intent = new Intent (Home.this, NewUserActivity.class);
-        startActivity(intent);
     }
 
     /**

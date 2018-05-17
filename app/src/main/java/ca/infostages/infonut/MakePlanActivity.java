@@ -6,9 +6,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -36,7 +40,9 @@ public class MakePlanActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_make_plan);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        if (getSupportActionBar() != null)
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING);
         nutrientIntakeList = findViewById(R.id.nutrients_recycler);
         mNutrients = new ArrayList<>();
         adapter = new NutrientsAdapter(mNutrients);
@@ -46,7 +52,6 @@ public class MakePlanActivity extends AppCompatActivity
         title = findViewById(R.id.plan_title_edit);
         FirebaseAuth auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
-
     }
 
     @Override
@@ -88,16 +93,37 @@ public class MakePlanActivity extends AppCompatActivity
      */
     public void submitPlan(View view) {
         HashMap<String, Double> hashMap = new HashMap<>();
-        for (int index = 0; index < nutrientIntakeList.getChildCount();++index) {
-            NutrientsAdapter.ViewHolder holder = (NutrientsAdapter.ViewHolder) nutrientIntakeList
-                    .findViewHolderForAdapterPosition(index);
-            hashMap.put(holder.nameTextView.getText().toString(),
-                    Double.parseDouble(holder.limitEditText.getText().toString()));
+        int nutrientCount = nutrientIntakeList.getChildCount();
+        if (nutrientCount > 0) {
+            for (int index = 0; index < nutrientIntakeList.getChildCount();++index) {
+                NutrientsAdapter.ViewHolder holder =
+                        (NutrientsAdapter.ViewHolder) nutrientIntakeList
+                        .findViewHolderForAdapterPosition(index);
+                hashMap.put(holder.nameTextView.getText().toString().replaceAll("\\s+",
+                        "_").toLowerCase(),
+                        Double.parseDouble(holder.limitEditText.getText().toString()));
+            }
+            Plan plan = new Plan(title.getText().toString(), hashMap, false);
+            if (user != null) {
+                mDatabase.child("users")
+                        .child(user.getUid())
+                        .child("plan")
+                        .child(plan.getPlanTitle())
+                        .setValue(plan);
+            }
+            Toast planSavedToast = Toast.makeText(this,
+                    "Your custom plan has been saved. Go to settings to activate it.",
+                    Toast.LENGTH_LONG);
+            TextView textView = planSavedToast.getView().findViewById(android.R.id.message);
+            if (textView != null)
+                textView.setGravity(Gravity.CENTER);
+            planSavedToast.show();
+            finish();
+        } else {
+            Toast chooseNutrientsToast = Toast.makeText(this,
+                    "Please add nutrients to the plan",
+                    Toast.LENGTH_LONG);
+            chooseNutrientsToast.show();
         }
-        Plan plan = new Plan(title.getText().toString(), hashMap, false);
-        if (user != null) {
-            mDatabase.child("users").child(user.getUid()).child("plan").push().setValue(plan);
-        }
-        finish();
     }
 }
