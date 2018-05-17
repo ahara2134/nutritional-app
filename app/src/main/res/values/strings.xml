@@ -80,6 +80,7 @@
     <string name="signed_out">Logout successful.</string>
     <string name="to_newUser">Change information</string>
     <string name="change_plan">Change Plan:</string>
+    <string name="plan_changed">Your plan is now changed!</string>
 
     <!-- FAQ strings -->
     <string name="q_barcode">Using the barcode scanner</string>
