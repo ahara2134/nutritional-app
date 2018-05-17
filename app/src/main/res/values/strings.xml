@@ -132,7 +132,7 @@
     <string name="calcium">Calcium</string>
     <string name="iron">Iron</string>
     <string name="calories">Calories</string>
-    <string name="snapCam">Barcode Camera</string>
+    <string name="snapCam">Camera</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -143,11 +143,11 @@
     <!-- MakePlan arrays -->
     <string-array name="nutrient_list">
         <item>Calories</item>
-        <item>Fat</item>
-        <item>Bad Fat</item>
+        <item>Good Fats</item>
+        <item>Bad Fats</item>
         <item>Cholesterol</item>
         <item>Sodium</item>
-        <item>Carbohydrate</item>
+        <item>Carbohydrates</item>
         <item>Potassium</item>
         <item>Fibre</item>
         <item>Protein</item>

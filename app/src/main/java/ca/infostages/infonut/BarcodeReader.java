@@ -1,13 +1,10 @@
 package ca.infostages.infonut;
 
 import android.app.AlertDialog;
-import android.app.Fragment;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -15,7 +12,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -71,13 +67,13 @@ public class BarcodeReader extends AppCompatActivity implements View.OnClickList
         sendResults.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(BarcodeReader.this, Statistics.class);
+                Intent intent = new Intent(BarcodeReader.this, StatisticsActivity.class);
                 intent.putExtra("servingChecked", switchServing.isChecked());
                 intent.putExtra("100Checked", switch100.isChecked());
                 intent.putExtra("100Portion", result);
                 intent.putExtra("sliderPortion", portionsize);
                 startActivity(intent);
-                Intent intent2 = new Intent(BarcodeReader.this, Statistics.class);
+                Intent intent2 = new Intent(BarcodeReader.this, StatisticsActivity.class);
                 startActivity(intent2);
             }
         });

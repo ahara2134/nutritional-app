@@ -47,11 +47,12 @@ public class MakePlanActivity extends AppCompatActivity
         mNutrients = new ArrayList<>();
         adapter = new NutrientsAdapter(mNutrients);
         nutrientIntakeList.setAdapter(adapter);
-        nutrientIntakeList.setLayoutManager(new LinearLayoutManager(this));
-        mDatabase = FirebaseDatabase.getInstance().getReference();
-        title = findViewById(R.id.plan_title_edit);
         FirebaseAuth auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
+        nutrientIntakeList.setLayoutManager(new LinearLayoutManager(this));
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("users")
+                .child(user.getUid()).child("plan");
+        title = findViewById(R.id.plan_title_edit);
     }
 
     @Override
@@ -92,38 +93,70 @@ public class MakePlanActivity extends AppCompatActivity
      * @param view - view
      */
     public void submitPlan(View view) {
-        HashMap<String, Double> hashMap = new HashMap<>();
         int nutrientCount = nutrientIntakeList.getChildCount();
         if (nutrientCount > 0) {
+            HashMap<String, Double> hashMap = new HashMap<>();
             for (int index = 0; index < nutrientIntakeList.getChildCount();++index) {
                 NutrientsAdapter.ViewHolder holder =
                         (NutrientsAdapter.ViewHolder) nutrientIntakeList
-                        .findViewHolderForAdapterPosition(index);
-                hashMap.put(holder.nameTextView.getText().toString().replaceAll("\\s+",
-                        "_").toLowerCase(),
+                                .findViewHolderForAdapterPosition(index);
+                hashMap.put(formatString(holder.nameTextView.getText().toString()),
                         Double.parseDouble(holder.limitEditText.getText().toString()));
             }
-            Plan plan = new Plan(title.getText().toString(), hashMap, false);
-            if (user != null) {
-                mDatabase.child("users")
-                        .child(user.getUid())
-                        .child("plan")
-                        .child(plan.getPlanTitle())
-                        .setValue(plan);
-            }
-            Toast planSavedToast = Toast.makeText(this,
-                    "Your custom plan has been saved. Go to settings to activate it.",
-                    Toast.LENGTH_LONG);
-            TextView textView = planSavedToast.getView().findViewById(android.R.id.message);
-            if (textView != null)
-                textView.setGravity(Gravity.CENTER);
-            planSavedToast.show();
+            updateMapWithMissingValues(hashMap);
+            savePlan(hashMap);
             finish();
+            Toast uniqueTitleToast = Toast.makeText(MakePlanActivity.this,
+                    "Plan title already exists",
+                    Toast.LENGTH_LONG);
+            uniqueTitleToast.show();
         } else {
             Toast chooseNutrientsToast = Toast.makeText(this,
                     "Please add nutrients to the plan",
                     Toast.LENGTH_LONG);
             chooseNutrientsToast.show();
         }
+    }
+
+    /**
+     * Populates the hashmap with the remaining values of the nutrient list.
+     * @param hashMap - HashMap featuring all values that the user has specified.
+     */
+    private void updateMapWithMissingValues(HashMap<String, Double> hashMap) {
+        String[] stringArray = getResources().getStringArray(R.array.nutrient_list);
+        for (String nutrient : stringArray) {
+            String match = formatString(nutrient);
+            if (!hashMap.containsKey(match)) {
+                hashMap.put(match, 0.0);
+            }
+        }
+    }
+
+    /**
+     * Saves a plan object to Firebase.
+     * @param hashMap - a HashMap of user inputted nutrients.
+     */
+    private void savePlan(HashMap<String, Double> hashMap) {
+        Plan plan = new Plan(title.getText().toString(), hashMap);
+        if (user != null) {
+            mDatabase.child(formatString(plan.getPlanTitle())).setValue(plan);
+        }
+        Toast planSavedToast = Toast.makeText(this,
+                "Your custom plan has been saved. Go to settings to activate it.",
+                Toast.LENGTH_LONG);
+        TextView textView = planSavedToast.getView().findViewById(android.R.id.message);
+        if (textView != null)
+            textView.setGravity(Gravity.CENTER);
+        planSavedToast.show();
+    }
+
+    /**
+     * Replaces all spaces with underscores and makes all characters lowercase.
+     * @param string - string gained from user input.
+     * @return a String value that can be safely written to the database.
+     */
+    private String formatString(String string) {
+        String regex = "\\s+";
+        return string.replaceAll(regex, "_").toLowerCase();
     }
 }
