@@ -75,7 +75,7 @@ public class HomeFragment extends Fragment {
         scan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent2 = new Intent(getActivity(), BarcodeReader.class);
+                Intent intent2 = new Intent(getActivity(), BarcodeCaptureActivity.class);
                 startActivity(intent2);
             }
         });
