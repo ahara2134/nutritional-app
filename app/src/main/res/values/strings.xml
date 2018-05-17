@@ -143,11 +143,11 @@
     <!-- MakePlan arrays -->
     <string-array name="nutrient_list">
         <item>Calories</item>
-        <item>Fat</item>
-        <item>Bad Fat</item>
+        <item>Good Fats</item>
+        <item>Bad Fats</item>
         <item>Cholesterol</item>
         <item>Sodium</item>
-        <item>Carbohydrate</item>
+        <item>Carbohydrates</item>
         <item>Potassium</item>
         <item>Fibre</item>
         <item>Protein</item>

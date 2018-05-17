@@ -5,6 +5,8 @@ import android.graphics.Color;
 import android.graphics.LightingColorFilter;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -217,6 +219,9 @@ public class Statistics extends AppCompatActivity {
 
         // The name of the chart
         PieDataSet dataSet = new PieDataSet(pieEntries, label);
+
+        //Enable Back button
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         // Color of the chart entries
         dataSet.setColors(ColorTemplate.JOYFUL_COLORS);
@@ -505,6 +510,11 @@ public class Statistics extends AppCompatActivity {
                 iron.setTextColor(getApplication().getResources().getColor(R.color.black));
             }
         });
+
+        //
+        mChart.setCenterText("You can change this to w/e" );
+        mChart.setCenterTextSize(14f);
+        mChart.setCenterTextColor(Color.BLUE);
     }
 
     /**
@@ -563,7 +573,34 @@ public class Statistics extends AppCompatActivity {
         full = 100 - percent;
     }
 
+    /**
+     * This will take the user back to the previous activity
+     * @param item what button is being selected
+     * @return super.onOptionsItemSelected(item)
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            //Title bar back press triggers onBackPressed()
+            onBackPressed();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    //Both navigation bar back press and title bar back press will trigger this method
+    @Override
+    public void onBackPressed() {
+        if (getFragmentManager().getBackStackEntryCount() > 0 ) {
+            getFragmentManager().popBackStack();
+        }
+        else {
+            super.onBackPressed(); // In this case, this will always go to this
+        }
+    }
+
     private double consumptionManip(double nutrition, double amount) {
         return amount/100 *nutrition;
     }
+
 }
