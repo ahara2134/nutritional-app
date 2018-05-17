@@ -53,19 +53,21 @@ public class Statistics extends AppCompatActivity {
     private Button calories;
 
     //default plans
-    private Long default_bad_fats;
-    private Long default_calcium;
-    private Long default_calories;
-    private Long default_carbohydrates;
-    private Long default_cholesterol;
-    private Long default_fibre;
-    private Long default_good_fats;
-    private Long default_iron;
-    private Long default_potassium;
-    private Long default_protein;
-    private Long default_sodium;
-    private Long default_vitamin_A;
-    private Long default_vitamin_C;
+    private Long default_bad_fats = 0l;
+    private Long default_calcium = 0l;
+    private Long default_calories = 0l;
+    private Long default_carbohydrates = 0l;
+    private Long default_cholesterol = 0l;
+    private Long default_fibre = 0l;
+    private Long default_good_fats = 0l;
+    private Long default_iron = 0l;
+    private Long default_potassium = 0l;
+    private Long default_protein = 0l;
+    private Long default_sodium = 0l;
+    private Long default_vitamin_A = 0l;
+    private Long default_vitamin_C = 0l;
+
+    private String selected_plan = "";
 
     String label;
     double nutrientValue = 0;
@@ -107,7 +109,10 @@ public class Statistics extends AppCompatActivity {
         } else {
             //Checks if user's demographics are entered in. If not, send to NewUserActivity.
             DatabaseReference planReference;
-            planReference = FirebaseDatabase.getInstance().getReference().child("users").child(currentUser.getUid()).child("plan").child("default_plan");
+
+            //===========================================================
+
+            planReference = FirebaseDatabase.getInstance().getReference().child("users").child(currentUser.getUid());
             planReference.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
@@ -116,6 +121,70 @@ public class Statistics extends AppCompatActivity {
                         Intent intent = new Intent(Statistics.this, Home.class);
                         startActivity(intent);
                     } else {
+                        selected_plan = dataSnapshot.child("selected_plan").getValue(String.class);
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    Log.d(TAG, ": " + databaseError.getMessage());
+                }
+            });
+        }
+
+        if(!selected_plan.equals("default_value")) {
+            DatabaseReference planReference;
+
+            planReference = FirebaseDatabase.getInstance().getReference().child("users").child(currentUser.getUid()).child("plan").child(selected_plan).child("nutrients");
+            planReference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+
+                   /* default_bad_fats = dataSnapshot.child("bad_fat").getValue(Long.class);
+                    //default_calcium = dataSnapshot.child("calcium").getValue(Long.class);
+                    //default_calories = dataSnapshot.child("calories").getValue(Long.class);
+                    default_carbohydrates = dataSnapshot.child("carbohydrate").getValue(Long.class);
+                    //default_cholesterol = dataSnapshot.child("cholesterol").getValue(Long.class);
+                    //default_fibre = dataSnapshot.child("fibre").getValue(Long.class);
+                    //default_good_fats = dataSnapshot.child("good_fats").getValue(Long.class);
+                    //default_iron = dataSnapshot.child("iron").getValue(Long.class);
+                    //default_potassium = dataSnapshot.child("potassium").getValue(Long.class);
+                    default_protein = dataSnapshot.child("protein").getValue(Long.class);
+                    //default_sodium = dataSnapshot.child("sodium").getValue(Long.class);
+                    //default_vitamin_A = dataSnapshot.child("vitamin_A").getValue(Long.class);
+                    //default_vitamin_C = dataSnapshot.child("vitamin_C").getValue(Long.class);*/
+
+
+                      default_bad_fats = 0L;
+                      default_calcium = 0L;
+                      default_calories = 0L;
+                      default_carbohydrates = 0L;
+                     default_cholesterol = 0L;
+                     default_fibre = 0L;
+                     default_good_fats = 0L;
+                     default_iron = 0L;
+                     default_potassium = 0L;
+                     default_protein = 0L;
+                     default_sodium = 0L;
+                     default_vitamin_A = 0L;
+                     default_vitamin_C = 0L;
+
+
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    Log.d(TAG, ": " + databaseError.getMessage());
+                }
+            });
+        } else {
+            DatabaseReference planReference;
+
+            planReference = FirebaseDatabase.getInstance().getReference().child("users").child(currentUser.getUid()).child("plan").child("default_plan");
+            planReference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+
                         default_bad_fats = dataSnapshot.child("bad_fats").getValue(Long.class);
                         default_calcium = dataSnapshot.child("calcium").getValue(Long.class);
                         default_calories = dataSnapshot.child("calories").getValue(Long.class);
@@ -129,7 +198,7 @@ public class Statistics extends AppCompatActivity {
                         default_sodium = dataSnapshot.child("sodium").getValue(Long.class);
                         default_vitamin_A = dataSnapshot.child("vitamin_A").getValue(Long.class);
                         default_vitamin_C = dataSnapshot.child("vitamin_C").getValue(Long.class);
-                    }
+
                 }
 
                 @Override
@@ -138,6 +207,8 @@ public class Statistics extends AppCompatActivity {
                 }
             });
         }
+
+
 
         final boolean checkedServing = getIntent().getBooleanExtra("servingChecked", true);
         final double servingAmount = getIntent().getDoubleExtra("100Portion", 100);
