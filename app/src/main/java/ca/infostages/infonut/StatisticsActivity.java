@@ -140,9 +140,6 @@ public class StatisticsActivity extends AppCompatActivity {
 
         List<PieEntry> pieEntries = new ArrayList<>();
 
-        pieEntries.add(new PieEntry(95, "Intake"));
-        pieEntries.add(new PieEntry(5, "Test"));
-
         // The name of the chart
         PieDataSet dataSet = new PieDataSet(pieEntries, label);
 
@@ -522,7 +519,11 @@ public class StatisticsActivity extends AppCompatActivity {
         PieDataSet dataSet = new PieDataSet(pieEntries, label);
 
         // Color of the chart entries
-        dataSet.setColors(ColorTemplate.JOYFUL_COLORS);
+        if(100 == percent){
+            dataSet.setColors(ColorTemplate.JOYFUL_COLORS);
+        } else {
+            dataSet.setColor(Color.RED);
+        }
 
         // Displaying the chart data
         PieData data = new PieData(dataSet);
