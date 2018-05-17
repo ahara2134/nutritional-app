@@ -63,7 +63,7 @@ public class StatisticsActivity extends AppCompatActivity {
     private Long default_vitamin_A = 0l;
     private Long default_vitamin_C = 0l;
 
-    static String selected_plan = "";
+    String selected_plan = "";
 
     String label;
     double nutrientValue = 0;
@@ -116,6 +116,8 @@ public class StatisticsActivity extends AppCompatActivity {
                         startActivity(intent);
                     } else {
                         selected_plan = dataSnapshot.child("selected_plan").getValue(String.class);
+                        System.out.println("Selected Plan123: " + selected_plan);
+                        planChecker(selected_plan);
                     }
                 }
 
@@ -126,80 +128,8 @@ public class StatisticsActivity extends AppCompatActivity {
             });
         }
 
-        if(!selected_plan.equals("default_value")) {
-            DatabaseReference planReference;
+        System.out.println("Selected Plan456: " + selected_plan);
 
-            planReference = FirebaseDatabase.getInstance().getReference().child("users").child(currentUser.getUid()).child("plan").child(selected_plan).child("nutrients");
-            planReference.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-
-                    //default_bad_fats = dataSnapshot.child("bad_fat").getValue(Long.class);
-                    //default_calcium = dataSnapshot.child("calcium").getValue(Long.class);
-                    //default_calories = dataSnapshot.child("calories").getValue(Long.class);
-                    default_carbohydrates = dataSnapshot.child("carbohydrates").getValue(Long.class);
-                    //default_cholesterol = dataSnapshot.child("cholesterol").getValue(Long.class);
-                    //default_fibre = dataSnapshot.child("fibre").getValue(Long.class);
-                    //default_good_fats = dataSnapshot.child("good_fats").getValue(Long.class);
-                    //default_iron = dataSnapshot.child("iron").getValue(Long.class);
-                    //default_potassium = dataSnapshot.child("potassium").getValue(Long.class);
-                    //default_protein = dataSnapshot.child("protein").getValue(Long.class);
-                    //default_sodium = dataSnapshot.child("sodium").getValue(Long.class);
-                    //default_vitamin_A = dataSnapshot.child("vitamin_A").getValue(Long.class);
-                    //default_vitamin_C = dataSnapshot.child("vitamin_C").getValue(Long.class);
-
-                    System.out.println("DEFAULT CARBS: " + default_carbohydrates);
-
-                    default_bad_fats = 100L;
-                    default_calcium = 100L;
-                    default_calories = 100L;
-                    //default_carbohydrates = 100L;
-                    default_cholesterol = 100L;
-                    default_fibre = 100L;
-                    default_good_fats = 100L;
-                    default_iron = 100L;
-                    default_potassium = 100L;
-                    default_protein = 100L;
-                    default_sodium = 100L;
-                    default_vitamin_A = 100L;
-                    default_vitamin_C = 100L;
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-                    Log.d(TAG, ": " + databaseError.getMessage());
-                }
-            });
-        } else {
-            DatabaseReference planReference;
-
-            planReference = FirebaseDatabase.getInstance().getReference().child("users").child(currentUser.getUid()).child("plan").child("default_plan");
-            planReference.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-
-                        default_bad_fats = dataSnapshot.child("bad_fats").getValue(Long.class);
-                        default_calcium = dataSnapshot.child("calcium").getValue(Long.class);
-                        default_calories = dataSnapshot.child("calories").getValue(Long.class);
-                        default_carbohydrates = dataSnapshot.child("carbohydrates").getValue(Long.class);
-                        default_cholesterol = dataSnapshot.child("cholesterol").getValue(Long.class);
-                        default_fibre = dataSnapshot.child("fibre").getValue(Long.class);
-                        default_good_fats = dataSnapshot.child("good_fats").getValue(Long.class);
-                        default_iron = dataSnapshot.child("iron").getValue(Long.class);
-                        default_potassium = dataSnapshot.child("potassium").getValue(Long.class);
-                        default_protein = dataSnapshot.child("protein").getValue(Long.class);
-                        default_sodium = dataSnapshot.child("sodium").getValue(Long.class);
-                        default_vitamin_A = dataSnapshot.child("vitamin_A").getValue(Long.class);
-                        default_vitamin_C = dataSnapshot.child("vitamin_C").getValue(Long.class);
-
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-                    Log.d(TAG, ": " + databaseError.getMessage());
-                }
-            });
-        }
 
 
 
@@ -255,6 +185,9 @@ public class StatisticsActivity extends AppCompatActivity {
                 intake = default_bad_fats;
                 System.out.println("Nut value: "+ nutrientValue);
                 valueConverter(nutrientValue, intake);
+                mChart.setCenterText(percent + "%" );
+                mChart.setCenterTextSize(14f);
+                mChart.setCenterTextColor(Color.BLUE);
                 createChart();
                 fat.getBackground().setColorFilter(new LightingColorFilter(0xFFFFFFFF, 0xFFAA0000));
                 fat.setTextColor(getApplication().getResources().getColor(R.color.black));
@@ -275,6 +208,9 @@ public class StatisticsActivity extends AppCompatActivity {
                 label = "Good Fat";
                 System.out.println("Nut value: "+ nutrientValue);
                 valueConverter(nutrientValue, intake);
+                mChart.setCenterText(percent + "%" );
+                mChart.setCenterTextSize(14f);
+                mChart.setCenterTextColor(Color.BLUE);
                 createChart();
                 goodFat.getBackground().setColorFilter(new LightingColorFilter(0xFFFFFFFF, 0xFFAA0000));
                 goodFat.setTextColor(getApplication().getResources().getColor(R.color.black));
@@ -296,6 +232,9 @@ public class StatisticsActivity extends AppCompatActivity {
                 label = "Bad Fat";
                 System.out.println("Nut value: "+ nutrientValue);
                 valueConverter(nutrientValue, intake);
+                mChart.setCenterText(percent + "%" );
+                mChart.setCenterTextSize(14f);
+                mChart.setCenterTextColor(Color.BLUE);
                 createChart();
                 badFat.getBackground().setColorFilter(new LightingColorFilter(0xFFFFFFFF, 0xFFAA0000));
                 badFat.setTextColor(getApplication().getResources().getColor(R.color.black));
@@ -317,6 +256,9 @@ public class StatisticsActivity extends AppCompatActivity {
                 intake = default_cholesterol;
                 System.out.println("Nut value: "+ nutrientValue);
                 valueConverter(nutrientValue, intake);
+                mChart.setCenterText(percent + "%" );
+                mChart.setCenterTextSize(14f);
+                mChart.setCenterTextColor(Color.BLUE);
                 createChart();
                 cholesterol.getBackground().setColorFilter(new LightingColorFilter(0xFFFFFFFF, 0xFFAA0000));
                 cholesterol.setTextColor(getApplication().getResources().getColor(R.color.black));
@@ -337,6 +279,9 @@ public class StatisticsActivity extends AppCompatActivity {
                 intake = default_sodium;
                 System.out.println("Nut value: "+ nutrientValue);
                 valueConverter(nutrientValue, intake);
+                mChart.setCenterText(percent + "%" );
+                mChart.setCenterTextSize(14f);
+                mChart.setCenterTextColor(Color.BLUE);
                 createChart();
                 sodium.getBackground().setColorFilter(new LightingColorFilter(0xFFFFFFFF, 0xFFAA0000));
                 sodium.setTextColor(getApplication().getResources().getColor(R.color.black));
@@ -358,6 +303,9 @@ public class StatisticsActivity extends AppCompatActivity {
                 intake = default_carbohydrates;
                 System.out.println("Nut value: "+ nutrientValue);
                 valueConverter(nutrientValue, intake);
+                mChart.setCenterText(percent + "%" );
+                mChart.setCenterTextSize(14f);
+                mChart.setCenterTextColor(Color.BLUE);
                 createChart();
                 carbohydrate.getBackground().setColorFilter(new LightingColorFilter(0xFFFFFFFF, 0xFFAA0000));
                 carbohydrate.setTextColor(getApplication().getResources().getColor(R.color.black));
@@ -379,6 +327,9 @@ public class StatisticsActivity extends AppCompatActivity {
                 intake = default_fibre;
                 System.out.println("Nut value: "+ nutrientValue);
                 valueConverter(nutrientValue, intake);
+                mChart.setCenterText(percent + "%" );
+                mChart.setCenterTextSize(14f);
+                mChart.setCenterTextColor(Color.BLUE);
                 createChart();
                 fibre.getBackground().setColorFilter(new LightingColorFilter(0xFFFFFFFF, 0xFFAA0000));
                 fibre.setTextColor(getApplication().getResources().getColor(R.color.black));
@@ -400,6 +351,9 @@ public class StatisticsActivity extends AppCompatActivity {
                 intake = default_potassium;
                 System.out.println("Nut value: "+ nutrientValue);
                 valueConverter(nutrientValue, intake);
+                mChart.setCenterText(percent + "%" );
+                mChart.setCenterTextSize(14f);
+                mChart.setCenterTextColor(Color.BLUE);
                 createChart();
                 potassium.getBackground().setColorFilter(new LightingColorFilter(0xFFFFFFFF, 0xFFAA0000));
                 potassium.setTextColor(getApplication().getResources().getColor(R.color.black));
@@ -420,6 +374,9 @@ public class StatisticsActivity extends AppCompatActivity {
                 intake = default_protein;
                 System.out.println("Nut value: "+ nutrientValue);
                 valueConverter(nutrientValue, intake);
+                mChart.setCenterText(percent + "%" );
+                mChart.setCenterTextSize(14f);
+                mChart.setCenterTextColor(Color.BLUE);
                 createChart();
                 protein.getBackground().setColorFilter(new LightingColorFilter(0xFFFFFFFF, 0xFFAA0000));
                 protein.setTextColor(getApplication().getResources().getColor(R.color.black));
@@ -440,6 +397,9 @@ public class StatisticsActivity extends AppCompatActivity {
                 intake = default_vitamin_A;
                 System.out.println("Nut value: "+ nutrientValue);
                 valueConverter(nutrientValue, intake);
+                mChart.setCenterText(percent + "%" );
+                mChart.setCenterTextSize(14f);
+                mChart.setCenterTextColor(Color.BLUE);
                 createChart();
                 vitaminA.getBackground().setColorFilter(new LightingColorFilter(0xFFFFFFFF, 0xFFAA0000));
                 vitaminA.setTextColor(getApplication().getResources().getColor(R.color.black));
@@ -460,6 +420,9 @@ public class StatisticsActivity extends AppCompatActivity {
                 intake = default_vitamin_C;
                 System.out.println("Nut value: "+ nutrientValue);
                 valueConverter(nutrientValue, intake);
+                mChart.setCenterText(percent + "%" );
+                mChart.setCenterTextSize(14f);
+                mChart.setCenterTextColor(Color.BLUE);
                 createChart();
                 vitaminC.getBackground().setColorFilter(new LightingColorFilter(0xFFFFFFFF, 0xFFAA0000));
                 vitaminC.setTextColor(getApplication().getResources().getColor(R.color.black));
@@ -480,6 +443,9 @@ public class StatisticsActivity extends AppCompatActivity {
                 intake = default_calcium;
                 System.out.println("Nut value: "+ nutrientValue);
                 valueConverter(nutrientValue, intake);
+                mChart.setCenterText(percent + "%" );
+                mChart.setCenterTextSize(14f);
+                mChart.setCenterTextColor(Color.BLUE);
                 createChart();
                 calcium.getBackground().setColorFilter(new LightingColorFilter(0xFFFFFFFF, 0xFFAA0000));
                 calcium.setTextColor(getApplication().getResources().getColor(R.color.black));
@@ -501,6 +467,9 @@ public class StatisticsActivity extends AppCompatActivity {
                 intake = default_iron;
                 System.out.println("Nut value: "+ nutrientValue);
                 valueConverter(nutrientValue, intake);
+                mChart.setCenterText(percent + "%" );
+                mChart.setCenterTextSize(14f);
+                mChart.setCenterTextColor(Color.BLUE);
                 createChart();
                 iron.getBackground().setColorFilter(new LightingColorFilter(0xFFFFFFFF, 0xFFAA0000));
                 iron.setTextColor(getApplication().getResources().getColor(R.color.black));
@@ -508,9 +477,7 @@ public class StatisticsActivity extends AppCompatActivity {
         });
 
         //
-        mChart.setCenterText("You can change this to w/e" );
-        mChart.setCenterTextSize(14f);
-        mChart.setCenterTextColor(Color.BLUE);
+
     }
 
     /**
@@ -597,6 +564,73 @@ public class StatisticsActivity extends AppCompatActivity {
 
     private double consumptionManip(double nutrition, double amount) {
         return amount/100 *nutrition;
+    }
+
+    private void planChecker(final String plan) {
+        System.out.println("PLAN NAME: " + plan);
+
+        final String newPlan = plan.toLowerCase();
+        if(!plan.equals("default_plan")) {
+            DatabaseReference planReference;
+
+            planReference = FirebaseDatabase.getInstance().getReference().child("users").child(currentUser.getUid()).child("plan").child(newPlan).child("nutrients");
+            planReference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    System.out.println("CURRENTLY IN:" + newPlan);
+                    default_bad_fats = dataSnapshot.child("bad_fats").getValue(Long.class);
+                    default_calcium = dataSnapshot.child("calcium").getValue(Long.class);
+                    default_calories = dataSnapshot.child("calories").getValue(Long.class);
+                    default_carbohydrates = dataSnapshot.child("carbohydrates").getValue(Long.class);
+                    default_cholesterol = dataSnapshot.child("cholesterol").getValue(Long.class);
+                    default_fibre = dataSnapshot.child("fibre").getValue(Long.class);
+                    default_good_fats = dataSnapshot.child("good_fats").getValue(Long.class);
+                    default_iron = dataSnapshot.child("iron").getValue(Long.class);
+                    default_potassium = dataSnapshot.child("potassium").getValue(Long.class);
+                    default_protein = dataSnapshot.child("protein").getValue(Long.class);
+                    default_sodium = dataSnapshot.child("sodium").getValue(Long.class);
+                    default_vitamin_A = dataSnapshot.child("vitamin_a").getValue(Long.class);
+                    default_vitamin_C = dataSnapshot.child("vitamin_c").getValue(Long.class);
+
+                    System.out.println("DEFAULT CARBS: " + default_carbohydrates);
+
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    Log.d(TAG, ": " + databaseError.getMessage());
+                }
+            });
+        } else {
+            DatabaseReference planReference;
+
+            planReference = FirebaseDatabase.getInstance().getReference().child("users").child(currentUser.getUid()).child("plan").child("default_plan");
+            planReference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    default_bad_fats = dataSnapshot.child("bad_fats").getValue(Long.class);
+                    default_calcium = dataSnapshot.child("calcium").getValue(Long.class);
+                    default_calories = dataSnapshot.child("calories").getValue(Long.class);
+                    default_carbohydrates = dataSnapshot.child("carbohydrates").getValue(Long.class);
+                    default_cholesterol = dataSnapshot.child("cholesterol").getValue(Long.class);
+                    default_fibre = dataSnapshot.child("fibre").getValue(Long.class);
+                    default_good_fats = dataSnapshot.child("good_fats").getValue(Long.class);
+                    default_iron = dataSnapshot.child("iron").getValue(Long.class);
+                    default_potassium = dataSnapshot.child("potassium").getValue(Long.class);
+                    default_protein = dataSnapshot.child("protein").getValue(Long.class);
+                    default_sodium = dataSnapshot.child("sodium").getValue(Long.class);
+                    default_vitamin_A = dataSnapshot.child("vitamin_A").getValue(Long.class);
+                    default_vitamin_C = dataSnapshot.child("vitamin_C").getValue(Long.class);
+
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    Log.d(TAG, ": " + databaseError.getMessage());
+                }
+            });
+        }
+
     }
 
 }
