@@ -16,11 +16,8 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -106,6 +103,7 @@ public class MakePlanActivity extends AppCompatActivity
                 hashMap.put(formatString(holder.nameTextView.getText().toString()),
                         Double.parseDouble(holder.limitEditText.getText().toString()));
             }
+            updateMapWithMissingValues(hashMap);
             savePlan(hashMap);
             finish();
             Toast uniqueTitleToast = Toast.makeText(MakePlanActivity.this,
@@ -117,6 +115,20 @@ public class MakePlanActivity extends AppCompatActivity
                     "Please add nutrients to the plan",
                     Toast.LENGTH_LONG);
             chooseNutrientsToast.show();
+        }
+    }
+
+    /**
+     * Populates the hashmap with the remaining values of the nutrient list.
+     * @param hashMap - HashMap featuring all values that the user has specified.
+     */
+    private void updateMapWithMissingValues(HashMap<String, Double> hashMap) {
+        String[] stringArray = getResources().getStringArray(R.array.nutrient_list);
+        for (String nutrient : stringArray) {
+            String match = formatString(nutrient);
+            if (!hashMap.containsKey(match)) {
+                hashMap.put(match, 0.0);
+            }
         }
     }
 
