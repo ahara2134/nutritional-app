@@ -6,7 +6,6 @@ import android.graphics.LightingColorFilter;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -15,11 +14,7 @@ import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
-import com.github.mikephil.charting.formatter.PercentFormatter;
-import com.github.mikephil.charting.listener.OnChartGestureListener;
-import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
-import com.github.mikephil.charting.utils.MPPointF;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -29,12 +24,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class Statistics extends AppCompatActivity {
+public class StatisticsActivity extends AppCompatActivity {
     //define a piechart
     private PieChart mChart;
 
@@ -78,7 +72,7 @@ public class Statistics extends AppCompatActivity {
     int full = 100;
 
     FirebaseUser currentUser;
-    private static final String TAG = "Statistics.java";
+    private static final String TAG = "StatisticsActivity.java";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,7 +100,7 @@ public class Statistics extends AppCompatActivity {
 
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if(currentUser == null) {
-            Intent intent = new Intent(Statistics.this, MainActivity.class);
+            Intent intent = new Intent(StatisticsActivity.this, MainActivity.class);
             startActivity(intent);
         } else {
             //Checks if user's demographics are entered in. If not, send to NewUserActivity.
@@ -118,7 +112,7 @@ public class Statistics extends AppCompatActivity {
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     String plan = dataSnapshot.getValue().toString();
                     if (plan.equals("false")) {
-                        Intent intent = new Intent(Statistics.this, Home.class);
+                        Intent intent = new Intent(StatisticsActivity.this, Home.class);
                         startActivity(intent);
                     } else {
                         selected_plan = dataSnapshot.child("selected_plan").getValue(String.class);
