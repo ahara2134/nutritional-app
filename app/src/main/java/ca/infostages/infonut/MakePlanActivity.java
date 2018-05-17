@@ -137,7 +137,7 @@ public class MakePlanActivity extends AppCompatActivity
      * @param hashMap - a HashMap of user inputted nutrients.
      */
     private void savePlan(HashMap<String, Double> hashMap) {
-        Plan plan = new Plan(title.getText().toString(), hashMap, false);
+        Plan plan = new Plan(title.getText().toString(), hashMap);
         if (user != null) {
             mDatabase.child(formatString(plan.getPlanTitle())).setValue(plan);
         }
