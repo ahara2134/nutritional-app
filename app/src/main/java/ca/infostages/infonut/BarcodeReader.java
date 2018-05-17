@@ -84,13 +84,11 @@ public class BarcodeReader extends AppCompatActivity implements View.OnClickList
         switchServing.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(switchServing.isChecked()) {
+            if(switchServing.isChecked()) {
                     switch100.setChecked(false);
                 } else {
                     switch100.setChecked(true);
                 }
-
-
             }
         });
 
@@ -129,17 +127,11 @@ public class BarcodeReader extends AppCompatActivity implements View.OnClickList
                     alertDialogAndroid.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(Color.BLACK);
                     alertDialogAndroid.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.BLACK);
                     //======================================
-
-
                 } else {
                     switchServing.setChecked(true);
                 }
-
-
-
             }
         });
-
     }
 
     @Override
@@ -149,8 +141,6 @@ public class BarcodeReader extends AppCompatActivity implements View.OnClickList
             Intent intent = new Intent(this, BarcodeCaptureActivity.class);
             startActivityForResult(intent, RC_BARCODE_CAPTURE);
         }
-
-
     }
 
     @Override

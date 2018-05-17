@@ -54,10 +54,9 @@ public class Home extends AppCompatActivity {
             }
         });*/
 
-        //Add back navigation in the title bar
+/*        //Add back navigation in the title bar
         if (getSupportActionBar() != null)
             getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-
         //Checks if the user is logged in. If not, send to Mainactivity.
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if(currentUser == null) {
@@ -82,7 +81,7 @@ public class Home extends AppCompatActivity {
                     Log.d(TAG, ": " + databaseError.getMessage());
                 }
             });
-        }
+        }*/
     }
 
     /**

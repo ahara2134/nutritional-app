@@ -345,7 +345,9 @@ public final class BarcodeCaptureActivity extends AppCompatActivity implements B
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
             //Title bar back press triggers onBackPressed()
-            finish();
+            Intent i = new Intent(this, Home.class);
+            i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(i);
             return true;
         }
         return super.onOptionsItemSelected(item);
