@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
@@ -71,6 +72,9 @@ public class StatisticsActivity extends AppCompatActivity {
     int percent = 0;
     int full = 100;
 
+    private int like_items;
+    private double portion;
+
     FirebaseUser currentUser;
     private static final String TAG = "StatisticsActivity.java";
 
@@ -96,6 +100,13 @@ public class StatisticsActivity extends AppCompatActivity {
         iron = findViewById(R.id.iron);
         calories = findViewById(R.id.calories);
 
+        Legend legend = mChart.getLegend();
+        legend.setTextSize(12f);
+        legend.setTextColor(Color.WHITE);
+        legend.setFormSize(10f);
+
+        like_items = BarcodeReader.likeItemsProgress;
+        portion = BarcodeReader.portionsize;
 
         final HashMap<String, Double> hashmap = NutritionData.nutritionHashMap;
 
@@ -134,11 +145,12 @@ public class StatisticsActivity extends AppCompatActivity {
 
         System.out.println("Selected Plan456: " + selected_plan);
 
-
-
-
         final boolean checkedServing = getIntent().getBooleanExtra("servingChecked", true);
         final double servingAmount = getIntent().getDoubleExtra("100Portion", 100);
+
+        System.out.println("CheckedServing: " + checkedServing);
+        System.out.println("CheckedAmount:" + servingAmount);
+
         mChart.setUsePercentValues(true);
         mChart.getDescription().setEnabled(false);
 
@@ -177,14 +189,15 @@ public class StatisticsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 buttonChange();
+                intake = default_bad_fats;
+
                 label = "Fat";
                 if(checkedServing) {
                     nutrientValue = hashmap.get("fat");
                 } else {
                     nutrientValue = hashmap.get("fat_100");
-                    nutrientValue = consumptionManip(nutrientValue, servingAmount);
+                    nutrientValue = consumptionManip(nutrientValue, servingAmount, intake, like_items, portion);
                 }
-                intake = default_bad_fats;
                 System.out.println("Nut value: "+ nutrientValue);
                 valueConverter(nutrientValue, intake);
                 chartSetting();
@@ -197,13 +210,14 @@ public class StatisticsActivity extends AppCompatActivity {
         goodFat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                intake = default_good_fats;
+
                 if(checkedServing) {
                     nutrientValue = hashmap.get("goodFat");
                 } else {
                     nutrientValue = hashmap.get("goodFat_100");
-                    nutrientValue = consumptionManip(nutrientValue, servingAmount);
+                    nutrientValue = consumptionManip(nutrientValue, servingAmount, intake, like_items, portion);
                 }
-                intake = default_good_fats;
                 buttonChange();
                 label = "Good Fat";
                 System.out.println("Nut value: "+ nutrientValue);
@@ -219,13 +233,14 @@ public class StatisticsActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
+                intake = default_bad_fats;
+
                 if(checkedServing) {
                     nutrientValue = hashmap.get("badFat");
                 } else {
                     nutrientValue = hashmap.get("badFat_100");
-                    nutrientValue = consumptionManip(nutrientValue, servingAmount);
+                    nutrientValue = consumptionManip(nutrientValue, servingAmount, intake, like_items, portion);
                 }
-                intake = default_bad_fats;
                 buttonChange();
                 label = "Bad Fat";
                 System.out.println("Nut value: "+ nutrientValue);
@@ -243,13 +258,14 @@ public class StatisticsActivity extends AppCompatActivity {
             public void onClick(View view) {
                 buttonChange();
                 label = "Cholesterol";
+                intake = default_cholesterol;
+
                 if(checkedServing) {
                     nutrientValue = hashmap.get("cholesterol");
                 } else {
                     nutrientValue = hashmap.get("cholesterol_100");
-                    nutrientValue = consumptionManip(nutrientValue, servingAmount);
+                    nutrientValue = consumptionManip(nutrientValue, servingAmount, intake, like_items, portion);
                 }
-                intake = default_cholesterol;
                 System.out.println("Nut value: "+ nutrientValue);
                 valueConverter(nutrientValue, intake);
                 chartSetting();
@@ -264,13 +280,14 @@ public class StatisticsActivity extends AppCompatActivity {
             public void onClick(View view) {
                 buttonChange();
                 label = "Sodium";
+                intake = default_sodium;
+
                 if(checkedServing) {
                     nutrientValue = hashmap.get("sodium");
                 } else {
                     nutrientValue = hashmap.get("sodium_100");
-                    nutrientValue = consumptionManip(nutrientValue, servingAmount);
+                    nutrientValue = consumptionManip(nutrientValue, servingAmount, intake, like_items, portion);
                 }
-                intake = default_sodium;
                 System.out.println("Nut value: "+ nutrientValue);
                 valueConverter(nutrientValue, intake);
                 chartSetting();
@@ -286,13 +303,15 @@ public class StatisticsActivity extends AppCompatActivity {
             public void onClick(View view) {
                 buttonChange();
                 label = "Carbohydrate";
+                intake = default_carbohydrates;
+                //System.out.println("LIKE: " + like_items);
+                System.out.println("IS IT CHECKED?: " + checkedServing);
                 if(checkedServing) {
                     nutrientValue = hashmap.get("carbohydrate");
                 } else {
                     nutrientValue = hashmap.get("carbohydrate_100");
-                    nutrientValue = consumptionManip(nutrientValue, servingAmount);
+                    nutrientValue = consumptionManip(nutrientValue, servingAmount, intake, like_items, portion);
                 }
-                intake = default_carbohydrates;
                 System.out.println("Nut value: "+ nutrientValue);
                 valueConverter(nutrientValue, intake);
                 chartSetting();
@@ -308,13 +327,14 @@ public class StatisticsActivity extends AppCompatActivity {
             public void onClick(View view) {
                 buttonChange();
                 label = "Fibre";
+                intake = default_fibre;
+
                 if(checkedServing) {
                     nutrientValue = hashmap.get("fibre");
                 } else {
                     nutrientValue = hashmap.get("fibre_100");
-                    nutrientValue = consumptionManip(nutrientValue, servingAmount);
+                    nutrientValue = consumptionManip(nutrientValue, servingAmount, intake, like_items, portion);
                 }
-                intake = default_fibre;
                 System.out.println("Nut value: "+ nutrientValue);
                 valueConverter(nutrientValue, intake);
                 chartSetting();
@@ -330,13 +350,14 @@ public class StatisticsActivity extends AppCompatActivity {
             public void onClick(View view) {
                 buttonChange();
                 label = "Potassium";
+                intake = default_potassium;
+
                 if(checkedServing) {
                     nutrientValue = hashmap.get("potassium");
                 } else {
                     nutrientValue = hashmap.get("potassium_100");
-                    nutrientValue = consumptionManip(nutrientValue, servingAmount);
+                    nutrientValue = consumptionManip(nutrientValue, servingAmount, intake, like_items, portion);
                 }
-                intake = default_potassium;
                 System.out.println("Nut value: "+ nutrientValue);
                 valueConverter(nutrientValue, intake);
                 chartSetting();
@@ -351,13 +372,14 @@ public class StatisticsActivity extends AppCompatActivity {
             public void onClick(View view) {
                 buttonChange();
                 label = "Protein";
+                intake = default_protein;
+
                 if(checkedServing) {
                     nutrientValue = hashmap.get("protein");
                 } else {
                     nutrientValue = hashmap.get("protein_100");
-                    nutrientValue = consumptionManip(nutrientValue, servingAmount);
+                    nutrientValue = consumptionManip(nutrientValue, servingAmount, intake, like_items, portion);
                 }
-                intake = default_protein;
                 System.out.println("Nut value: "+ nutrientValue);
                 valueConverter(nutrientValue, intake);
                 chartSetting();
@@ -372,13 +394,14 @@ public class StatisticsActivity extends AppCompatActivity {
             public void onClick(View view) {
                 buttonChange();
                 label = "Vitamin A";
+                intake = default_vitamin_A;
+
                 if(checkedServing) {
                     nutrientValue = hashmap.get("vitaminA");
                 } else {
                     nutrientValue = hashmap.get("vitaminA_100");
-                    nutrientValue = consumptionManip(nutrientValue, servingAmount);
+                    nutrientValue = consumptionManip(nutrientValue, servingAmount, intake, like_items, portion);
                 }
-                intake = default_vitamin_A;
                 System.out.println("Nut value: "+ nutrientValue);
                 valueConverter(nutrientValue, intake);
                 chartSetting();
@@ -393,13 +416,14 @@ public class StatisticsActivity extends AppCompatActivity {
             public void onClick(View view) {
                 buttonChange();
                 label = "Vitamin C";
+                intake = default_vitamin_C;
+
                 if(checkedServing) {
                     nutrientValue = hashmap.get("vitaminC");
                 } else {
                     nutrientValue = hashmap.get("vitaminC_100");
-                    nutrientValue = consumptionManip(nutrientValue, servingAmount);
+                    nutrientValue = consumptionManip(nutrientValue, servingAmount, intake, like_items, portion);
                 }
-                intake = default_vitamin_C;
                 System.out.println("Nut value: "+ nutrientValue);
                 valueConverter(nutrientValue, intake);
                 chartSetting();
@@ -414,13 +438,13 @@ public class StatisticsActivity extends AppCompatActivity {
             public void onClick(View view) {
                 buttonChange();
                 label = "Calcium";
+                intake = default_calcium;
                 if(checkedServing) {
                     nutrientValue = hashmap.get("calcium");
                 } else {
                     nutrientValue = hashmap.get("calcium_100");
-                    nutrientValue = consumptionManip(nutrientValue, servingAmount);
+                    nutrientValue = consumptionManip(nutrientValue, servingAmount, intake, like_items, portion);
                 }
-                intake = default_calcium;
                 System.out.println("Nut value: "+ nutrientValue);
                 valueConverter(nutrientValue, intake);
                 chartSetting();
@@ -435,16 +459,16 @@ public class StatisticsActivity extends AppCompatActivity {
             public void onClick(View view) {
                 buttonChange();
                 label = "Iron";
+                intake = default_iron;
                 if(checkedServing) {
                     nutrientValue = hashmap.get("iron");
                 } else {
                     nutrientValue = hashmap.get("iron_100");
-                    nutrientValue = consumptionManip(nutrientValue, servingAmount);
-
+                    nutrientValue = consumptionManip(nutrientValue, servingAmount, intake, like_items, portion);
                 }
-                intake = default_iron;
                 System.out.println("Nut value: "+ nutrientValue);
                 valueConverter(nutrientValue, intake);
+
                 chartSetting();
                 createChart();
                 iron.getBackground().setColorFilter(new LightingColorFilter(0xFFFFFFFF, 0xFFAA0000));
@@ -491,8 +515,12 @@ public class StatisticsActivity extends AppCompatActivity {
     private void createChart() {
         List<PieEntry> pieEntries = new ArrayList<>();
 
-        pieEntries.add(new PieEntry(full, "Intake"));
-        pieEntries.add(new PieEntry(percent, label));
+        if(intake == 0) {
+            pieEntries.add(new PieEntry(100, label));
+        } else {
+            pieEntries.add(new PieEntry(full, "Intake"));
+            pieEntries.add(new PieEntry(percent, label));
+        }
 
         // The name of the chart
         PieDataSet dataSet = new PieDataSet(pieEntries, label);
@@ -507,10 +535,7 @@ public class StatisticsActivity extends AppCompatActivity {
         mChart.invalidate(); // refresh
     }
 
-    private void valueConverter(double value, double remain) {
-        percent = (int) (value/remain*100);
-        full = 100 - percent;
-    }
+
 
     /**
      * This will take the user back to the previous activity
@@ -538,8 +563,20 @@ public class StatisticsActivity extends AppCompatActivity {
         }
     }
 
-    private double consumptionManip(double nutrition, double amount) {
+    /*private double consumptionManip(double nutrition, double amount) {
         return amount/100 *nutrition;
+    }*/
+
+    private double consumptionManip(double nutrition, double amount, double intake, int like, double portion) {
+        double product = nutrition * amount * portion;
+        product *= like;
+        product /= intake;
+        return product;
+    }
+
+    private void valueConverter(double value, double remain) {
+        percent = (int) (value/remain*100);
+        full = 100 - percent;
     }
 
     private void planChecker(final String plan) {
