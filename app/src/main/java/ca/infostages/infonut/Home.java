@@ -45,19 +45,18 @@ public class Home extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
-/*        toolbar = findViewById(R.id.toolbarId);
-
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onBackPressed();
-            }
-        });*/
+//        toolbar = findViewById(R.id.toolbarId);
+//
+//        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                onBackPressed();
+//            }
+//        });
 
         //Add back navigation in the title bar
         if (getSupportActionBar() != null)
             getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-
         //Checks if the user is logged in. If not, send to Mainactivity.
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if(currentUser == null) {

@@ -45,7 +45,7 @@
             android:label="Welcome"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".Statistics"
+            android:name=".StatisticsActivity"
             android:label="Details" />
         <activity
             android:name=".MakePlanActivity"
