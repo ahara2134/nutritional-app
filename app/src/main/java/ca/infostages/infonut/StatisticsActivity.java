@@ -363,6 +363,20 @@ public class StatisticsActivity extends AppCompatActivity {
                     valueConverter(nutrientValue, intake);
                     chartSetting();
                     createChart();
+                } else if (value.equalsIgnoreCase("calories")) {
+                    label = "Calories";
+                    if(checkedServing) {
+                        nutrientValue = hashmap.get("calories");
+                    } else {
+                        nutrientValue = hashmap.get("calories_100");
+                        nutrientValue = consumptionManip(nutrientValue, servingAmount, intake, like_items, portion);
+
+                    }
+                    intake = default_iron;
+                    System.out.println("Nut value: "+ nutrientValue);
+                    valueConverter(nutrientValue, intake);
+                    chartSetting();
+                    createChart();
                 }
             }
 
