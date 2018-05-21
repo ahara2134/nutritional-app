@@ -18,7 +18,7 @@ import com.google.firebase.auth.FirebaseAuth;
 public class FAQFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstance) {
-        View view = inflater.inflate(R.layout.fragment_settings, container, false);
+        View view = inflater.inflate(R.layout.fragment_faq, container, false);
 
         return view;
     }

@@ -34,16 +34,6 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         }
 
-        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
-        if(account != null) {
-            //finish activity
-            finish();
-
-            //Open other activity
-            Intent intent = new Intent(MainActivity.this, Home.class);
-            startActivity(intent);
-        }
-
         //Associate Button object with XML Buttons
         login = (Button)findViewById(R.id.login);
         register = (Button) findViewById(R.id.register);
@@ -67,5 +57,10 @@ public class MainActivity extends AppCompatActivity {
     public void something(View view){
         Intent intent5 = new Intent(MainActivity.this, Home.class);
         startActivity(intent5);
+    }
+
+    @Override
+    public void onBackPressed() {
+        finishAffinity();
     }
 }
