@@ -21,6 +21,8 @@ public class NutritionData extends AsyncTask<Void,Void,Void>{
     public NutritionData(String barcode) {
         this.barcode = barcode;
     }
+    private static String productName = "Product Here";
+
 
     @Override
     protected Void doInBackground(Void... voids) {
@@ -45,6 +47,8 @@ public class NutritionData extends AsyncTask<Void,Void,Void>{
             //productName = obj.getString("product_name");
             String servingSize = product.getString("serving_size");
             String quantity = product.getString("quantity");
+
+            productName = product.getString("product_name");
 
             //gets the nutrients by key per serving
             String fat = nutrients.getString("fat_serving");
@@ -115,6 +119,8 @@ public class NutritionData extends AsyncTask<Void,Void,Void>{
             nutritionHashMap.put("iron_100",convertNutrition(iron_100));
             nutritionHashMap.put("potassium_100",convertNutrition(potassium_100));
 
+
+
         } catch (IOException | JSONException e) {
             e.printStackTrace();
         }
@@ -125,7 +131,7 @@ public class NutritionData extends AsyncTask<Void,Void,Void>{
     @Override
     protected void onPostExecute(Void aVoid) {
         super.onPostExecute(aVoid);
-        //BarcodeReader.statusMessage.setText("FINISHED!");
+        BarcodeReader.statusMessage.setText(productName);
         //send data here OR pass hashmap
     }
 
