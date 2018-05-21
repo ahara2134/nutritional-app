@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
@@ -76,6 +77,9 @@ public class StatisticsActivity extends AppCompatActivity {
     int percent = 0;
     int full = 100;
 
+    private int like_items;
+    private double portion;
+
     FirebaseUser currentUser;
     private static final String TAG = "StatisticsActivity.java";
 
@@ -102,6 +106,13 @@ public class StatisticsActivity extends AppCompatActivity {
         iron = findViewById(R.id.iron);
         calories = findViewById(R.id.calories);*/
 
+        Legend legend = mChart.getLegend();
+        legend.setTextSize(12f);
+        legend.setTextColor(Color.WHITE);
+        legend.setFormSize(10f);
+
+        like_items = BarcodeReader.likeItemsProgress;
+        portion = BarcodeReader.portionsize;
 
         final HashMap<String, Double> hashmap = NutritionData.nutritionHashMap;
 
@@ -145,6 +156,11 @@ public class StatisticsActivity extends AppCompatActivity {
 
         final boolean checkedServing = getIntent().getBooleanExtra("servingChecked", true);
         final double servingAmount = getIntent().getDoubleExtra("100Portion", 100);
+        populateSpinner();
+
+        //System.out.println("CheckedServing: " + checkedServing);
+        System.out.println("CheckedAmount:" + servingAmount);
+
         mChart.setUsePercentValues(true);
         mChart.getDescription().setEnabled(false);
 
@@ -183,7 +199,7 @@ public class StatisticsActivity extends AppCompatActivity {
                         nutrientValue = hashmap.get("fat");
                     } else {
                         nutrientValue = hashmap.get("fat_100");
-                        nutrientValue = consumptionManip(nutrientValue, servingAmount);
+                        nutrientValue = consumptionManip(nutrientValue, servingAmount, intake, like_items, portion);
                     }
                     intake = default_bad_fats;
                     System.out.println("Nut value: "+ nutrientValue);
@@ -195,7 +211,7 @@ public class StatisticsActivity extends AppCompatActivity {
                         nutrientValue = hashmap.get("goodFat");
                     } else {
                         nutrientValue = hashmap.get("goodFat_100");
-                        nutrientValue = consumptionManip(nutrientValue, servingAmount);
+                        nutrientValue = consumptionManip(nutrientValue, servingAmount, intake, like_items, portion);
                     }
                     intake = default_good_fats;
                     label = "Good Fat";
@@ -208,7 +224,7 @@ public class StatisticsActivity extends AppCompatActivity {
                         nutrientValue = hashmap.get("badFat");
                     } else {
                         nutrientValue = hashmap.get("badFat_100");
-                        nutrientValue = consumptionManip(nutrientValue, servingAmount);
+                        nutrientValue = consumptionManip(nutrientValue, servingAmount, intake, like_items, portion);
                     }
                     intake = default_bad_fats;
                     label = "Bad Fat";
@@ -222,7 +238,7 @@ public class StatisticsActivity extends AppCompatActivity {
                         nutrientValue = hashmap.get("cholesterol");
                     } else {
                         nutrientValue = hashmap.get("cholesterol_100");
-                        nutrientValue = consumptionManip(nutrientValue, servingAmount);
+                        nutrientValue = consumptionManip(nutrientValue, servingAmount, intake, like_items, portion);
                     }
                     intake = default_cholesterol;
                     System.out.println("Nut value: "+ nutrientValue);
@@ -234,7 +250,7 @@ public class StatisticsActivity extends AppCompatActivity {
                         nutrientValue = hashmap.get("sodium");
                     } else {
                         nutrientValue = hashmap.get("sodium_100");
-                        nutrientValue = consumptionManip(nutrientValue, servingAmount);
+                        nutrientValue = consumptionManip(nutrientValue, servingAmount, intake, like_items, portion);
                     }
                     intake = default_sodium;
                     System.out.println("Nut value: "+ nutrientValue);
@@ -247,7 +263,7 @@ public class StatisticsActivity extends AppCompatActivity {
                         nutrientValue = hashmap.get("carbohydrate");
                     } else {
                         nutrientValue = hashmap.get("carbohydrate_100");
-                        nutrientValue = consumptionManip(nutrientValue, servingAmount);
+                        nutrientValue = consumptionManip(nutrientValue, servingAmount, intake, like_items, portion);
                     }
                     intake = default_carbohydrates;
                     System.out.println("Nut value: "+ nutrientValue);
@@ -260,7 +276,7 @@ public class StatisticsActivity extends AppCompatActivity {
                         nutrientValue = hashmap.get("fibre");
                     } else {
                         nutrientValue = hashmap.get("fibre_100");
-                        nutrientValue = consumptionManip(nutrientValue, servingAmount);
+                        nutrientValue = consumptionManip(nutrientValue, servingAmount, intake, like_items, portion);
                     }
                     intake = default_fibre;
                     System.out.println("Nut value: "+ nutrientValue);
@@ -273,7 +289,7 @@ public class StatisticsActivity extends AppCompatActivity {
                         nutrientValue = hashmap.get("potassium");
                     } else {
                         nutrientValue = hashmap.get("potassium_100");
-                        nutrientValue = consumptionManip(nutrientValue, servingAmount);
+                        nutrientValue = consumptionManip(nutrientValue, servingAmount, intake, like_items, portion);
                     }
                     intake = default_potassium;
                     System.out.println("Nut value: "+ nutrientValue);
@@ -286,7 +302,7 @@ public class StatisticsActivity extends AppCompatActivity {
                         nutrientValue = hashmap.get("protein");
                     } else {
                         nutrientValue = hashmap.get("protein_100");
-                        nutrientValue = consumptionManip(nutrientValue, servingAmount);
+                        nutrientValue = consumptionManip(nutrientValue, servingAmount, intake, like_items, portion);
                     }
                     intake = default_protein;
                     System.out.println("Nut value: "+ nutrientValue);
@@ -299,7 +315,7 @@ public class StatisticsActivity extends AppCompatActivity {
                         nutrientValue = hashmap.get("vitaminA");
                     } else {
                         nutrientValue = hashmap.get("vitaminA_100");
-                        nutrientValue = consumptionManip(nutrientValue, servingAmount);
+                        nutrientValue = consumptionManip(nutrientValue, servingAmount, intake, like_items, portion);
                     }
                     intake = default_vitamin_A;
                     System.out.println("Nut value: "+ nutrientValue);
@@ -312,7 +328,7 @@ public class StatisticsActivity extends AppCompatActivity {
                         nutrientValue = hashmap.get("vitaminC");
                     } else {
                         nutrientValue = hashmap.get("vitaminC_100");
-                        nutrientValue = consumptionManip(nutrientValue, servingAmount);
+                        nutrientValue = consumptionManip(nutrientValue, servingAmount, intake, like_items, portion);
                     }
                     intake = default_vitamin_C;
                     System.out.println("Nut value: "+ nutrientValue);
@@ -325,7 +341,7 @@ public class StatisticsActivity extends AppCompatActivity {
                         nutrientValue = hashmap.get("calcium");
                     } else {
                         nutrientValue = hashmap.get("calcium_100");
-                        nutrientValue = consumptionManip(nutrientValue, servingAmount);
+                        nutrientValue = consumptionManip(nutrientValue, servingAmount, intake, like_items, portion);
                     }
                     intake = default_calcium;
                     System.out.println("Nut value: "+ nutrientValue);
@@ -338,7 +354,21 @@ public class StatisticsActivity extends AppCompatActivity {
                         nutrientValue = hashmap.get("iron");
                     } else {
                         nutrientValue = hashmap.get("iron_100");
-                        nutrientValue = consumptionManip(nutrientValue, servingAmount);
+                        nutrientValue = consumptionManip(nutrientValue, servingAmount, intake, like_items, portion);
+
+                    }
+                    intake = default_iron;
+                    System.out.println("Nut value: "+ nutrientValue);
+                    valueConverter(nutrientValue, intake);
+                    chartSetting();
+                    createChart();
+                } else if (value.equalsIgnoreCase("calories")) {
+                    label = "Calories";
+                    if(checkedServing) {
+                        nutrientValue = hashmap.get("calories");
+                    } else {
+                        nutrientValue = hashmap.get("calories_100");
+                        nutrientValue = consumptionManip(nutrientValue, servingAmount, intake, like_items, portion);
 
                     }
                     intake = default_iron;
@@ -764,8 +794,12 @@ public class StatisticsActivity extends AppCompatActivity {
     private void createChart() {
         List<PieEntry> pieEntries = new ArrayList<>();
 
-        pieEntries.add(new PieEntry(full, "Intake"));
-        pieEntries.add(new PieEntry(percent, label));
+        if(intake == 0) {
+            pieEntries.add(new PieEntry(100, label));
+        } else {
+            pieEntries.add(new PieEntry(full, "Intake"));
+            pieEntries.add(new PieEntry(percent, label));
+        }
 
         // The name of the chart
         PieDataSet dataSet = new PieDataSet(pieEntries, label);
@@ -780,10 +814,7 @@ public class StatisticsActivity extends AppCompatActivity {
         mChart.invalidate(); // refresh
     }
 
-    private void valueConverter(double value, double remain) {
-        percent = (int) (value/remain*100);
-        full = 100 - percent;
-    }
+
 
     /**
      * This will take the user back to the previous activity
@@ -811,8 +842,16 @@ public class StatisticsActivity extends AppCompatActivity {
         }
     }
 
-    private double consumptionManip(double nutrition, double amount) {
-        return amount/100 *nutrition;
+    private double consumptionManip(double nutrition, double amount, double intake, int like, double portion) {
+        double product = nutrition * amount * portion;
+        product *= like;
+        product /= intake;
+        return product;
+    }
+
+    private void valueConverter(double value, double remain) {
+        percent = (int) (value/remain*100);
+        full = 100 - percent;
     }
 
     private void planChecker(final String plan) {
@@ -826,7 +865,6 @@ public class StatisticsActivity extends AppCompatActivity {
             planReference.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    System.out.println("CURRENTLY IN:" + newPlan);
                     default_bad_fats = dataSnapshot.child("bad_fats").getValue(Long.class);
                     default_calcium = dataSnapshot.child("calcium").getValue(Long.class);
                     default_calories = dataSnapshot.child("calories").getValue(Long.class);
@@ -879,16 +917,18 @@ public class StatisticsActivity extends AppCompatActivity {
                 }
             });
         }
-
     }
 
     public void chartSetting(){
         // entry label styling
         mChart.setEntryLabelColor(Color.WHITE);
         mChart.setEntryLabelTextSize(12f);
-        mChart.setCenterText(percent + "%" );
+        if(percent <= 100) {
+            mChart.setCenterText(percent + "%");
+        } else {
+            mChart.setCenterText("Warning Exceeded Intake\n" + percent + "%");
+        }
         mChart.setCenterTextSize(14f);
         mChart.setCenterTextColor(Color.BLUE);
     }
-
 }

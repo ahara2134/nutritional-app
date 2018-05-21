@@ -90,5 +90,25 @@
         android:checked="false"
         android:text="Per 100g" />
 
+    <TextView
+        android:id="@+id/likeItems"
+        android:layout_width="261dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/seekBar"
+        android:layout_marginBottom="171dp"
+        android:text="How many like items will you have today?" />
+
+    <SeekBar
+        android:id="@+id/likeItemsSeek"
+        style="@style/Widget.AppCompat.SeekBar.Discrete"
+        android:layout_width="247dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/likeItems"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="-172dp"
+        android:max="9"
+        android:progress="0" />
+
 
 </RelativeLayout>
