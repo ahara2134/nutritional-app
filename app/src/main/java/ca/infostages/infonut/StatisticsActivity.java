@@ -2,7 +2,6 @@ package ca.infostages.infonut;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.LightingColorFilter;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -10,8 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.Spinner;
+import android.widget.ListView;
 
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
@@ -68,7 +66,8 @@ public class StatisticsActivity extends AppCompatActivity {
     private Long default_vitamin_A = 0l;
     private Long default_vitamin_C = 0l;
 
-    private Spinner nutrientSpinner;
+    private ListView nutrientListView;
+    private ArrayAdapter<String> spinnerAdapter;
 
     String selected_plan = "";
 
@@ -90,7 +89,7 @@ public class StatisticsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_statistics);
 
         mChart = (PieChart) findViewById(R.id.pie);
-        nutrientSpinner = findViewById(R.id.nutrient_spinner);
+        nutrientListView = findViewById(R.id.nutrient_list_view);
 
         /*fat = findViewById(R.id.fat);
         goodFat = findViewById(R.id.saturatedFat);
@@ -136,6 +135,7 @@ public class StatisticsActivity extends AppCompatActivity {
                     } else {
                         selected_plan = dataSnapshot.child("selected_plan").getValue(String.class);
                         System.out.println("Selected Plan123: " + selected_plan);
+                        populateSpinner();
                         planChecker(selected_plan);
                     }
                 }
@@ -151,7 +151,6 @@ public class StatisticsActivity extends AppCompatActivity {
         }
 
         System.out.println("Selected Plan456: " + selected_plan);
-        populateSpinner();
 
 
 
@@ -190,10 +189,10 @@ public class StatisticsActivity extends AppCompatActivity {
         mChart.animateY(1000); // Animation for the chart
         mChart.invalidate(); // refresh
 
-        nutrientSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        nutrientListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String value = nutrientSpinner.getSelectedItem().toString();
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String value = nutrientListView.getItemAtPosition(position).toString();
                 if (value.equalsIgnoreCase("fat")) {
                     label = "Fat";
                     if(checkedServing) {
@@ -378,11 +377,6 @@ public class StatisticsActivity extends AppCompatActivity {
                     chartSetting();
                     createChart();
                 }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                //
             }
         });
 
@@ -696,24 +690,21 @@ public class StatisticsActivity extends AppCompatActivity {
     private void populateSpinner() {
         // Check if default plan is selected or not.
         String planKey = normalizePlanKey(selected_plan);
-        ArrayList<String> spinnerList;
+        ArrayList<String> nutrientArrayList = new ArrayList<>();
+        spinnerAdapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_list_item_1, nutrientArrayList);
         if (!planKey.equalsIgnoreCase("default_plan")) {
-            spinnerList = customPlanPopulate(planKey);
+            customPlanPopulate(nutrientArrayList);
         } else {
-            spinnerList = defaultPlanPopulate();
+            defaultPlanPopulate(nutrientArrayList);
         }
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_spinner_item, spinnerList);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        nutrientSpinner.setAdapter(adapter);
+        nutrientListView.setAdapter(spinnerAdapter);
     }
 
     /**
      * Populates a list with keys retrieved from the default plan in the database.
-     * @return an ArrayList of Strings representing nutrient keys under user plans.
      */
-    private ArrayList<String> defaultPlanPopulate() {
-        final ArrayList<String> spinnerList = new ArrayList<>();
+    private void defaultPlanPopulate(final ArrayList<String> spinnerList) {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference()
                 .child("users")
                 .child(currentUser.getUid()).child("plan").child("default_plan");
@@ -725,6 +716,7 @@ public class StatisticsActivity extends AppCompatActivity {
                         spinnerList.add(snapshot.getKey());
                     }
                 }
+                spinnerAdapter.notifyDataSetChanged();
             }
 
             @Override
@@ -732,26 +724,30 @@ public class StatisticsActivity extends AppCompatActivity {
                 Log.wtf(TAG, databaseError.getDetails());
             }
         });
-        return spinnerList;
     }
 
     /**
      * Populates list with only valid keys from a custom plan.
-     * @param planKey - the plan ID in the database.
-     * @return an ArrayList of Strings representing nutrient keys under user plans.
      */
-    private ArrayList<String> customPlanPopulate(String planKey) {
+    private void customPlanPopulate(final ArrayList<String> spinnerArray) {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("users")
-                .child(currentUser.getUid()).child("plan").child(planKey);
-        final ArrayList<String> spinnerArray = new ArrayList<>();
+                .child(currentUser.getUid()).child("plan");
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Plan plan = dataSnapshot.getValue(Plan.class);
-                HashMap<String, Double> planNutrients = Objects.requireNonNull(plan).getNutrients();
-                for (String key : planNutrients.keySet()) {
-                    if (planNutrients.get(key) > 0) {
-                        spinnerArray.add(key);
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    String title = (String) snapshot.child("planTitle").getValue();
+                    if (!title.equalsIgnoreCase("default plan")) {
+                        if (selected_plan.equalsIgnoreCase(title)) {
+                            Plan plan = snapshot.getValue(Plan.class);
+                            HashMap<String, Double> planNutrients = Objects.requireNonNull(plan).getNutrients();
+                            for (String key : planNutrients.keySet()) {
+                                if (planNutrients.get(key) > 0) {
+                                    spinnerArray.add(key);
+                                }
+                            }
+                            spinnerAdapter.notifyDataSetChanged();
+                        }
                     }
                 }
             }
@@ -761,7 +757,6 @@ public class StatisticsActivity extends AppCompatActivity {
                 Log.wtf(TAG, databaseError.getDetails());
             }
         });
-        return spinnerArray;
     }
 
     /**

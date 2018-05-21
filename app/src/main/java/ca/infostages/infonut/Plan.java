@@ -85,4 +85,13 @@ public class Plan {
             this.ingredients = null;
         }
     }
+
+    @Override
+    public String toString() {
+        return "Plan{" +
+                "planTitle='" + planTitle + '\'' +
+                ", nutrients=" + nutrients +
+                ", ingredients=" + ingredients +
+                '}';
+    }
 }
