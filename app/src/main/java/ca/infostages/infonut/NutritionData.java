@@ -21,6 +21,7 @@ public class NutritionData extends AsyncTask<Void,Void,Void>{
     public NutritionData(String barcode) {
         this.barcode = barcode;
     }
+    private static String productName = "Product Here";
 
     @Override
     protected Void doInBackground(Void... voids) {
@@ -46,9 +47,12 @@ public class NutritionData extends AsyncTask<Void,Void,Void>{
             String servingSize = product.getString("serving_size");
             String quantity = product.getString("quantity");
 
+            productName = product.getString("product_name");
+
             //gets the nutrients by key per serving
             String fat = nutrients.getString("fat_serving");
             String saturatedFat = nutrients.getString("saturated-fat_serving");
+            String calories = nutrients.getString("energy_serving");
             String transFat = nutrients.getString("trans-fat_serving");
             String cholesterol = nutrients.getString("cholesterol_serving");
             String sodium = nutrients.getString("sodium_serving");
@@ -68,6 +72,7 @@ public class NutritionData extends AsyncTask<Void,Void,Void>{
             //gets the nutrients by key per 100g
             String fat_100 = nutrients.getString("fat_100g");
             String saturatedFat_100 = nutrients.getString("saturated-fat_100g");
+            String calories_100 = nutrients.getString("energy_100g");
             String transFat_100 = nutrients.getString("trans-fat_100g");
             String cholesterol_100 = nutrients.getString("cholesterol_100g");
             String sodium_100 = nutrients.getString("sodium_100g");
@@ -88,6 +93,7 @@ public class NutritionData extends AsyncTask<Void,Void,Void>{
             //add nutrition by serving into hashmap
             nutritionHashMap.put("fat",convertNutrition(fat));
             nutritionHashMap.put("goodFat",convertNutrition(goodfat_serving));
+            nutritionHashMap.put("calories", convertNutrition(calories));
             nutritionHashMap.put("badFat",convertNutrition(badfat_serving));
             nutritionHashMap.put("cholesterol",convertNutrition(cholesterol));
             nutritionHashMap.put("sodium",convertNutrition(sodium));
@@ -104,6 +110,7 @@ public class NutritionData extends AsyncTask<Void,Void,Void>{
             nutritionHashMap.put("fat_100",convertNutrition(fat_100));
             nutritionHashMap.put("goodFat_100", convertNutrition(goodfat_100));
             nutritionHashMap.put("badFat_100",convertNutrition(badfat_100));
+            nutritionHashMap.put("calories_100", convertNutrition(calories_100));
             nutritionHashMap.put("cholesterol_100",convertNutrition(cholesterol_100));
             nutritionHashMap.put("sodium_100",convertNutrition(sodium_100));
             nutritionHashMap.put("carbohydrate_100",convertNutrition(carbohydrate_100));
@@ -116,6 +123,7 @@ public class NutritionData extends AsyncTask<Void,Void,Void>{
             nutritionHashMap.put("potassium_100",convertNutrition(potassium_100));
 
 
+
         } catch (IOException | JSONException e) {
             e.printStackTrace();
         }
@@ -126,7 +134,7 @@ public class NutritionData extends AsyncTask<Void,Void,Void>{
     @Override
     protected void onPostExecute(Void aVoid) {
         super.onPostExecute(aVoid);
-        //BarcodeReader.statusMessage.setText("FINISHED!");
+        BarcodeReader.statusMessage.setText(productName);
         //send data here OR pass hashmap
     }
 
