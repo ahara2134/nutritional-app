@@ -908,16 +908,18 @@ public class StatisticsActivity extends AppCompatActivity {
                 }
             });
         }
-
     }
 
     public void chartSetting(){
         // entry label styling
         mChart.setEntryLabelColor(Color.WHITE);
         mChart.setEntryLabelTextSize(12f);
-        mChart.setCenterText(percent + "%" );
+        if(percent <= 100) {
+            mChart.setCenterText(percent + "%");
+        } else {
+            mChart.setCenterText("Warning Exceeded Intake\n" + percent + "%");
+        }
         mChart.setCenterTextSize(14f);
         mChart.setCenterTextColor(Color.BLUE);
     }
-
 }
