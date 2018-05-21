@@ -712,7 +712,7 @@ public class StatisticsActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    if (!dataSnapshot.getKey().equalsIgnoreCase("planTitle")) {
+                    if (!snapshot.getKey().equalsIgnoreCase("planTitle")) {
                         spinnerList.add(snapshot.getKey());
                     }
                 }
