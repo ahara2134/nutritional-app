@@ -81,14 +81,18 @@ public class HomeFragment extends Fragment {
         });
 
         /**
-         * This will connect the user to the *insert w/e fragment/activity from the
+         * This will connect the user to the FAQactivity from the
          * HomeFragment.java fragment
          */
         info.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // fill in with your fragment/activity
-                // Ask Ryan if you need help with this.
+                Fragment fragment = new FAQFragment();
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.fragment_container, fragment);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
             }
         });
 
