@@ -115,7 +115,6 @@ public class NutritionData extends AsyncTask<Void,Void,Void>{
             nutritionHashMap.put("iron_100",convertNutrition(iron_100));
             nutritionHashMap.put("potassium_100",convertNutrition(potassium_100));
 
-
         } catch (IOException | JSONException e) {
             e.printStackTrace();
         }

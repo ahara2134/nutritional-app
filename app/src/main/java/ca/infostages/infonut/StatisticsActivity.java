@@ -145,10 +145,10 @@ public class StatisticsActivity extends AppCompatActivity {
 
         System.out.println("Selected Plan456: " + selected_plan);
 
-        final boolean checkedServing = getIntent().getBooleanExtra("servingChecked", true);
+        final boolean checkedServing = getIntent().getExtras().getBoolean("servingChecked");
         final double servingAmount = getIntent().getDoubleExtra("100Portion", 100);
 
-        System.out.println("CheckedServing: " + checkedServing);
+        //System.out.println("CheckedServing: " + checkedServing);
         System.out.println("CheckedAmount:" + servingAmount);
 
         mChart.setUsePercentValues(true);
@@ -190,7 +190,7 @@ public class StatisticsActivity extends AppCompatActivity {
             public void onClick(View view) {
                 buttonChange();
                 intake = default_bad_fats;
-
+                final boolean checkedServing = getIntent().getExtras().getBoolean("servingChecked");
                 label = "Fat";
                 if(checkedServing) {
                     nutrientValue = hashmap.get("fat");
@@ -211,7 +211,7 @@ public class StatisticsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 intake = default_good_fats;
-
+                final boolean checkedServing = getIntent().getExtras().getBoolean("servingChecked");
                 if(checkedServing) {
                     nutrientValue = hashmap.get("goodFat");
                 } else {
@@ -234,7 +234,7 @@ public class StatisticsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 intake = default_bad_fats;
-
+                final boolean checkedServing = getIntent().getExtras().getBoolean("servingChecked");
                 if(checkedServing) {
                     nutrientValue = hashmap.get("badFat");
                 } else {
@@ -259,7 +259,7 @@ public class StatisticsActivity extends AppCompatActivity {
                 buttonChange();
                 label = "Cholesterol";
                 intake = default_cholesterol;
-
+                final boolean checkedServing = getIntent().getExtras().getBoolean("servingChecked");
                 if(checkedServing) {
                     nutrientValue = hashmap.get("cholesterol");
                 } else {
@@ -281,7 +281,7 @@ public class StatisticsActivity extends AppCompatActivity {
                 buttonChange();
                 label = "Sodium";
                 intake = default_sodium;
-
+                final boolean checkedServing = getIntent().getExtras().getBoolean("servingChecked");
                 if(checkedServing) {
                     nutrientValue = hashmap.get("sodium");
                 } else {
@@ -304,6 +304,7 @@ public class StatisticsActivity extends AppCompatActivity {
                 buttonChange();
                 label = "Carbohydrate";
                 intake = default_carbohydrates;
+                boolean checkedServing = getIntent().getExtras().getBoolean("servingChecked");
                 //System.out.println("LIKE: " + like_items);
                 System.out.println("IS IT CHECKED?: " + checkedServing);
                 if(checkedServing) {
@@ -328,7 +329,7 @@ public class StatisticsActivity extends AppCompatActivity {
                 buttonChange();
                 label = "Fibre";
                 intake = default_fibre;
-
+                final boolean checkedServing = getIntent().getExtras().getBoolean("servingChecked");
                 if(checkedServing) {
                     nutrientValue = hashmap.get("fibre");
                 } else {
@@ -351,7 +352,7 @@ public class StatisticsActivity extends AppCompatActivity {
                 buttonChange();
                 label = "Potassium";
                 intake = default_potassium;
-
+                final boolean checkedServing = getIntent().getExtras().getBoolean("servingChecked");
                 if(checkedServing) {
                     nutrientValue = hashmap.get("potassium");
                 } else {
@@ -373,7 +374,7 @@ public class StatisticsActivity extends AppCompatActivity {
                 buttonChange();
                 label = "Protein";
                 intake = default_protein;
-
+                final boolean checkedServing = getIntent().getExtras().getBoolean("servingChecked");
                 if(checkedServing) {
                     nutrientValue = hashmap.get("protein");
                 } else {
@@ -395,7 +396,7 @@ public class StatisticsActivity extends AppCompatActivity {
                 buttonChange();
                 label = "Vitamin A";
                 intake = default_vitamin_A;
-
+                final boolean checkedServing = getIntent().getExtras().getBoolean("servingChecked");
                 if(checkedServing) {
                     nutrientValue = hashmap.get("vitaminA");
                 } else {
@@ -417,7 +418,7 @@ public class StatisticsActivity extends AppCompatActivity {
                 buttonChange();
                 label = "Vitamin C";
                 intake = default_vitamin_C;
-
+                final boolean checkedServing = getIntent().getExtras().getBoolean("servingChecked");
                 if(checkedServing) {
                     nutrientValue = hashmap.get("vitaminC");
                 } else {
@@ -439,6 +440,7 @@ public class StatisticsActivity extends AppCompatActivity {
                 buttonChange();
                 label = "Calcium";
                 intake = default_calcium;
+                final boolean checkedServing = getIntent().getExtras().getBoolean("servingChecked");
                 if(checkedServing) {
                     nutrientValue = hashmap.get("calcium");
                 } else {
@@ -460,6 +462,7 @@ public class StatisticsActivity extends AppCompatActivity {
                 buttonChange();
                 label = "Iron";
                 intake = default_iron;
+                final boolean checkedServing = getIntent().getExtras().getBoolean("servingChecked");
                 if(checkedServing) {
                     nutrientValue = hashmap.get("iron");
                 } else {
@@ -590,7 +593,6 @@ public class StatisticsActivity extends AppCompatActivity {
             planReference.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    System.out.println("CURRENTLY IN:" + newPlan);
                     default_bad_fats = dataSnapshot.child("bad_fats").getValue(Long.class);
                     default_calcium = dataSnapshot.child("calcium").getValue(Long.class);
                     default_calories = dataSnapshot.child("calories").getValue(Long.class);

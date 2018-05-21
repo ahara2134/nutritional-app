@@ -70,13 +70,14 @@ public class BarcodeReader extends AppCompatActivity implements View.OnClickList
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(BarcodeReader.this, StatisticsActivity.class);
+
+
+                System.out.println("CheckedServing br: " + switchServing.isChecked());
                 intent.putExtra("servingChecked", switchServing.isChecked());
                 intent.putExtra("100Checked", switch100.isChecked());
                 intent.putExtra("100Portion", result);
                 intent.putExtra("sliderPortion", portionsize);
                 startActivity(intent);
-                Intent intent2 = new Intent(BarcodeReader.this, StatisticsActivity.class);
-                startActivity(intent2);
             }
         });
 
