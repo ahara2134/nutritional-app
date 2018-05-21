@@ -858,7 +858,7 @@ public class StatisticsActivity extends AppCompatActivity {
         System.out.println("PLAN NAME: " + plan);
 
         final String newPlan = plan.toLowerCase();
-        if(!plan.equals("default_plan")) {
+        if(!plan.equals("default plan")) {
             DatabaseReference planReference;
 
             planReference = FirebaseDatabase.getInstance().getReference().child("users").child(currentUser.getUid()).child("plan").child(newPlan).child("nutrients");
