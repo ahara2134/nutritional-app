@@ -649,7 +649,6 @@ public class StatisticsActivity extends AppCompatActivity {
         });*/
 
         //
-
     }
 
     /**
