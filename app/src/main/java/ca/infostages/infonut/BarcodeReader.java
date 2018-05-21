@@ -73,8 +73,6 @@ public class BarcodeReader extends AppCompatActivity implements View.OnClickList
                 intent.putExtra("100Portion", result);
                 intent.putExtra("sliderPortion", portionsize);
                 startActivity(intent);
-                Intent intent2 = new Intent(BarcodeReader.this, StatisticsActivity.class);
-                startActivity(intent2);
             }
         });
 
