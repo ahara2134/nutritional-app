@@ -74,6 +74,15 @@ public class MakePlanActivity extends AppCompatActivity
      */
     public void addNutrientOrIngredient(View view) {
         DialogFragment dialogFragment = new NutrientDialogFragment();
+        if (mNutrients != null && mNutrients.size() > 0) {
+            Bundle bundle = new Bundle();
+            ArrayList<String> preSavedNutrients = new ArrayList<>();
+            for (Nutrient nutrient : mNutrients) {
+                preSavedNutrients.add(nutrient.getNutrientName());
+            }
+            bundle.putStringArrayList("nutrients", preSavedNutrients);
+            dialogFragment.setArguments(bundle);
+        }
         dialogFragment.show(getSupportFragmentManager(), TAG_NUTRIENT_DIALOG);
     }
 

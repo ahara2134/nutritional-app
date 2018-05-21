@@ -88,7 +88,11 @@
     <string name="q_settings">Changing your settings</string>
 
     <!-- Choose Plan strings -->
-    <string name="make_plan_submit">Make Plan</string>
+    <string name="make_plan_submit">Create New Plan</string>
+    <string name="defaultplan">Default Plan</string>
+    <string name="placeholder"> </string>
+    <string name="delete_error">Cannot delete default plan! </string>
+    <string name="delete_success">Your plan has been deleted.</string>
 
     <!-- Make Plan strings -->
     <string name="plan_title">Plan Name</string>

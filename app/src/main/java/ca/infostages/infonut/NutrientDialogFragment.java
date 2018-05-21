@@ -48,7 +48,7 @@ public class NutrientDialogFragment extends DialogFragment {
             public void onClick(DialogInterface dialogInterface, int i) {
                 dismiss();
             }
-        }).setMultiChoiceItems(R.array.nutrient_list, null,
+        }).setMultiChoiceItems(R.array.nutrient_list, getPreItems(),
                 new DialogInterface.OnMultiChoiceClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int index, boolean isChecked) {
@@ -60,6 +60,21 @@ public class NutrientDialogFragment extends DialogFragment {
                     }
                 });
         return builder.create();
+    }
+
+    private boolean[] getPreItems() {
+        String[] strings = getResources().getStringArray(R.array.nutrient_list);
+        boolean[] preItems =
+                new boolean[strings.length];
+        Bundle extras = getArguments();
+        if (extras != null && extras.containsKey("nutrients")) {
+            for (int i = 0; i < preItems.length; ++i) {
+                ArrayList<String> preSets = extras.getStringArrayList("nutrients");
+                preItems[i] = Objects.requireNonNull(preSets).contains(strings[i]);
+            }
+        }
+
+        return preItems;
     }
 
     /**
