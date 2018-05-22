@@ -26,7 +26,7 @@ public class BarcodeReader extends AppCompatActivity implements View.OnClickList
     private Toolbar toolbar;
     public static TextView statusMessage;
     private TextView barcodeValue;
-    public static double portionsize;
+    public static double portionsize = 1.0;
     private static final int RC_BARCODE_CAPTURE = 9001;
     private static final String TAG = "BarcodeMain";
     private static SeekBar seek_bar;
@@ -38,7 +38,7 @@ public class BarcodeReader extends AppCompatActivity implements View.OnClickList
     private String result;
     final Context c = this;
     private Button results;
-    public static int likeItemsProgress;
+    public static int likeItemsProgress = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,14 +52,6 @@ public class BarcodeReader extends AppCompatActivity implements View.OnClickList
         statusMessage = (TextView)findViewById(R.id.status_message);
         barcodeValue = (TextView)findViewById(R.id.barcode_value);
 
-/*        toolbar = findViewById(R.id.toolbarId2);
-
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onBackPressed();
-            }
-        });*/
 
         findViewById(R.id.read_barcode).setOnClickListener(this);
         Intent intent = new Intent(this, BarcodeCaptureActivity.class);
@@ -75,6 +67,7 @@ public class BarcodeReader extends AppCompatActivity implements View.OnClickList
                 intent.putExtra("100Checked", switch100.isChecked());
                 intent.putExtra("100Portion", result);
                 intent.putExtra("sliderPortion", portionsize);
+                intent.putExtra("likeItem", likeItemsProgress);
                 startActivity(intent);
             }
         });
