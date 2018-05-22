@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "670862545574",
+    "firebase_url": "https://team-gras-nutrion.firebaseio.com",
+    "project_id": "team-gras-nutrion",
+    "storage_bucket": "team-gras-nutrion.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:670862545574:android:320b04fd933ca48e",
+        "android_client_info": {
+          "package_name": "ca.infostages.infonut"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "670862545574-s5el4begqethn1dt1eoc1jgadcnmg1kc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ca.infostages.infonut",
+            "certificate_hash": "cfd35b832ea81b4554f324ce5c2214444ecfba50"
+          }
+        },
+        {
+          "client_id": "670862545574-upv8cod7hrd0ls6j69demlldgjmbj51i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCA3aA5UkU_wTQbYAnM-aIb54Iw5xKu6Jo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "670862545574-upv8cod7hrd0ls6j69demlldgjmbj51i.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
